@@ -109,7 +109,7 @@ export function summarizeImportResult(
   };
 }
 
-function buildEmptyImportDraft(type: number): VaultDraft {
+export function buildEmptyVaultDraft(type: number): VaultDraft {
   return {
     type,
     favorite: false,
@@ -189,7 +189,7 @@ function buildEmptyImportDraft(type: number): VaultDraft {
 
 export function importCipherToDraft(cipher: Record<string, unknown>, folderId: string | null): VaultDraft {
   const type = Number(cipher.type || 1) || 1;
-  const draft = buildEmptyImportDraft(type);
+  const draft = buildEmptyVaultDraft(type);
   draft.name = asText(cipher.name).trim() || 'Untitled';
   draft.notes = asText(cipher.notes);
   draft.favorite = !!cipher.favorite;

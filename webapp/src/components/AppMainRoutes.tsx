@@ -212,17 +212,17 @@ export default function AppMainRoutes(props: AppMainRoutesProps) {
     <Switch>
       <Route path="/">
         <Suspense fallback={<RouteContentFallback />}>
-          <HomePage ciphers={props.decryptedCiphers} folders={props.decryptedFolders} loading={props.ciphersLoading || props.foldersLoading} onNavigate={props.onNavigate} />
+          <HomePage ciphers={props.decryptedCiphers} folders={props.decryptedFolders} loading={props.ciphersLoading || props.foldersLoading} onNavigate={props.onNavigate} onCreate={props.onCreateVaultItem} />
         </Suspense>
       </Route>
       <Route path="/notes">
         <Suspense fallback={<RouteContentFallback />}>
-          <HomePage mode="notes" ciphers={props.decryptedCiphers} folders={props.decryptedFolders} loading={props.ciphersLoading || props.foldersLoading} onNavigate={props.onNavigate} />
+          <HomePage mode="notes" ciphers={props.decryptedCiphers} folders={props.decryptedFolders} loading={props.ciphersLoading || props.foldersLoading} onNavigate={props.onNavigate} onCreate={props.onCreateVaultItem} />
         </Suspense>
       </Route>
       <Route path="/bookmarks">
         <Suspense fallback={<RouteContentFallback />}>
-          <HomePage mode="bookmarks" ciphers={props.decryptedCiphers} folders={props.decryptedFolders} loading={props.ciphersLoading || props.foldersLoading} onNavigate={props.onNavigate} />
+          <HomePage mode="bookmarks" ciphers={props.decryptedCiphers} folders={props.decryptedFolders} loading={props.ciphersLoading || props.foldersLoading} onNavigate={props.onNavigate} onCreate={props.onCreateVaultItem} />
         </Suspense>
       </Route>
       <Route path="/security/password-health">

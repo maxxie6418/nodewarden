@@ -21,6 +21,7 @@ import WebsiteIcon from '@/components/vault/WebsiteIcon';
 import type { Cipher, Folder } from '@/lib/types';
 import { firstCipherUri, hostFromUri } from '@/lib/website-utils';
 import { t } from '@/lib/i18n';
+import { buildEmptyVaultDraft } from '@/lib/app-support';
 
 export type CollectionPageMode = 'home' | 'notes' | 'bookmarks';
 
@@ -32,6 +33,7 @@ interface CollectionPageProps {
   folders: Folder[];
   loading: boolean;
   onNavigate: (path: string) => void;
+  onCreate: (draft: import('@/lib/types').VaultDraft) => Promise<void>;
 }
 
 function isActiveCipher(cipher: Cipher): boolean {
@@ -78,6 +80,7 @@ function CipherDetail(props: {
   folders: Folder[];
   onBack: () => void;
   onNavigate: (path: string) => void;
+  onCreate: (draft: import('@/lib/types').VaultDraft) => Promise<void>;
 }) {
   const isNote = props.kind === 'note';
   const uri = firstCipherUri(props.cipher);
@@ -144,6 +147,7 @@ function CollectionDetailPanel(props: {
   folders: Folder[];
   onBack: () => void;
   onNavigate: (path: string) => void;
+  onCreate: (draft: import('@/lib/types').VaultDraft) => Promise<void>;
 }) {
   return (
     <div className="collection-detail-panel">
@@ -249,6 +253,48 @@ function BookmarkList(props: {
 }
 
 /* ── Toolbar Components ── */
+function QuickCreateForm(props: {
+  kind: 'note' | 'bookmark';
+  onCreate: (draft: import('@/lib/types').VaultDraft) => Promise<void>;
+  onClose: () => void;
+}) {
+  const [name, setName] = useState('');
+  const [value, setValue] = useState('');
+  const [saving, setSaving] = useState(false);
+  const isNote = props.kind === 'note';
+
+  async function submit(event: Event): Promise<void> {
+    event.preventDefault();
+    if (!name.trim() || !value.trim()) return;
+    setSaving(true);
+    const draft = buildEmptyVaultDraft(isNote ? 2 : 1);
+    draft.name = name.trim();
+    if (isNote) draft.notes = value.trim();
+    else draft.loginUris = [{ uri: value.trim(), match: null }];
+    try {
+      await props.onCreate(draft);
+      props.onClose();
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <form className="collection-quick-create" onSubmit={submit}>
+      <div className="collection-quick-create-heading">
+        <strong>{isNote ? t('txt_new_note') : t('txt_new_bookmark')}</strong>
+        <button type="button" className="collection-search-clear" onClick={props.onClose} aria-label={t('txt_cancel')}><X size={14} /></button>
+      </div>
+      <input value={name} onInput={(event) => setName((event.currentTarget as HTMLInputElement).value)} placeholder={t('txt_title')} required />
+      <textarea value={value} onInput={(event) => setValue((event.currentTarget as HTMLTextAreaElement).value)} placeholder={isNote ? t('txt_note_content') : t('txt_bookmark_url')} rows={isNote ? 4 : 2} required />
+      <div className="collection-quick-create-actions">
+        <button type="button" className="btn btn-secondary small" onClick={props.onClose}>{t('txt_cancel')}</button>
+        <button type="submit" className="btn btn-primary small" disabled={saving}>{t('txt_save')}</button>
+      </div>
+    </form>
+  );
+}
+
 function SearchField(props: { value: string; onChange: (v: string) => void; placeholder: string }) {
   return (
     <label className="collection-search">
@@ -314,6 +360,7 @@ export default function HomePage(props: CollectionPageProps) {
   const [bookmarkSort, setBookmarkSort] = useState<SortBy>('date');
   const [noteFolder, setNoteFolder] = useState('');
   const [bookmarkFolder, setBookmarkFolder] = useState('');
+  const [quickCreate, setQuickCreate] = useState<'note' | 'bookmark' | null>(null);
 
   const activeCiphers = useMemo(() => props.ciphers.filter(isActiveCipher), [props.ciphers]);
   const notes = useMemo(() => activeCiphers.filter((cipher) => cipher.type === 2), [activeCiphers]);
@@ -424,8 +471,9 @@ export default function HomePage(props: CollectionPageProps) {
     <div className="collection-page collection-home">
       <div className="collection-heading">
         <div><span className="collection-kicker">{t('nav_home')}</span><h1>{t('txt_home_greeting')}</h1></div>
-        <button type="button" className="btn btn-primary" onClick={() => props.onNavigate('/vault')}><Plus size={16} /> {t('txt_new_item')}</button>
+        <button type="button" className="btn btn-primary" onClick={() => setQuickCreate(quickCreate ? null : 'bookmark')}><Plus size={16} /> {t('txt_new_item')}</button>
       </div>
+      {quickCreate && <QuickCreateForm kind={quickCreate} onCreate={props.onCreate} onClose={() => setQuickCreate(null)} />}
       <div className="collection-home-grid">
         <section className="collection-column collection-bookmarks-column">
           <div className="collection-section-heading">
@@ -445,7 +493,7 @@ export default function HomePage(props: CollectionPageProps) {
         <section className="collection-column collection-notes-column">
           <div className="collection-section-heading">
             <div><h2>{t('nav_notes')}</h2><p>{t('txt_notes_subtitle')}</p></div>
-            <button type="button" className="btn btn-primary small" onClick={() => props.onNavigate('/vault')}><Plus size={15} /> {t('txt_new_note')}</button>
+            <button type="button" className="btn btn-primary small" onClick={() => setQuickCreate('note')}><Plus size={15} /> {t('txt_new_note')}</button>
           </div>
           <label className="collection-search">
             <Search size={16} />

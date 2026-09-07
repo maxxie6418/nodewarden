@@ -1,10 +1,10 @@
 .collection-page { min-height: 100%; padding: clamp(18px, 3vw, 32px); color: var(--text); }
-.collection-home { max-width: 1500px; margin: 0 auto; }
+.collection-home { max-width: 1680px; margin: 0 auto; }
 .collection-single { max-width: 1100px; margin: 0 auto; }
 .collection-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 24px; }
 .collection-kicker { display: block; margin-bottom: 4px; color: var(--accent); font-size: var(--font-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .collection-heading h1 { margin: 0; font-size: var(--font-4xl); font-weight: 750; letter-spacing: -.02em; }
-.collection-home-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(300px, .75fr); min-height: 620px; border: 1px solid var(--line); border-radius: var(--radius-xl); background: var(--panel); box-shadow: var(--shadow-sm); overflow: hidden; }
+.collection-home-grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(360px, .85fr); min-height: 680px; border: 1px solid var(--line); border-radius: var(--radius-xl); background: var(--panel); box-shadow: var(--shadow-sm); overflow: hidden; }
 .collection-column { min-width: 0; padding: 22px 26px; }
 .collection-bookmarks-column { border-right: 1px solid var(--line); }
 .collection-notes-column { background: var(--panel-soft); }
@@ -234,4 +234,56 @@
   .collection-toolbar .collection-search { width: 100%; min-width: 0; }
   .collection-sort, .collection-folder-filter { width: 100%; }
   .collection-bookmark-hover-actions { display: none !important; }
+}
+
+.collection-quick-create {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  background: var(--panel);
+  box-shadow: var(--shadow-sm);
+}
+
+.collection-quick-create-heading,
+.collection-quick-create-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.collection-quick-create input,
+.collection-quick-create textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 9px 10px;
+  color: var(--text);
+  background: var(--panel-soft);
+  font: inherit;
+  resize: vertical;
+}
+
+.collection-quick-create input:focus,
+.collection-quick-create textarea:focus {
+  border-color: var(--primary);
+  outline: 0;
+}
+
+.collection-quick-create-actions {
+  justify-content: flex-end;
+}
+
+.collection-home .btn-primary {
+  border-color: var(--primary);
+  color: var(--primary-contrast, #fff);
+  background: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.collection-home .btn-primary:hover {
+  background: var(--primary-strong);
 }
