@@ -298,6 +298,89 @@
   color: var(--primary-strong);
 }
 
+/* ── Primary navigation (home, notes, bookmarks, vault, sends) ── */
+.side-nav-primary {
+  @apply flex flex-col gap-1.5;
+}
+
+.side-nav-divider {
+  height: 1px;
+  margin: 6px 0;
+  background: var(--line-soft);
+}
+
+.side-primary-link {
+  gap: 10px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.side-link-icon-pill {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-md);
+  background: var(--panel-muted);
+  transition: background 180ms var(--ease-smooth), transform 180ms var(--ease-out-soft);
+}
+
+.side-link-icon-pill svg {
+  width: 18px;
+  height: 18px;
+}
+
+.side-primary-link[data-nav='home'] .side-link-icon-pill { background: color-mix(in srgb, #3b82f6 12%, var(--panel-muted)); }
+.side-primary-link[data-nav='home'] .side-link-icon-pill svg { color: #3b82f6; }
+.side-primary-link[data-nav='notes'] .side-link-icon-pill { background: color-mix(in srgb, #f59e0b 12%, var(--panel-muted)); }
+.side-primary-link[data-nav='notes'] .side-link-icon-pill svg { color: #d97706; }
+.side-primary-link[data-nav='bookmarks'] .side-link-icon-pill { background: color-mix(in srgb, #10b981 12%, var(--panel-muted)); }
+.side-primary-link[data-nav='bookmarks'] .side-link-icon-pill svg { color: #059669; }
+.side-primary-link[data-nav='vault'] .side-link-icon-pill { background: color-mix(in srgb, #8b5cf6 12%, var(--panel-muted)); }
+.side-primary-link[data-nav='vault'] .side-link-icon-pill svg { color: #7c3aed; }
+.side-primary-link[data-nav='sends'] .side-link-icon-pill { background: color-mix(in srgb, #06b6d4 12%, var(--panel-muted)); }
+.side-primary-link[data-nav='sends'] .side-link-icon-pill svg { color: #0891b2; }
+
+.side-primary-link:hover {
+  transform: translateX(3px);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.side-primary-link:hover .side-link-icon-pill {
+  transform: scale(1.08);
+}
+
+.side-primary-link.active {
+  position: relative;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.10) 0%, rgba(37, 99, 235, 0.06) 100%);
+  border-color: rgba(37, 99, 235, 0.28);
+  color: var(--primary-strong);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 2px 10px rgba(37, 99, 235, 0.12);
+}
+
+.side-primary-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 22px;
+  border-radius: 0 3px 3px 0;
+  background: var(--primary);
+}
+
+.side-primary-link[data-nav='home'].active { background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.06) 100%); border-color: rgba(59, 130, 246, 0.32); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 10px rgba(59,130,246,0.12); }
+.side-primary-link[data-nav='home'].active::after { background: #3b82f6; }
+.side-primary-link[data-nav='notes'].active { background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.06) 100%); border-color: rgba(245, 158, 11, 0.32); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 10px rgba(245,158,11,0.12); }
+.side-primary-link[data-nav='notes'].active::after { background: #f59e0b; }
+.side-primary-link[data-nav='bookmarks'].active { background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.06) 100%); border-color: rgba(16, 185, 129, 0.32); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 10px rgba(16,185,129,0.12); }
+.side-primary-link[data-nav='bookmarks'].active::after { background: #10b981; }
+.side-primary-link[data-nav='vault'].active { background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.06) 100%); border-color: rgba(139, 92, 246, 0.32); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 10px rgba(139,92,246,0.12); }
+.side-primary-link[data-nav='vault'].active::after { background: #8b5cf6; }
+.side-primary-link[data-nav='sends'].active { background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(6, 182, 212, 0.06) 100%); border-color: rgba(6, 182, 212, 0.32); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 10px rgba(6,182,212,0.12); }
+.side-primary-link[data-nav='sends'].active::after { background: #06b6d4; }
+
 .nav-layout-control {
   @apply relative mt-auto pt-1;
 }

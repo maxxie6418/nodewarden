@@ -83,11 +83,12 @@ export default function AppAuthenticatedShell(props: AppAuthenticatedShellProps)
     });
   }
 
-  function renderSideLink(href: string, active: boolean, icon: ComponentChildren, label: string) {
-    const primaryNav = href === '/' || href === '/notes' || href === '/bookmarks' || href === '/vault';
+  function renderSideLink(href: string, active: boolean, icon: ComponentChildren, label: string, navKey?: string) {
+    const primaryNav = href === '/' || href === '/notes' || href === '/bookmarks' || href === '/vault' || href === '/sends';
+    const iconNode = primaryNav ? <span className="side-link-icon-pill">{icon}</span> : icon;
     return (
-      <Link href={href} className={`side-link ${primaryNav ? 'side-primary-link' : ''} ${active ? 'active' : ''}`}>
-        {icon}
+      <Link href={href} className={`side-link ${primaryNav ? 'side-primary-link' : ''} ${active ? 'active' : ''}`} data-nav={navKey || ''}>
+        {iconNode}
         <span>{label}</span>
       </Link>
     );
@@ -131,11 +132,14 @@ export default function AppAuthenticatedShell(props: AppAuthenticatedShellProps)
 
   const groupedNav = (
     <>
-      {renderSideLink('/', props.location === '/', <House size={16} />, t('nav_home'))}
-      {renderSideLink('/notes', props.location === '/notes', <StickyNote size={16} />, t('nav_notes'))}
-      {renderSideLink('/bookmarks', props.location === '/bookmarks', <Bookmark size={16} />, t('nav_bookmarks'))}
-      {renderSideLink('/vault', props.location === '/vault', <KeyRound size={16} />, t('nav_vault_items'))}
-      {renderSideLink('/sends', props.location === '/sends', <SendIcon size={16} />, t('nav_sends'))}
+      <div className="side-nav-primary">
+        {renderSideLink('/', props.location === '/', <House size={18} />, t('nav_home'), 'home')}
+        {renderSideLink('/notes', props.location === '/notes', <StickyNote size={18} />, t('nav_notes'), 'notes')}
+        {renderSideLink('/bookmarks', props.location === '/bookmarks', <Bookmark size={18} />, t('nav_bookmarks'), 'bookmarks')}
+        {renderSideLink('/vault', props.location === '/vault', <KeyRound size={18} />, t('nav_vault_items'), 'vault')}
+        {renderSideLink('/sends', props.location === '/sends', <SendIcon size={18} />, t('nav_sends'), 'sends')}
+      </div>
+      <div className="side-nav-divider" />
       {renderNavGroup(
         'tools',
         t('nav_group_tools'),
