@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NodeWarden 首页设计预览</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f6f9;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --border: rgba(100, 116, 139, .22);
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #2563eb;
+      --accent-soft: #e8f0ff;
+      --teal: #0d9488;
+      --shadow: 0 4px 12px rgba(15, 23, 42, .07);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; color: var(--text); font: 14px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); }
+    button, input { font: inherit; }
+    button { color: inherit; cursor: pointer; }
+    .preview { display: grid; grid-template-columns: 230px minmax(0, 1fr); min-height: 100vh; }
+    .sidebar { padding: 24px 16px; border-right: 2px solid #dbe3ee; background: var(--panel); }
+    .brand { display: flex; align-items: center; gap: 10px; padding: 0 10px 28px; border-bottom: 1px solid var(--border); font-weight: 700; }
+    .brand-mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; color: #fff; background: var(--accent); }
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 500; }
+    .nav-label { margin: 20px 10px 8px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .nav-item { display: flex; align-items: center; gap: 11px; width: 100%; margin: 3px 0; padding: 10px 12px; border: 0; border-radius: 8px; color: var(--muted); background: transparent; text-align: left; }
+    .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-item.active { box-shadow: inset 3px 0 var(--accent); }
+    .nav-icon { width: 20px; text-align: center; font-size: 16px; }
+    .nav-count { margin-left: auto; color: var(--muted); font-size: 11px; }
+    .folder-item { padding-left: 43px; font-size: 13px; }
+    .sidebar-divider { height: 1px; margin: 18px 8px; background: var(--border); }
+    .content { min-width: 0; padding: 30px clamp(20px, 4vw, 54px); }
+    .topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 26px; }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: clamp(25px, 3vw, 32px); letter-spacing: 0; }
+    .eyebrow { margin-bottom: 5px; color: var(--teal); font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .top-actions { display: flex; gap: 9px; }
+    .icon-btn, .primary-btn, .view-btn { border: 1px solid var(--border); border-radius: 8px; background: var(--panel); padding: 8px 12px; }
+    .primary-btn { border-color: var(--accent); color: #fff; background: var(--accent); font-weight: 700; }
+    .dashboard { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 350px); gap: 0; align-items: stretch; }
+    .panel { min-width: 0; }
+    .bookmark-panel { min-height: 620px; padding: 18px 32px 24px 24px; border: 1px solid #dbe3ee; border-radius: 10px 0 0 10px; background: rgba(255,255,255,.48); }
+    .note-panel { min-height: 620px; padding: 18px 24px 24px 28px; border: 1px solid #dbe3ee; border-left: 0; border-radius: 0 10px 10px 0; background: rgba(255,255,255,.78); }
+    .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 2px 0 14px; }
+    .panel-head h2 { font-size: 16px; }
+    .panel-head p { margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .tabs { display: flex; gap: 4px; padding: 0 0 14px; overflow-x: auto; border-bottom: 1px solid var(--border); }
+    .tab { border: 0; border-radius: 6px; padding: 6px 10px; color: var(--muted); background: transparent; white-space: nowrap; }
+    .tab.active { color: var(--accent); background: var(--accent-soft); }
+    .view-switch { display: flex; gap: 4px; }
+    .view-btn { padding: 6px 9px; color: var(--muted); font-size: 12px; }
+    .view-btn.active { color: var(--accent); border-color: rgba(37,99,235,.4); background: var(--accent-soft); }
+    .bookmark-list { padding: 0 0 12px; }
+    .bookmark-list.card-mode { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 10px; padding-top: 12px; }
+    .bookmark { display: flex; align-items: center; gap: 13px; min-width: 0; padding: 13px 0; border-bottom: 1px solid var(--border); }
+    .bookmark:last-child { border-bottom: 0; }
+    .card-mode .bookmark { display: block; padding: 16px; border: 1px solid #d7e0ec; border-radius: 9px; background: var(--panel); box-shadow: 0 1px 2px rgba(15,23,42,.04); transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+    .card-mode .bookmark:hover { border-color: #9db8e8; box-shadow: 0 5px 14px rgba(37,99,235,.12); transform: translateY(-1px); }
+    .site-icon { display: grid; flex: 0 0 34px; place-items: center; width: 34px; height: 34px; border-radius: 8px; color: white; font-weight: 700; }
+    .card-mode .site-icon { margin-bottom: 18px; }
+    .bookmark-main { min-width: 0; }
+    .bookmark-name { overflow: hidden; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+    .bookmark-url { display: block; overflow: hidden; margin-top: 2px; color: var(--muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .star { margin-left: auto; color: #d97706; font-size: 15px; }
+    .note-panel { overflow: hidden; }
+    .note-tools { display: flex; gap: 8px; padding: 0 0 14px; }
+    .search { width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 8px; outline: 0; padding: 8px 10px; color: var(--text); background: var(--panel-soft); }
+    .search:focus { border-color: var(--accent); }
+    .new-note { flex: 0 0 auto; border: 0; border-radius: 8px; padding: 0 12px; color: white; background: var(--accent); font-weight: 700; }
+    .notes { padding: 0 16px 16px; }
+    .note { padding: 13px 0; border-top: 1px solid var(--border); }
+    .note-title { font-weight: 600; }
+    .note-preview { display: -webkit-box; overflow: hidden; margin-top: 4px; color: var(--muted); font-size: 12px; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+    .note-meta { margin-top: 8px; color: var(--muted); font-size: 11px; }
+    .empty { padding: 26px 8px; color: var(--muted); text-align: center; }
+    @media (max-width: 900px) { .preview { grid-template-columns: 76px minmax(0, 1fr); } .sidebar { padding: 18px 10px; } .brand { justify-content: center; padding: 0 0 22px; } .brand-copy, .nav-label, .nav-item span:not(.nav-icon) { display: none; } .nav-item { justify-content: center; padding: 12px 8px; } .nav-count, .sidebar-divider { display: none; } .dashboard { grid-template-columns: 1fr; } .bookmark-panel { min-height: 0; padding: 18px 0 24px; border: 1px solid #dbe3ee; border-radius: 10px 10px 0 0; } .note-panel { min-height: 0; padding: 24px 0 18px; border: 1px solid #dbe3ee; border-top: 0; border-radius: 0 0 10px 10px; } }
+    @media (max-width: 560px) { .content { padding: 22px 14px; } .topline { display: block; } .top-actions { margin-top: 16px; } .top-actions button { flex: 1; } .panel-head { padding-left: 16px; padding-right: 16px; } }
+  </style>
+</head>
+<body>
+  <div class="preview">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">N</div><div class="brand-copy">NodeWarden<small>个人知识库</small></div></div>
+      <button class="nav-item active"><span class="nav-icon">⌂</span><span>首页</span></button>
+      <button class="nav-item"><span class="nav-icon">▣</span><span>笔记</span><span class="nav-count">8</span></button>
+      <button class="nav-item"><span class="nav-icon">🔖</span><span>书签</span><span class="nav-count">12</span></button>
+      <div class="sidebar-divider"></div>
+      <div class="nav-label">保险库</div>
+      <button class="nav-item"><span class="nav-icon">▦</span><span>全部项目</span><span class="nav-count">36</span></button>
+      <button class="nav-item"><span class="nav-icon">★</span><span>收藏</span><span class="nav-count">5</span></button>
+      <button class="nav-item"><span class="nav-icon">▱</span><span>归档</span></button>
+      <button class="nav-item"><span class="nav-icon">⌫</span><span>回收站</span></button>
+      <div class="nav-label">文件夹</div>
+      <button class="nav-item folder-item"><span>工作</span></button>
+      <button class="nav-item folder-item"><span>个人</span></button>
+      <button class="nav-item folder-item"><span>学习</span></button>
+      <div class="nav-label">更多</div>
+      <button class="nav-item"><span class="nav-icon">🔑</span><span>密码库</span></button>
+      <button class="nav-item"><span class="nav-icon">↗</span><span>Send</span></button>
+      <button class="nav-item"><span class="nav-icon">✦</span><span>工具与设置</span></button>
+    </aside>
+    <main class="content">
+      <div class="topline"><div><div class="eyebrow">Workspace overview</div><h1>今天，从这里开始</h1></div><div class="top-actions"><button class="icon-btn">⌕ 搜索</button><button class="primary-btn">＋ 新建</button></div></div>
+      <div class="dashboard">
+        <section class="panel bookmark-panel">
+          <div class="panel-head"><div><h2>我的书签</h2><p>常用网页和最近访问的网站</p></div><div class="view-switch"><button class="view-btn active" data-view="list">☷ 列表</button><button class="view-btn" data-view="card">▦ 卡片</button></div></div>
+          <div class="tabs"><button class="tab active">全部 <small>12</small></button><button class="tab">收藏 <small>5</small></button><button class="tab">最近使用</button></div>
+          <div class="bookmark-list" id="bookmarks"></div>
+        </section>
+        <aside class="panel note-panel">
+          <div class="panel-head"><div><h2>最近笔记</h2><p>随手记录，保持思路连续</p></div><span style="color:var(--cyan)">✎</span></div>
+          <div class="note-tools"><input class="search" id="noteSearch" placeholder="搜索笔记…" /><button class="new-note">＋</button></div>
+          <div class="notes" id="notes"></div>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <script>
+    const bookmarks = [
+      ['GitHub', 'github.com', 'G', '#24292f', true], ['Cloudflare Dashboard', 'dash.cloudflare.com', 'C', '#f48120', true], ['MDN Web Docs', 'developer.mozilla.org', 'M', '#4c8bf5', false], ['Linear', 'linear.app', 'L', '#6e5cf6', true], ['Figma', 'figma.com', 'F', '#e86b9a', false], ['Notion', 'notion.so', 'N', '#776c61', false]
+    ];
+    const notes = [
+      ['首页设计方向', '首页以书签为主视图，右侧保持一个轻量的最近笔记栏。', '刚刚'], ['Cloudflare 部署记录', 'Worker、D1 和静态资源的发布检查清单。', '昨天'], ['灵感：知识入口', '收藏的不只是密码，也可以是每天会回访的网页。', '3 天前'], ['重构待办', '把导航和首页数据保持成单一来源，避免重复状态。', '上周']
+    ];
+    const bookmarkRoot = document.querySelector('#bookmarks');
+    const noteRoot = document.querySelector('#notes');
+    function renderBookmarks() { bookmarkRoot.innerHTML = bookmarks.map(([name, url, icon, color, favorite]) => `<article class="bookmark"><div class="site-icon" style="background:${color}">${icon}</div><div class="bookmark-main"><div class="bookmark-name">${name}</div><a class="bookmark-url" href="https://${url}">${url}</a></div>${favorite ? '<span class="star">★</span>' : ''}</article>`).join(''); }
+    function renderNotes(query = '') { noteRoot.innerHTML = notes.filter(([title, text]) => `${title} ${text}`.toLowerCase().includes(query.toLowerCase())).map(([title, text, time]) => `<article class="note"><div class="note-title">${title}</div><div class="note-preview">${text}</div><div class="note-meta">${time}</div></article>`).join('') || '<div class="empty">没有匹配的笔记</div>'; }
+    document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('[data-view]').forEach(item => item.classList.toggle('active', item === button)); bookmarkRoot.classList.toggle('card-mode', button.dataset.view === 'card'); }));
+    document.querySelector('#noteSearch').addEventListener('input', event => renderNotes(event.target.value));
+    renderBookmarks(); renderNotes();
+  </script>
+</body>
+</html>

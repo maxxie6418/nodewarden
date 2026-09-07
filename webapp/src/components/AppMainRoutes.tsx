@@ -11,6 +11,7 @@ import { t } from '@/lib/i18n';
 import type { AccountPasskeyCredential, AdminInvite, AdminUser, AuditLogListResult, AuditLogSettings, AuthRequest, AuthorizedDevice, Cipher, CustomEquivalentDomain, DomainRules, Folder as VaultFolder, Profile, Send, SendDraft, SessionState, TwoFactorPasskeySettings, VaultDraft, YubiKeyOtpSettings } from '@/lib/types';
 import type { ExportRequest } from '@/lib/export-formats';
 
+const HomePage = lazy(() => import('@/components/HomePage'));
 const VaultPage = lazy(() => import('@/components/VaultPage'));
 const SendsPage = lazy(() => import('@/components/SendsPage'));
 const PasswordGeneratorPage = lazy(() => import('@/components/PasswordGeneratorPage'));
@@ -209,6 +210,21 @@ export default function AppMainRoutes(props: AppMainRoutesProps) {
 
   return (
     <Switch>
+      <Route path="/">
+        <Suspense fallback={<RouteContentFallback />}>
+          <HomePage ciphers={props.decryptedCiphers} folders={props.decryptedFolders} loading={props.ciphersLoading || props.foldersLoading} onNavigate={props.onNavigate} />
+        </Suspense>
+      </Route>
+      <Route path="/notes">
+        <Suspense fallback={<RouteContentFallback />}>
+          <HomePage mode="notes" ciphers={props.decryptedCiphers} folders={props.decryptedFolders} loading={props.ciphersLoading || props.foldersLoading} onNavigate={props.onNavigate} />
+        </Suspense>
+      </Route>
+      <Route path="/bookmarks">
+        <Suspense fallback={<RouteContentFallback />}>
+          <HomePage mode="bookmarks" ciphers={props.decryptedCiphers} folders={props.decryptedFolders} loading={props.ciphersLoading || props.foldersLoading} onNavigate={props.onNavigate} />
+        </Suspense>
+      </Route>
       <Route path="/security/password-health">
         <div className="stack">
           {props.mobileLayout && (

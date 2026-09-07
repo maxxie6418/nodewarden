@@ -1,4 +1,4 @@
-import { ArrowUpDown, ChevronDown, Clock3, Cloud, FileClock, Folder as FolderIcon, KeyRound, Lock, LogOut, MonitorSmartphone, Send as SendIcon, Settings as SettingsIcon, ShieldCheck, ShieldUser, Sparkles, Users } from 'lucide-preact';
+import { ArrowUpDown, Bookmark, ChevronDown, Clock3, Cloud, FileClock, Folder as FolderIcon, House, KeyRound, Lock, LogOut, MonitorSmartphone, Send as SendIcon, Settings as SettingsIcon, ShieldCheck, ShieldUser, Sparkles, StickyNote, Users } from 'lucide-preact';
 import type { ComponentChildren } from 'preact';
 import { useState } from 'preact/hooks';
 import { Link } from 'wouter';
@@ -130,6 +130,9 @@ export default function AppAuthenticatedShell(props: AppAuthenticatedShellProps)
 
   const groupedNav = (
     <>
+      {renderSideLink('/', props.location === '/', <House size={16} />, t('nav_home'))}
+      {renderSideLink('/notes', props.location === '/notes', <StickyNote size={16} />, t('nav_notes'))}
+      {renderSideLink('/bookmarks', props.location === '/bookmarks', <Bookmark size={16} />, t('nav_bookmarks'))}
       {renderSideLink('/vault', props.location === '/vault', <KeyRound size={16} />, t('nav_vault_items'))}
       {renderSideLink('/sends', props.location === '/sends', <SendIcon size={16} />, t('nav_sends'))}
       {renderNavGroup(

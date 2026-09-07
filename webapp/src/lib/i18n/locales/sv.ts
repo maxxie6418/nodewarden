@@ -4,6 +4,9 @@ const sv: Record<string, string> = {
   "nav_admin_panel": "Administratörspanel",
   "nav_log_center": "Loggcenter",
   "nav_device_management": "Enhetshantering",
+  "nav_home": "Home",
+  "nav_notes": "Notes",
+  "nav_bookmarks": "Bookmarks",
   "nav_my_vault": "Mitt valv",
   "nav_vault_items": "Valv",
   "nav_sends": "Skickat",
@@ -1463,5 +1466,7 @@ Object.assign(sv, {
 Object.assign(sv, { "txt_password_security_last_checked": "Senast kontrollerad: {value}" });
 Object.assign(sv, { "txt_no_password_risks_in_filter": "Inga lösenordsrisker i denna kategori" });
 Object.assign(sv, { "txt_password_security_show_all": "Show all", "txt_password_security_hide_all": "Hide all", "txt_password_security_jump": "Go to item", "txt_password_security_exposed_short": "Exposed {count} times", "txt_password_security_weak_short": "Weak password", "txt_password_security_reused_short": "Reused" });
+
+Object.assign(sv, { "txt_home_greeting": "Start from here", "txt_bookmarks_subtitle": "Your saved web pages", "txt_notes_subtitle": "Your latest secure notes", "txt_search_notes": "Search notes...", "txt_new_item": "New item", "txt_new_note": "New note", "txt_view_all": "View all", "txt_list": "List", "txt_cards": "Cards", "txt_no_notes": "No note content", "txt_no_uri": "No website address" });
 
 export default sv;

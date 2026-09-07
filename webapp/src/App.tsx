@@ -110,6 +110,8 @@ const LEGACY_DEVICE_MANAGEMENT_ROUTE = '/security/devices';
 const AUTH_ROUTE_PATHS = ['/', '/login', '/register', '/lock', '/recover-2fa'] as const;
 const APP_ROUTE_PATHS = [
   '/',
+  '/notes',
+  '/bookmarks',
   '/vault',
   '/vault/totp',
   '/security/password-health',
@@ -1957,8 +1959,14 @@ export default function App() {
     object: 'domains',
   }), []);
   const mobilePrimaryRoute =
-    location === '/sends'
-      ? '/sends'
+    location === '/notes'
+      ? '/notes'
+      : location === '/bookmarks'
+        ? '/bookmarks'
+        : location === '/'
+          ? '/'
+          : location === '/sends'
+            ? '/sends'
       : location === '/generator'
         ? '/generator'
       : location === '/vault/totp'
@@ -1967,6 +1975,9 @@ export default function App() {
           ? '/vault'
           : '/settings';
   const currentPageTitle = (() => {
+    if (location === '/') return t('nav_home');
+    if (location === '/notes') return t('nav_notes');
+    if (location === '/bookmarks') return t('nav_bookmarks');
     if (location === '/security/password-health') return t('txt_password_security');
     if (location === '/vault/totp') return t('txt_verification_code');
     if (location === '/generator') return t('txt_password_generator');
@@ -1991,10 +2002,6 @@ export default function App() {
     }
     if (location !== DEVICE_MANAGEMENT_ROUTE) navigate(DEVICE_MANAGEMENT_ROUTE);
   }, [phase, hashPath, normalizedHashPath, location, navigate]);
-
-  useEffect(() => {
-    if (phase === 'app' && location === '/' && !isPublicSendRoute) navigate('/vault');
-  }, [phase, location, isPublicSendRoute, navigate]);
 
   useEffect(() => {
     if (phase === 'register' && (location === '/' || location === '/login') && !isPublicSendRoute) {

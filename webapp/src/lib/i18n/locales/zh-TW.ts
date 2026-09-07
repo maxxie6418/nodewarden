@@ -4,6 +4,9 @@ const zhTW: Record<string, string> = {
   "nav_admin_panel": "用戶管理",
   "nav_log_center": "日誌中心",
   "nav_device_management": "設備管理",
+  "nav_home": "Home",
+  "nav_notes": "Notes",
+  "nav_bookmarks": "Bookmarks",
   "nav_my_vault": "我的密碼庫",
   "nav_vault_items": "密碼庫",
   "nav_sends": "Send",
@@ -1493,5 +1496,7 @@ Object.assign(zhTW, {
   "txt_password_not_found_in_breaches": "未在外洩密碼庫中發現",
   "txt_password_security_check_failed": "無法完成外洩檢查。"
 });
+
+Object.assign(zhTW, { "txt_home_greeting": "Start from here", "txt_bookmarks_subtitle": "Your saved web pages", "txt_notes_subtitle": "Your latest secure notes", "txt_search_notes": "Search notes...", "txt_new_item": "New item", "txt_new_note": "New note", "txt_view_all": "View all", "txt_list": "List", "txt_cards": "Cards", "txt_no_notes": "No note content", "txt_no_uri": "No website address" });
 
 export default zhTW;

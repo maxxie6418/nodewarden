@@ -4,6 +4,9 @@ const de: Record<string, string> = {
   "nav_admin_panel": "Admin-Panel",
   "nav_log_center": "Protokollcenter",
   "nav_device_management": "Geräteverwaltung",
+  "nav_home": "Home",
+  "nav_notes": "Notes",
+  "nav_bookmarks": "Bookmarks",
   "nav_my_vault": "Mein Tresor",
   "nav_vault_items": "Tresor",
   "nav_sends": "Sendungen",
@@ -1463,5 +1466,7 @@ Object.assign(de, {
 Object.assign(de, { "txt_password_security_last_checked": "Zuletzt überprüft: {value}" });
 Object.assign(de, { "txt_no_password_risks_in_filter": "Keine Passwortrisiken in dieser Kategorie" });
 Object.assign(de, { "txt_password_security_show_all": "Alle anzeigen", "txt_password_security_hide_all": "Alle ausblenden", "txt_password_security_jump": "Öffnen", "txt_password_security_exposed_short": "{count}-mal geleakt", "txt_password_security_weak_short": "Schwaches Passwort", "txt_password_security_reused_short": "Wiederverwendet" });
+
+Object.assign(de, { "txt_home_greeting": "Start from here", "txt_bookmarks_subtitle": "Your saved web pages", "txt_notes_subtitle": "Your latest secure notes", "txt_search_notes": "Search notes...", "txt_new_item": "New item", "txt_new_note": "New note", "txt_view_all": "View all", "txt_list": "List", "txt_cards": "Cards", "txt_no_notes": "No note content", "txt_no_uri": "No website address" });
 
 export default de;

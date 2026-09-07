@@ -1,0 +1,44 @@
+.collection-page { min-height: 100%; padding: clamp(18px, 3vw, 32px); color: var(--text); }
+.collection-home { max-width: 1500px; margin: 0 auto; }
+.collection-single { max-width: 1100px; margin: 0 auto; }
+.collection-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 24px; }
+.collection-kicker { display: block; margin-bottom: 4px; color: var(--accent); font-size: var(--font-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.collection-heading h1 { margin: 0; font-size: var(--font-4xl); font-weight: 750; letter-spacing: -.02em; }
+.collection-home-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(300px, .75fr); min-height: 620px; border: 1px solid var(--line); border-radius: var(--radius-xl); background: var(--panel); box-shadow: var(--shadow-sm); overflow: hidden; }
+.collection-column { min-width: 0; padding: 22px 26px; }
+.collection-bookmarks-column { border-right: 1px solid var(--line); }
+.collection-notes-column { background: var(--panel-soft); }
+.collection-section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.collection-section-heading h2 { margin: 0; font-size: var(--font-xl); }
+.collection-section-heading p { margin: 3px 0 0; color: var(--muted); font-size: var(--font-xs); }
+.collection-section-actions, .collection-view-switch { display: flex; gap: 5px; }
+.collection-section-actions .btn { min-width: 32px; padding: 7px; }
+.collection-filter-row { display: flex; align-items: center; gap: 5px; min-height: 34px; margin-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
+.collection-filter { display: inline-flex; align-items: center; gap: 5px; border: 0; border-bottom: 2px solid transparent; padding: 7px 8px 8px; color: var(--muted); background: transparent; font-size: var(--font-xs); }
+.collection-filter.active { border-bottom-color: var(--primary); color: var(--primary-strong); }
+.collection-more { margin-left: auto; color: var(--primary); font-size: var(--font-xs); text-decoration: none; }
+.collection-bookmark-list { display: grid; gap: 0; }
+.collection-bookmark-list.cards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; padding-top: 2px; }
+.collection-bookmark { display: flex; align-items: center; width: 100%; min-width: 0; gap: 12px; border: 0; border-bottom: 1px solid var(--line-soft); padding: 12px 4px; color: inherit; background: transparent; text-align: left; }
+.collection-bookmark:hover { background: var(--panel-soft); }
+.collection-bookmark-list.cards .collection-bookmark { display: block; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel); box-shadow: var(--shadow-sm); }
+.collection-bookmark-list.cards .collection-bookmark:hover { border-color: color-mix(in srgb, var(--primary) 45%, var(--line)); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.collection-site-icon { display: grid; flex: 0 0 36px; place-items: center; width: 36px; height: 36px; border: 1px solid var(--line-soft); border-radius: var(--radius-md); background: var(--panel-muted); overflow: hidden; }
+.collection-bookmark-list.cards .collection-site-icon { margin-bottom: 18px; }
+.collection-bookmark-copy, .collection-note-copy { display: grid; min-width: 0; gap: 2px; }
+.collection-bookmark-copy strong, .collection-note-copy strong { overflow: hidden; font-size: var(--font-sm); font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+.collection-bookmark-copy span, .collection-note-copy span { overflow: hidden; color: var(--muted); font-size: var(--font-xs); text-overflow: ellipsis; white-space: nowrap; }
+.collection-favorite { flex: 0 0 auto; margin-left: auto; color: var(--warning); }
+.collection-note-list { display: grid; }
+.collection-note-row { display: flex; align-items: flex-start; width: 100%; gap: 10px; border: 0; border-bottom: 1px solid var(--line-soft); padding: 13px 0; color: inherit; background: transparent; text-align: left; }
+.collection-note-row:hover { background: color-mix(in srgb, var(--primary) 4%, transparent); }
+.collection-note-icon { display: grid; flex: 0 0 30px; place-items: center; width: 30px; height: 30px; border-radius: var(--radius-md); color: var(--accent); background: var(--accent-soft); }
+.collection-note-copy span { display: -webkit-box; white-space: normal; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.collection-search { display: flex; align-items: center; gap: 8px; width: 100%; margin-bottom: 14px; border: 1px solid var(--line); border-radius: var(--radius-md); padding: 8px 10px; color: var(--muted); background: var(--panel); }
+.collection-search:focus-within { border-color: var(--primary); }
+.collection-search input { width: 100%; min-width: 0; border: 0; outline: 0; color: var(--text); background: transparent; }
+.collection-empty, .collection-loading { padding: 40px 16px; color: var(--muted); text-align: center; }
+.collection-single .collection-bookmark-list { padding: 8px 0; }
+.collection-single .collection-note-list { max-width: 760px; }
+@media (max-width: 900px) { .collection-home-grid { grid-template-columns: 1fr; } .collection-bookmarks-column { border-right: 0; border-bottom: 1px solid var(--line); } }
+@media (max-width: 560px) { .collection-page { padding: 16px; } .collection-heading { display: block; } .collection-heading .btn, .collection-view-switch { margin-top: 14px; } .collection-column { padding: 18px 16px; } .collection-home-grid { border-radius: var(--radius-lg); } }
