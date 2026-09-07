@@ -24,6 +24,7 @@ const en: Record<string, string> = {
   "txt_cards": "Cards",
   "txt_no_notes": "No note content",
   "txt_no_uri": "No website address",
+  "txt_select_item": "Select an item to view details",
   "txt_generator_type": "Generator type",
   "txt_passphrase": "Passphrase",
   "txt_generated_password": "Generated password",

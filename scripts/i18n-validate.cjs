@@ -35,6 +35,7 @@ const intentionallyEnglishKeys = new Set([
   'txt_cards',
   'txt_no_notes',
   'txt_no_uri',
+  'txt_select_item',
 ]);
 const intentionallyEnglishPrefixes = [
   'txt_log_action_',

@@ -47,6 +47,26 @@
 
 /* ── active states ── */
 .side-link.active,
+.side-primary-link {
+  font-weight: 700;
+}
+
+.side-primary-link {
+  min-height: 44px;
+  font-size: 15px;
+}
+
+.side-primary-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.side-primary-link.active {
+  background: color-mix(in srgb, var(--primary) 16%, var(--panel));
+  border-color: color-mix(in srgb, var(--primary) 42%, var(--line));
+  box-shadow: var(--shadow-sm);
+}
+
 .mobile-tab.active,
 .tree-btn.active,
 .list-item.active,

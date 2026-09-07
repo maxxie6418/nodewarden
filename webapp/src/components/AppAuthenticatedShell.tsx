@@ -84,8 +84,9 @@ export default function AppAuthenticatedShell(props: AppAuthenticatedShellProps)
   }
 
   function renderSideLink(href: string, active: boolean, icon: ComponentChildren, label: string) {
+    const primaryNav = href === '/' || href === '/notes' || href === '/bookmarks' || href === '/vault';
     return (
-      <Link href={href} className={`side-link ${active ? 'active' : ''}`}>
+      <Link href={href} className={`side-link ${primaryNav ? 'side-primary-link' : ''} ${active ? 'active' : ''}`}>
         {icon}
         <span>{label}</span>
       </Link>

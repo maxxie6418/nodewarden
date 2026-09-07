@@ -24,6 +24,7 @@ const zhCN: Record<string, string> = {
   "txt_cards": "卡片",
   "txt_no_notes": "暂无笔记内容",
   "txt_no_uri": "没有网址地址",
+  "txt_select_item": "选择一个项目查看详情",
   "txt_generator_type": "生成类型", "txt_passphrase": "密码短语", "txt_generated_password": "已生成密码", "txt_password_strength": "强度", "txt_password_strength_weak": "弱", "txt_password_strength_fair": "一般", "txt_password_strength_good": "良好", "txt_password_strength_strong": "强", "txt_generator_security_note": "生成过程仅在本地进行，密码不会发送到服务器。", "txt_generator_length": "长度", "txt_generator_character_types": "字符类型", "txt_generator_uppercase": "大写字母 (A-Z)", "txt_generator_lowercase": "小写字母 (a-z)", "txt_generator_numbers": "数字 (0-9)", "txt_generator_special": "特殊字符 (!@#$%^&*)", "txt_generator_minimum": "最少数量", "txt_generator_avoid_ambiguous": "避免易混淆字符", "txt_generator_words": "单词数量", "txt_generator_separator": "单词分隔符", "txt_generator_capitalize": "首字母大写", "txt_generator_include_number": "包含数字",
   "txt_generated_value": "已生成内容", "txt_generator_character_count": "{count} 个字符", "txt_generator_pin": "PIN 码", "txt_generator_pin_description": "使用密码学安全随机数在本地生成纯数字 PIN 码。", "txt_generator_username": "用户名", "txt_generator_plus_addressed_email": "加号别名邮箱", "txt_generator_catch_all_email": "全域接收邮箱", "txt_generator_email": "邮箱地址", "txt_generator_domain": "域名",
   "txt_generator_word_list": "词表", "txt_generator_eff_word_list": "EFF 长词表", "txt_generator_custom_word_list": "自定义词表", "txt_generator_custom_words": "自定义单词", "txt_generator_custom_words_placeholder": "输入至少两个单词，用空格、逗号或换行分隔",

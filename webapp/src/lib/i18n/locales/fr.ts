@@ -1467,6 +1467,6 @@ Object.assign(fr, { "txt_password_security_last_checked": "Dernière vérificati
 Object.assign(fr, { "txt_no_password_risks_in_filter": "Aucun risque de mot de passe dans cette catégorie" });
 Object.assign(fr, { "txt_password_security_show_all": "Tout afficher", "txt_password_security_hide_all": "Tout masquer", "txt_password_security_jump": "Ouvrir", "txt_password_security_exposed_short": "Exposé {count} fois", "txt_password_security_weak_short": "Mot de passe faible", "txt_password_security_reused_short": "Réutilisé" });
 
-Object.assign(fr, { "txt_home_greeting": "Start from here", "txt_bookmarks_subtitle": "Your saved web pages", "txt_notes_subtitle": "Your latest secure notes", "txt_search_notes": "Search notes...", "txt_new_item": "New item", "txt_new_note": "New note", "txt_view_all": "View all", "txt_list": "List", "txt_cards": "Cards", "txt_no_notes": "No note content", "txt_no_uri": "No website address" });
+Object.assign(fr, { "txt_home_greeting": "Start from here", "txt_bookmarks_subtitle": "Your saved web pages", "txt_notes_subtitle": "Your latest secure notes", "txt_search_notes": "Search notes...", "txt_new_item": "New item", "txt_new_note": "New note", "txt_view_all": "View all", "txt_list": "List", "txt_cards": "Cards", "txt_no_notes": "No note content", "txt_no_uri": "No website address", "txt_select_item": "Select an item to view details" });
 
 export default fr;

@@ -16,7 +16,21 @@
 .collection-filter-row { display: flex; align-items: center; gap: 5px; min-height: 34px; margin-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
 .collection-filter { display: inline-flex; align-items: center; gap: 5px; border: 0; border-bottom: 2px solid transparent; padding: 7px 8px 8px; color: var(--muted); background: transparent; font-size: var(--font-xs); }
 .collection-filter.active { border-bottom-color: var(--primary); color: var(--primary-strong); }
-.collection-more { margin-left: auto; color: var(--primary); font-size: var(--font-xs); text-decoration: none; }
+.collection-more { margin-left: auto; border: 0; padding: 7px 8px; color: var(--primary); background: transparent; font-size: var(--font-xs); }
+.collection-more:hover { text-decoration: underline; }
+.collection-detail { max-width: 820px; margin: 0 auto; }
+.collection-back { margin-bottom: 28px; }
+.collection-detail-heading { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.collection-detail-heading h1 { margin: 0; font-size: var(--font-4xl); }
+.collection-detail-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: var(--radius-lg); color: var(--primary); background: var(--accent-soft); }
+.collection-detail-note { min-height: 240px; white-space: pre-wrap; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 0; color: var(--text); font-size: var(--font-base); line-height: var(--leading-relaxed); }
+.collection-detail-link { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); font-size: var(--font-base); text-decoration: none; }
+.collection-detail-favorite { display: inline-flex; align-items: center; gap: 7px; margin-top: 20px; color: var(--warning); font-size: var(--font-xs); }
+.collection-split-layout { display: grid; grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr); min-height: 620px; border: 1px solid var(--line); border-radius: var(--radius-xl); background: var(--panel); box-shadow: var(--shadow-sm); overflow: hidden; }
+.collection-split-list { min-width: 0; padding: 18px 20px; border-right: 1px solid var(--line); overflow: auto; }
+.collection-detail-panel { min-width: 0; padding: 26px; background: var(--panel-soft); }
+.collection-detail-empty { display: grid; min-height: 260px; place-items: center; color: var(--muted); }
+.collection-note-row.active, .collection-bookmark.active { background: color-mix(in srgb, var(--primary) 10%, var(--panel)); }
 .collection-bookmark-list { display: grid; gap: 0; }
 .collection-bookmark-list.cards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; padding-top: 2px; }
 .collection-bookmark { display: flex; align-items: center; width: 100%; min-width: 0; gap: 12px; border: 0; border-bottom: 1px solid var(--line-soft); padding: 12px 4px; color: inherit; background: transparent; text-align: left; }
@@ -40,5 +54,5 @@
 .collection-empty, .collection-loading { padding: 40px 16px; color: var(--muted); text-align: center; }
 .collection-single .collection-bookmark-list { padding: 8px 0; }
 .collection-single .collection-note-list { max-width: 760px; }
-@media (max-width: 900px) { .collection-home-grid { grid-template-columns: 1fr; } .collection-bookmarks-column { border-right: 0; border-bottom: 1px solid var(--line); } }
+@media (max-width: 900px) { .collection-home-grid { grid-template-columns: 1fr; } .collection-bookmarks-column { border-right: 0; border-bottom: 1px solid var(--line); } .collection-split-layout { display: block; min-height: 0; } .collection-split-list { border-right: 0; } .collection-detail-panel { display: none; } .collection-split-layout:has(.collection-bookmark.active) .collection-detail-panel, .collection-split-layout:has(.collection-note-row.active) .collection-detail-panel { display: block; } .collection-split-layout:has(.collection-bookmark.active) .collection-split-list, .collection-split-layout:has(.collection-note-row.active) .collection-split-list { display: none; } }
 @media (max-width: 560px) { .collection-page { padding: 16px; } .collection-heading { display: block; } .collection-heading .btn, .collection-view-switch { margin-top: 14px; } .collection-column { padding: 18px 16px; } .collection-home-grid { border-radius: var(--radius-lg); } }
