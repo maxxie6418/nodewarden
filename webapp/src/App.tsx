@@ -123,6 +123,7 @@ const APP_ROUTE_PATHS = [
   '/settings',
   SETTINGS_ACCOUNT_ROUTE,
   SETTINGS_DOMAIN_RULES_ROUTE,
+  '/config-files',
   '/help',
   ...IMPORT_ROUTE_PATHS,
 ] as const;
@@ -1976,6 +1977,7 @@ export default function App() {
     if (location === LEGACY_DEVICE_MANAGEMENT_ROUTE || location === DEVICE_MANAGEMENT_ROUTE) return t('nav_device_management');
     if (location === SETTINGS_DOMAIN_RULES_ROUTE) return t('nav_domain_rules');
     if (location === '/backup') return t('nav_backup_strategy');
+    if (location === '/config-files') return t('nav_config_files');
     if (isImportRoute) return t('nav_import_export');
     if (location === SETTINGS_ACCOUNT_ROUTE) return t('nav_account_settings');
     if (location === SETTINGS_HOME_ROUTE) return t('txt_settings');

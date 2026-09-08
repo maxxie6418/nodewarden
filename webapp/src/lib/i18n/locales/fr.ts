@@ -1464,4 +1464,6 @@ Object.assign(fr, { "txt_password_security_last_checked": "Dernière vérificati
 Object.assign(fr, { "txt_no_password_risks_in_filter": "Aucun risque de mot de passe dans cette catégorie" });
 Object.assign(fr, { "txt_password_security_show_all": "Tout afficher", "txt_password_security_hide_all": "Tout masquer", "txt_password_security_jump": "Ouvrir", "txt_password_security_exposed_short": "Exposé {count} fois", "txt_password_security_weak_short": "Mot de passe faible", "txt_password_security_reused_short": "Réutilisé" });
 
+Object.assign(fr, { "nav_config_files": "Fichiers de configuration" });
+
 export default fr;

@@ -1464,4 +1464,6 @@ Object.assign(ru, { "txt_password_security_last_checked": "Последняя п
 Object.assign(ru, { "txt_no_password_risks_in_filter": "В этой категории нет рисков для паролей" });
 Object.assign(ru, { "txt_password_security_show_all": "Show all", "txt_password_security_hide_all": "Hide all", "txt_password_security_jump": "Go to item", "txt_password_security_exposed_short": "Exposed {count} times", "txt_password_security_weak_short": "Weak password", "txt_password_security_reused_short": "Reused" });
 
+Object.assign(ru, { "nav_config_files": "Файлы конфигурации" });
+
 export default ru;

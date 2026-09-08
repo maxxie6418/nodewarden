@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import LoadingState from '@/components/LoadingState';
 import VaultDialogs from '@/components/vault/VaultDialogs';
 import VaultDetailView from '@/components/vault/VaultDetailView';
@@ -68,6 +68,10 @@ interface VaultPageProps {
   uploadingAttachmentName: string;
   attachmentUploadPercent: number | null;
   mobileSidebarToggleKey: number;
+  /** When set, quick-create actions (empty state / add event) default to this item type. */
+  defaultCreateType?: number;
+  /** When set, the sidebar filter is locked to this value (used by the Config Files view). */
+  lockedSidebarFilter?: SidebarFilter;
 }
 
 
@@ -85,6 +89,17 @@ export default function VaultPage(props: VaultPageProps) {
   const [folderSortMenuOpen, setFolderSortMenuOpen] = useState(false);
   const [duplicateMode, setDuplicateMode] = useState<DuplicateDetectionMode>('exact');
   const [sidebarFilter, setSidebarFilter] = useState<SidebarFilter>({ kind: 'all' });
+  const lockedSidebarFilter = props.lockedSidebarFilter ?? null;
+  const changeFilter: (filter: SidebarFilter) => void = useCallback(
+    (filter) => {
+      setSidebarFilter(lockedSidebarFilter ?? filter);
+    },
+    [lockedSidebarFilter]
+  );
+
+  useEffect(() => {
+    if (lockedSidebarFilter) setSidebarFilter(lockedSidebarFilter);
+  }, [lockedSidebarFilter]);
   const [selectedCipherId, setSelectedCipherId] = useState('');
   const [selectedMap, setSelectedMap] = useState<Record<string, boolean>>({});
   const pendingFocusCipherIdRef = useRef<string | null>(null);
@@ -156,11 +171,11 @@ export default function VaultPage(props: VaultPageProps) {
 
   useEffect(() => {
     const onQuickAdd = () => {
-      startCreate(1);
+      startCreate(props.defaultCreateType ?? 1);
     };
     window.addEventListener('nodewarden:add-item', onQuickAdd);
     return () => window.removeEventListener('nodewarden:add-item', onQuickAdd);
-  }, []);
+  }, [props.defaultCreateType]);
 
   useEffect(() => {
     try {
@@ -521,13 +536,13 @@ export default function VaultPage(props: VaultPageProps) {
       : isCipherVisibleInArchive(cipher)
         ? { kind: 'archive' }
         : { kind: 'all' };
-    setSidebarFilter((prev) => (prev.kind === nextFilter.kind ? prev : nextFilter));
+    changeFilter(nextFilter);
     setSearchInput('');
     setSearchQuery('');
     setIsEditing(false);
     setIsCreating(false);
     setDraft(null);
-  }, [cipherById, props.ciphers.length, props.loading]);
+  }, [cipherById, changeFilter, props.ciphers.length, props.loading]);
 
   useEffect(() => {
     if (isCreating) return;
@@ -979,7 +994,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
     try {
       await props.onDeleteFolder(pendingDeleteFolder.id);
       if (sidebarFilter.kind === 'folder' && sidebarFilter.folderId === pendingDeleteFolder.id) {
-        setSidebarFilter({ kind: 'all' });
+        changeFilter({ kind: 'all' });
       }
       setPendingDeleteFolder(null);
     } catch {
@@ -1095,7 +1110,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
     try {
       await props.onBulkDeleteFolders(props.folders.map((folder) => folder.id));
       if (sidebarFilter.kind === 'folder') {
-        setSidebarFilter({ kind: 'all' });
+        changeFilter({ kind: 'all' });
       }
       setDeleteAllFoldersOpen(false);
     } catch {
@@ -1216,7 +1231,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
           folderSortMenuOpen={folderSortMenuOpen}
           folderSortMenuRef={folderSortMenuRef}
           onCloseMobileSidebar={handleCloseMobileSidebar}
-          onChangeFilter={setSidebarFilter}
+          onChangeFilter={changeFilter}
           onOpenDeleteAllFolders={handleOpenDeleteAllFolders}
           onOpenCreateFolder={handleOpenCreateFolder}
           onOpenRenameFolder={handleOpenRenameFolder}
@@ -1256,7 +1271,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
           onToggleSortMenu={handleToggleSortMenu}
           onSelectSortMode={handleSelectSortMode}
           onDuplicateModeChange={setDuplicateMode}
-          onChangeFilter={setSidebarFilter}
+          onChangeFilter={changeFilter}
           onSyncVault={handleSyncVault}
           onOpenBulkDelete={handleOpenBulkDelete}
           onSelectDuplicates={handleSelectDuplicates}

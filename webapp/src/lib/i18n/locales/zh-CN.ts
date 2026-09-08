@@ -1494,4 +1494,6 @@ Object.assign(zhCN, {
   "txt_password_security_check_failed": "无法完成泄露检查。"
 });
 
+Object.assign(zhCN, { "nav_config_files": "配置文件" });
+
 export default zhCN;

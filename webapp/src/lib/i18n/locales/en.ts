@@ -67,6 +67,7 @@ const en: Record<string, string> = {
   "txt_generator_long_word_username_description": "Combine one or more long words into a memorable username.",
   "nav_backup_strategy": "Cloud Backup",
   "nav_import_export": "Import & Export",
+  "nav_config_files": "Config Files",
   "nav_group_data_backup": "Data & Backup",
   "nav_group_management": "Management",
   "nav_group_tools": "Tools",

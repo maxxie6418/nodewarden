@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'preact/compat';
 import { useEffect } from 'preact/hooks';
 import { Link, Route, Switch } from 'wouter';
-import { ArrowUpDown, Cloud, FileClock, Globe2, LogOut, Settings as SettingsIcon, Shield, ShieldCheck, ShieldUser } from 'lucide-preact';
+import { ArrowUpDown, Cloud, FileClock, FileCog, Globe2, LogOut, Settings as SettingsIcon, Shield, ShieldCheck, ShieldUser } from 'lucide-preact';
 import type { ImportAttachmentFile, ImportResultSummary } from '@/components/ImportPage';
 import LoadingState from '@/components/LoadingState';
 import type { AdminBackupImportResponse, AdminBackupRunResponse, AdminBackupSettings, RemoteBackupBrowserResponse } from '@/lib/api/backup';
@@ -23,6 +23,7 @@ const AdminPage = lazy(() => import('@/components/AdminPage'));
 const LogCenterPage = lazy(() => import('@/components/LogCenterPage'));
 const BackupCenterPage = lazy(() => import('@/components/BackupCenterPage'));
 const ImportPage = lazy(() => import('@/components/ImportPage'));
+const ConfigFilesPage = lazy(() => import('@/components/ConfigFilesPage'));
 
 function RouteContentFallback() {
   return <LoadingState card lines={5} />;
@@ -287,6 +288,52 @@ export default function AppMainRoutes(props: AppMainRoutesProps) {
           />
         </Suspense>
       </Route>
+      <Route path="/config-files">
+        <div className="stack">
+          {props.mobileLayout && (
+            <div className="mobile-settings-subhead">
+              <button type="button" className="btn btn-secondary small mobile-settings-back" onClick={() => props.onNavigate(props.settingsHomeRoute)}>
+                <span className="btn-icon" aria-hidden="true">{"<"}</span>
+                {t('txt_back')}
+              </button>
+            </div>
+          )}
+          <Suspense fallback={<RouteContentFallback />}>
+            <ConfigFilesPage
+              ciphers={props.decryptedCiphers}
+              folders={props.decryptedFolders}
+              loading={props.ciphersLoading || props.foldersLoading}
+              error={props.vaultError}
+              emailForReprompt={props.profile?.email || props.session?.email || ''}
+              onRefresh={props.onRefreshVault}
+              onCreate={props.onCreateVaultItem}
+              onUpdate={props.onUpdateVaultItem}
+              onDelete={props.onDeleteVaultItem}
+              onArchive={props.onArchiveVaultItem}
+              onUnarchive={props.onUnarchiveVaultItem}
+              onRestore={props.onRestoreVaultItems}
+              onBulkDelete={props.onBulkDeleteVaultItems}
+              onBulkPermanentDelete={props.onBulkPermanentDeleteVaultItems}
+              onBulkRestore={props.onBulkRestoreVaultItems}
+              onBulkArchive={props.onBulkArchiveVaultItems}
+              onBulkUnarchive={props.onBulkUnarchiveVaultItems}
+              onBulkMove={props.onBulkMoveVaultItems}
+              onVerifyMasterPassword={props.onVerifyMasterPassword}
+              onNotify={props.onNotify}
+              onCreateFolder={props.onCreateFolder}
+              onRenameFolder={props.onRenameFolder}
+              onDeleteFolder={props.onDeleteFolder}
+              onBulkDeleteFolders={props.onBulkDeleteFolders}
+              onDownloadAttachment={props.onDownloadVaultAttachment}
+              downloadingAttachmentKey={props.downloadingAttachmentKey}
+              attachmentDownloadPercent={props.attachmentDownloadPercent}
+              uploadingAttachmentName={props.uploadingAttachmentName}
+              attachmentUploadPercent={props.attachmentUploadPercent}
+              mobileSidebarToggleKey={props.mobileSidebarToggleKey}
+            />
+          </Suspense>
+        </div>
+      </Route>
       <Route path={props.settingsAccountRoute}>
         {props.profile ? (
           <div className="stack">
@@ -349,6 +396,10 @@ export default function AppMainRoutes(props: AppMainRoutesProps) {
                 <Link href="/security/password-health" className="mobile-settings-link">
                   <ShieldCheck size={18} />
                   <span>{t('nav_password_security')}</span>
+                </Link>
+                <Link href="/config-files" className="mobile-settings-link">
+                  <FileCog size={18} />
+                  <span>{t('nav_config_files')}</span>
                 </Link>
                 <Link href={props.importRoute} className="mobile-settings-link">
                   <ArrowUpDown size={18} />

@@ -29,6 +29,19 @@ export type SidebarFilter =
   | { kind: 'type'; value: TypeFilter }
   | { kind: 'folder'; folderId: string | null };
 
+// Custom "config file" item type used by the fork-only Config Files feature.
+// It reuses the standard cipher storage/encryption pipeline (name/notes/fields/
+// attachments) but is only surfaced through the dedicated /config-files view.
+export const CONFIG_FILE_CIPHER_TYPE = 9;
+
+export function isConfigFileCipher(cipher: Pick<Cipher, 'type'>): boolean {
+  return Number(cipher?.type || 0) === CONFIG_FILE_CIPHER_TYPE;
+}
+
+export function configFileTypeLabel(): string {
+  return t('nav_config_files');
+}
+
 interface TypeOption {
   type: number;
   label: string;

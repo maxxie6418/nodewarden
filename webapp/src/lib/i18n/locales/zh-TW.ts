@@ -1494,4 +1494,6 @@ Object.assign(zhTW, {
   "txt_password_security_check_failed": "無法完成外洩檢查。"
 });
 
+Object.assign(zhTW, { "nav_config_files": "設定檔" });
+
 export default zhTW;
