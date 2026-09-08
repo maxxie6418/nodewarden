@@ -1,6 +1,6 @@
 import { useMemo } from 'preact/hooks';
 import VaultPage from '@/components/VaultPage';
-import { CONFIG_FILE_CIPHER_TYPE, isConfigFileCipher } from '@/components/vault/vault-page-helpers';
+import { CONFIG_FILE_CIPHER_TYPE, configFileTypeLabel, isConfigFileCipher } from '@/components/vault/vault-page-helpers';
 import type { Cipher, Folder, VaultDraft } from '@/lib/types';
 
 export interface ConfigFilesPageProps {
@@ -76,6 +76,7 @@ export default function ConfigFilesPage(props: ConfigFilesPageProps) {
       mobileSidebarToggleKey={props.mobileSidebarToggleKey}
       defaultCreateType={CONFIG_FILE_CIPHER_TYPE}
       lockedSidebarFilter={{ kind: 'all' }}
+      createTypeOptions={[{ type: CONFIG_FILE_CIPHER_TYPE, label: configFileTypeLabel() }]}
     />
   );
 }

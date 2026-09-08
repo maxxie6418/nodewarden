@@ -3,6 +3,7 @@ node_modules/
 
 # Wrangler
 .wrangler/
+.wrangler-local/
 .dev.vars
 wrangler.my.toml
 RELEASE_NOTES.md

@@ -541,6 +541,23 @@ export const DEMO_CIPHERS: Cipher[] = [
       uris: [{ uri: 'https://example.com', decUri: 'https://example.com', match: null }],
     },
   },
+  {
+    id: 'cipher-config-nginx',
+    type: 9,
+    folderId: '',
+    favorite: false,
+    reprompt: 0,
+    name: 'nginx.conf',
+    notes: 'server {\n  listen 443 ssl;\n  server_name example.com;\n  ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;\n}',
+    decName: 'nginx.conf',
+    decNotes: 'server {\n  listen 443 ssl;\n  server_name example.com;\n  ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;\n}',
+    creationDate: '2026-05-04T08:00:00.000Z',
+    revisionDate: '2026-05-04T08:00:00.000Z',
+    fields: [
+      { type: 0, name: 'server_name', value: 'example.com', decName: 'server_name', decValue: 'example.com' },
+      { type: 2, name: 'http2_enabled', value: 'true', decName: 'http2_enabled', decValue: 'true' },
+    ],
+  },
 ];
 
 export const DEMO_SENDS: Send[] = [

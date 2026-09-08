@@ -36,6 +36,7 @@ import {
   VaultListIcon,
   type DuplicateDetectionMode,
   type SidebarFilter,
+  type TypeOption,
   type VaultSortMode,
 } from '@/components/vault/vault-page-helpers';
 
@@ -94,6 +95,8 @@ interface VaultListPanelProps {
   onToggleSelected: (cipherId: string, checked: boolean) => void;
   onSelectCipher: (cipherId: string) => void;
   listSubtitle: (cipher: Cipher) => string;
+  /** Overrides the "new item" type menu. Defaults to all standard vault types. */
+  createTypeOptions?: TypeOption[];
 }
 
 interface CipherListItemProps {
@@ -153,7 +156,7 @@ const CipherListItem = memo(function CipherListItem(props: CipherListItemProps) 
 export default function VaultListPanel(props: VaultListPanelProps) {
   const [mobileFilterOpen, setMobileFilterOpen] = useState<MobileFilterMenuKey | null>(null);
   const mobileFilterRef = useRef<HTMLDivElement | null>(null);
-  const createTypeOptions = getCreateTypeOptions();
+  const createTypeOptions = props.createTypeOptions ?? getCreateTypeOptions();
   const duplicateDetectionOptions = getDuplicateDetectionOptions();
   const vaultSortOptions = getVaultSortOptions();
   const duplicateModeOptions: MobileFilterOption[] = duplicateDetectionOptions.map((option) => ({

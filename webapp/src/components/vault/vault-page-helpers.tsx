@@ -47,6 +47,8 @@ interface TypeOption {
   label: string;
 }
 
+export type { TypeOption };
+
 export const CARD_BRAND_OPTIONS = [
   'Visa',
   'Mastercard',
@@ -284,6 +286,7 @@ export function cipherTypeLabel(type: number): string {
   if (type === 6) return t('txt_bank_account');
   if (type === 7) return t('txt_drivers_license');
   if (type === 8) return t('txt_passport');
+  if (type === CONFIG_FILE_CIPHER_TYPE) return t('nav_config_files');
   return t('txt_item');
 }
 

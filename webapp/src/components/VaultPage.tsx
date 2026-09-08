@@ -29,6 +29,7 @@ import {
   sortTimeValue,
   type DuplicateDetectionMode,
   type SidebarFilter,
+  type TypeOption,
   type VaultSortMode,
 } from '@/components/vault/vault-page-helpers';
 import { calcTotpNow, type TotpCodeResult } from '@/lib/crypto';
@@ -72,6 +73,8 @@ interface VaultPageProps {
   defaultCreateType?: number;
   /** When set, the sidebar filter is locked to this value (used by the Config Files view). */
   lockedSidebarFilter?: SidebarFilter;
+  /** Overrides the "new item" type menu options (used by the Config Files view). */
+  createTypeOptions?: TypeOption[];
 }
 
 
@@ -1280,6 +1283,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
           onToggleCreateMenu={handleToggleCreateMenu}
           onStartCreate={startCreate}
           onBulkRestore={handleBulkRestore}
+          createTypeOptions={props.createTypeOptions}
           onBulkArchive={handleBulkArchive}
           onBulkUnarchive={handleBulkUnarchive}
           onOpenMove={handleOpenMove}
@@ -1338,6 +1342,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
                 onPatchDraftCustomField={patchDraftCustomField}
                 onUpdateDraftCustomFields={updateDraftCustomFields}
                 onOpenFieldModal={() => setFieldModalOpen(true)}
+                createTypeOptions={props.createTypeOptions}
                 onSave={() => void saveDraft()}
                 onCancel={cancelEdit}
                 onDeleteSelected={() => selectedCipher && setPendingDelete(selectedCipher)}

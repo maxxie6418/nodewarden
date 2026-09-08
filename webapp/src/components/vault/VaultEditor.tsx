@@ -19,6 +19,7 @@ import {
   getWebsiteMatchOptions,
   normalizeCardBrand,
   toBooleanFieldValue,
+  type TypeOption,
 } from '@/components/vault/vault-page-helpers';
 
 interface VaultEditorProps {
@@ -54,6 +55,8 @@ interface VaultEditorProps {
   onSave: () => void;
   onCancel: () => void;
   onDeleteSelected: () => void;
+  /** Overrides the "type" dropdown options. Defaults to all standard vault types. */
+  createTypeOptions?: TypeOption[];
 }
 
 interface WebsiteRowProps {
@@ -133,7 +136,7 @@ function WebsiteRow(props: WebsiteRowProps) {
 }
 
 export default function VaultEditor(props: VaultEditorProps) {
-  const createTypeOptions = getCreateTypeOptions();
+  const createTypeOptions = props.createTypeOptions ?? getCreateTypeOptions();
   const normalizedDraftCardBrand = normalizeCardBrand(props.draft.cardBrand);
   const cardBrandOptions = normalizedDraftCardBrand && !CARD_BRAND_OPTIONS.includes(normalizedDraftCardBrand as any)
     ? [...CARD_BRAND_OPTIONS, normalizedDraftCardBrand]
