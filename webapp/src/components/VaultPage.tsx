@@ -1287,7 +1287,6 @@ const folderName = useCallback((id: string | null | undefined): string => {
           onStartCreate={startCreate}
           onBulkRestore={handleBulkRestore}
           createTypeOptions={props.createTypeOptions}
-          hideTypeFilter={props.hideTypeSection}
           onBulkArchive={handleBulkArchive}
           onBulkUnarchive={handleBulkUnarchive}
           onOpenMove={handleOpenMove}
