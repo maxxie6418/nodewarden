@@ -662,10 +662,28 @@ export default function VaultEditor(props: VaultEditorProps) {
             title={t('txt_upload_attachments')}
             aria-label={t('txt_upload_attachments')}
           >
-            <Plus size={14} className="btn-icon" />
+            <Upload size={14} className="btn-icon" />
+            {t('txt_upload_attachments')}
           </button>
         </div>
         {!!props.uploadingAttachmentName && <div className="detail-sub">{uploadLabel}</div>}
+        {!props.uploadingAttachmentName &&
+          (props.isCreating || !props.selectedCipher || props.editExistingAttachments.length === 0) &&
+          props.attachmentQueue.length === 0 && (
+            <div className="attachment-empty">
+              <Paperclip size={16} />
+              <span>{t('txt_no_attachments')}</span>
+              <button
+                type="button"
+                className="btn btn-secondary small"
+                disabled={props.busy}
+                onClick={() => props.attachmentInputRef.current?.click()}
+              >
+                <Upload size={14} className="btn-icon" />
+                {t('txt_upload_attachments')}
+              </button>
+            </div>
+          )}
         {!props.isCreating && props.selectedCipher && props.editExistingAttachments.length > 0 && (
           <div className="attachment-list">
             {props.editExistingAttachments.map((attachment) => {
@@ -691,6 +709,22 @@ export default function VaultEditor(props: VaultEditorProps) {
                     >
                       <Download size={14} className="btn-icon" /> {formatDownloadLabel(attachmentId)}
                     </button>
+                    {!removed && (
+                      <button
+                        type="button"
+                        className="btn btn-secondary small"
+                        disabled={props.busy}
+                        title={t('txt_replace_attachment')}
+                        aria-label={t('txt_replace_attachment')}
+                        onClick={() => {
+                          props.onToggleExistingAttachmentRemoval(attachmentId);
+                          props.attachmentInputRef.current?.click();
+                        }}
+                      >
+                        <RefreshCw size={14} className="btn-icon" />
+                        {t('txt_replace_attachment')}
+                      </button>
+                    )}
                     <button type="button" className="btn btn-secondary small" disabled={props.busy} onClick={() => props.onToggleExistingAttachmentRemoval(attachmentId)}>
                       <X size={14} className="btn-icon" />
                       {removed ? t('txt_cancel') : t('txt_remove')}

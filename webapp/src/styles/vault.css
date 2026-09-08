@@ -1156,6 +1156,7 @@ select.input.duplicate-mode-toolbar-select {
 
 .attachment-add-btn {
   @apply min-w-8 px-2 py-0;
+  white-space: nowrap;
 }
 
 .attachment-file-input {
