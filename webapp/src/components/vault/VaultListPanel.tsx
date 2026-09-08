@@ -159,6 +159,7 @@ export default function VaultListPanel(props: VaultListPanelProps) {
   const [mobileFilterOpen, setMobileFilterOpen] = useState<MobileFilterMenuKey | null>(null);
   const mobileFilterRef = useRef<HTMLDivElement | null>(null);
   const createTypeOptions = props.createTypeOptions ?? getCreateTypeOptions();
+  const singleCreateOption = createTypeOptions.length === 1 ? createTypeOptions[0] : null;
   const duplicateDetectionOptions = getDuplicateDetectionOptions();
   const vaultSortOptions = getVaultSortOptions();
   const duplicateModeOptions: MobileFilterOption[] = duplicateDetectionOptions.map((option) => ({
@@ -268,11 +269,17 @@ export default function VaultListPanel(props: VaultListPanelProps) {
         className={`btn btn-primary small ${props.isMobileLayout ? 'mobile-fab-trigger' : 'desktop-create-trigger'}`}
         aria-label={t('txt_add')}
         title={t('txt_add')}
-        onClick={props.onToggleCreateMenu}
+        onClick={() => {
+          if (singleCreateOption) {
+            props.onStartCreate(singleCreateOption.type);
+          } else {
+            props.onToggleCreateMenu();
+          }
+        }}
       >
         <Plus size={14} className="btn-icon" />
       </button>
-      {props.createMenuOpen && (
+      {!singleCreateOption && props.createMenuOpen && (
         <div className="create-menu">
           {createTypeOptions.map((option) => (
             <button key={option.type} type="button" className="create-menu-item" onClick={() => props.onStartCreate(option.type)}>
