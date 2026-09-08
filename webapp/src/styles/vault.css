@@ -1159,6 +1159,21 @@ select.input.duplicate-mode-toolbar-select {
   white-space: nowrap;
 }
 
+.attachment-empty {
+  @apply flex flex-col items-center justify-center gap-2 rounded-xl px-3.5 py-5 text-center;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: var(--font-sm);
+}
+
+.attachment-empty > span {
+  @apply inline-flex items-center gap-1.5;
+}
+
+.attachment-empty .btn {
+  @apply mt-0.5;
+}
+
 .attachment-file-input {
   @apply hidden;
 }
