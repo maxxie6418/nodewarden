@@ -113,6 +113,7 @@ const APP_ROUTE_PATHS = [
   '/vault',
   '/vault/totp',
   '/security/password-health',
+  '/security/vault-cleanup',
   '/generator',
   '/sends',
   '/admin',
