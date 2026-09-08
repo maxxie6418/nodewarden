@@ -140,6 +140,7 @@ export default function AppAuthenticatedShell(props: AppAuthenticatedShellProps)
           {renderSubLink('/vault/totp', props.location === '/vault/totp', t('txt_verification_code'))}
           {renderSubLink('/generator', props.location === '/generator', t('nav_generator'))}
           {renderSubLink('/security/password-health', props.location === '/security/password-health', t('nav_password_security'))}
+          {renderSubLink('/security/vault-cleanup', props.location === '/security/vault-cleanup', t('nav_vault_cleanup'))}
           {renderSubLink('/config-files', props.location === '/config-files', t('nav_config_files'))}
           {renderSubLink(props.importRoute, props.isImportRoute, t('nav_import_export'))}
         </>

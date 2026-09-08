@@ -1468,4 +1468,42 @@ Object.assign(de, { "txt_password_security_show_all": "Alle anzeigen", "txt_pass
 
 Object.assign(de, { "nav_config_files": "Konfigurationsdateien" });
 
+Object.assign(de, {
+  "nav_vault_cleanup": "Tresor bereinigen",
+  "txt_vault_cleanup": "Tresor bereinigen",
+  "txt_vault_cleanup_privacy": "Die gesamte Analyse läuft lokal in Ihrem Browser. Prüfen Sie die markierten Einträge und verschieben Sie nicht mehr benötigte in den Papierkorb.",
+  "txt_cleanup_domain_section": "Mehrere Kontos unter derselben Domain",
+  "txt_cleanup_domain_summary": "{groups} Domains · {count} Einträge",
+  "txt_cleanup_domain_help": "Einträge werden nach Hauptdomain gruppiert (Subdomains und www gelten als dieselbe Website). Nur Gruppen mit mindestens zwei Einträgen werden angezeigt; markieren Sie nicht mehr benötigte Einträge.",
+  "txt_cleanup_domain_empty": "Keine Domains mit mehreren Einträgen.",
+  "txt_cleanup_select_group": "Ganze Gruppe auswählen",
+  "txt_cleanup_select_older_duplicates": "Ältere Duplikate auswählen",
+  "txt_cleanup_uri_section": "Nicht erreichbare Links",
+  "txt_cleanup_uri_summary": "{count} Einträge mit Links",
+  "txt_cleanup_uri_help": "Die Prüfung erfolgt über Ihren Browser und ist nur ein Hinweis. Einträge, die nicht überprüft werden konnten, funktionieren möglicherweise noch; bitte vor dem Löschen selbst prüfen.",
+  "txt_cleanup_uri_start": "Links prüfen",
+  "txt_cleanup_uri_recheck": "Erneut prüfen",
+  "txt_cleanup_uri_stop": "Stopp",
+  "txt_cleanup_probe_progress": "Prüfung {checked} / {total}",
+  "txt_cleanup_uri_checked": "Geprüft: {count}",
+  "txt_cleanup_uri_unreachable": "Nicht erreichbar: {count}",
+  "txt_cleanup_uri_unknown": "Nicht überprüfbar: {count}",
+  "txt_cleanup_uri_all_issues": "Nur Auffälligkeiten",
+  "txt_cleanup_uri_show_all": "Alle anzeigen",
+  "txt_cleanup_uri_no_issues": "Keine nicht erreichbaren Links gefunden.",
+  "txt_cleanup_move_to_trash": "In den Papierkorb verschieben ({count})",
+  "txt_cleanup_clear_selection": "Auswahl aufheben",
+  "txt_cleanup_confirm_title": "Einträge in den Papierkorb verschieben?",
+  "txt_cleanup_confirm_message": "{count} Einträge werden in den Papierkorb verschoben. Sie können sie später dort wiederherstellen.",
+  "txt_cleanup_moved_to_trash": "{count} Einträge in den Papierkorb verschoben",
+  "txt_cleanup_move_failed": "Einträge konnten nicht in den Papierkorb verschoben werden.",
+  "txt_cleanup_badge_duplicate": "Duplikat",
+  "txt_cleanup_uri_ok": "Erreichbar",
+  "txt_cleanup_uri_unreachable_short": "Nicht erreichbar",
+  "txt_cleanup_uri_unknown_short": "Nicht überprüfbar",
+  "txt_cleanup_item_no_uri": "Kein Link",
+  "txt_cleanup_created": "Erstellt {value}",
+  "txt_cleanup_updated": "Aktualisiert {value}"
+});
+
 export default de;

@@ -1468,4 +1468,42 @@ Object.assign(fr, { "txt_password_security_show_all": "Tout afficher", "txt_pass
 
 Object.assign(fr, { "nav_config_files": "Fichiers de configuration" });
 
+Object.assign(fr, {
+  "nav_vault_cleanup": "Nettoyage du coffre",
+  "txt_vault_cleanup": "Nettoyage du coffre",
+  "txt_vault_cleanup_privacy": "Toute l'analyse s'exécute localement dans votre navigateur. Vérifiez les éléments signalés et déplacez ceux dont vous n'avez plus besoin vers la corbeille.",
+  "txt_cleanup_domain_section": "Plusieurs comptes sous le même domaine",
+  "txt_cleanup_domain_summary": "{groups} domaines · {count} éléments",
+  "txt_cleanup_domain_help": "Les éléments sont regroupés par domaine principal (les sous-domaines et www sont considérés comme le même site). Seuls les groupes de deux éléments ou plus sont listés ; cochez les entrées dont vous n'avez plus besoin.",
+  "txt_cleanup_domain_empty": "Aucun groupe de domaine avec plusieurs éléments.",
+  "txt_cleanup_select_group": "Tout sélectionner dans le groupe",
+  "txt_cleanup_select_older_duplicates": "Sélectionner les doublons anciens",
+  "txt_cleanup_uri_section": "Liens inaccessibles",
+  "txt_cleanup_uri_summary": "{count} éléments avec des liens",
+  "txt_cleanup_uri_help": "La vérification est effectuée depuis votre navigateur et reste indicative. Les éléments non vérifiables peuvent encore fonctionner ; confirmez-les avant de supprimer.",
+  "txt_cleanup_uri_start": "Vérifier les liens",
+  "txt_cleanup_uri_recheck": "Vérifier à nouveau",
+  "txt_cleanup_uri_stop": "Arrêter",
+  "txt_cleanup_probe_progress": "Vérification {checked} / {total}",
+  "txt_cleanup_uri_checked": "Vérifiés : {count}",
+  "txt_cleanup_uri_unreachable": "Inaccessibles : {count}",
+  "txt_cleanup_uri_unknown": "Invérifiables : {count}",
+  "txt_cleanup_uri_all_issues": "Anomalies uniquement",
+  "txt_cleanup_uri_show_all": "Tout afficher",
+  "txt_cleanup_uri_no_issues": "Aucun lien inaccessible trouvé.",
+  "txt_cleanup_move_to_trash": "Déplacer vers la corbeille ({count})",
+  "txt_cleanup_clear_selection": "Effacer la sélection",
+  "txt_cleanup_confirm_title": "Déplacer vers la corbeille ?",
+  "txt_cleanup_confirm_message": "{count} éléments seront déplacés vers la corbeille. Vous pourrez les restaurer plus tard.",
+  "txt_cleanup_moved_to_trash": "{count} éléments déplacés vers la corbeille",
+  "txt_cleanup_move_failed": "Échec du déplacement vers la corbeille.",
+  "txt_cleanup_badge_duplicate": "Doublon",
+  "txt_cleanup_uri_ok": "Accessible",
+  "txt_cleanup_uri_unreachable_short": "Inaccessible",
+  "txt_cleanup_uri_unknown_short": "Invérifiable",
+  "txt_cleanup_item_no_uri": "Aucun lien",
+  "txt_cleanup_created": "Créé le {value}",
+  "txt_cleanup_updated": "Mis à jour le {value}"
+});
+
 export default fr;

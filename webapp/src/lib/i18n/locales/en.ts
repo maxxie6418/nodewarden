@@ -1547,4 +1547,42 @@ Object.assign(en, {
   "txt_password_security_check_failed": "The breach check could not be completed."
 });
 
+Object.assign(en, {
+  "nav_vault_cleanup": "Vault Cleanup",
+  "txt_vault_cleanup": "Vault Cleanup",
+  "txt_vault_cleanup_privacy": "All analysis runs locally in your browser. Review the flagged items and move the ones you no longer need to the trash.",
+  "txt_cleanup_domain_section": "Multiple accounts under the same domain",
+  "txt_cleanup_domain_summary": "{groups} domains · {count} items",
+  "txt_cleanup_domain_help": "Items are grouped by main domain (subdomains and www are treated as the same site). Only groups with two or more items are listed; check the entries you no longer need.",
+  "txt_cleanup_domain_empty": "No domain groups with multiple items.",
+  "txt_cleanup_select_group": "Select all in group",
+  "txt_cleanup_select_older_duplicates": "Select older duplicates",
+  "txt_cleanup_uri_section": "Unreachable links",
+  "txt_cleanup_uri_summary": "{count} items with links",
+  "txt_cleanup_uri_help": "Checks are run from your browser and are indicative only. Items whose links cannot be verified may still work; review them before deleting.",
+  "txt_cleanup_uri_start": "Check links",
+  "txt_cleanup_uri_recheck": "Check again",
+  "txt_cleanup_uri_stop": "Stop",
+  "txt_cleanup_probe_progress": "Checking {checked} / {total}",
+  "txt_cleanup_uri_checked": "Checked: {count}",
+  "txt_cleanup_uri_unreachable": "Unreachable: {count}",
+  "txt_cleanup_uri_unknown": "Unverifiable: {count}",
+  "txt_cleanup_uri_all_issues": "Issues only",
+  "txt_cleanup_uri_show_all": "Show all",
+  "txt_cleanup_uri_no_issues": "No unreachable links found.",
+  "txt_cleanup_move_to_trash": "Move to trash ({count})",
+  "txt_cleanup_clear_selection": "Clear selection",
+  "txt_cleanup_confirm_title": "Move items to trash?",
+  "txt_cleanup_confirm_message": "{count} items will be moved to the trash. You can restore them from the trash later.",
+  "txt_cleanup_moved_to_trash": "Moved {count} items to the trash",
+  "txt_cleanup_move_failed": "Failed to move items to the trash.",
+  "txt_cleanup_badge_duplicate": "Duplicate",
+  "txt_cleanup_uri_ok": "Reachable",
+  "txt_cleanup_uri_unreachable_short": "Unreachable",
+  "txt_cleanup_uri_unknown_short": "Unverifiable",
+  "txt_cleanup_item_no_uri": "No link",
+  "txt_cleanup_created": "Created {value}",
+  "txt_cleanup_updated": "Updated {value}"
+});
+
 export default en;

@@ -1468,4 +1468,42 @@ Object.assign(fi, { "txt_password_security_show_all": "Show all", "txt_password_
 
 Object.assign(fi, { "nav_config_files": "Asetustiedostot" });
 
+Object.assign(fi, {
+  "nav_vault_cleanup": "Holvien siivous",
+  "txt_vault_cleanup": "Holvien siivous",
+  "txt_vault_cleanup_privacy": "Koko analyysi suoritetaan paikallisesti selaimessasi. Tarkista merkityt kohteet ja siirrä tarpeettomat roskakoriin.",
+  "txt_cleanup_domain_section": "Useita tilejä samalla verkkotunnuksella",
+  "txt_cleanup_domain_summary": "{groups} verkkotunnusta · {count} kohdetta",
+  "txt_cleanup_domain_help": "Kohteet ryhmitellään pääverkkotunnuksen mukaan (ali- ja www-verkkotunnukset katsotaan samaksi sivustoksi). Vain ryhmät, joissa on vähintään kaksi kohdetta, näytetään; valitse tarpeettomat kohteet.",
+  "txt_cleanup_domain_empty": "Ei verkkotunnuksia, joilla on useita kohteita.",
+  "txt_cleanup_select_group": "Valitse koko ryhmä",
+  "txt_cleanup_select_older_duplicates": "Valitse vanhemmat kaksoiskappaleet",
+  "txt_cleanup_uri_section": "Tavoittamattomat linkit",
+  "txt_cleanup_uri_summary": "{count} kohdetta linkeillä",
+  "txt_cleanup_uri_help": "Tarkistus tehdään selaimesta ja on vain suuntaa-antava. Kohteet, joita ei voitu varmistaa, voivat yhä toimia; vahvista ne ennen poistamista.",
+  "txt_cleanup_uri_start": "Tarkista linkit",
+  "txt_cleanup_uri_recheck": "Tarkista uudelleen",
+  "txt_cleanup_uri_stop": "Pysäytä",
+  "txt_cleanup_probe_progress": "Tarkistus {checked} / {total}",
+  "txt_cleanup_uri_checked": "Tarkistettu: {count}",
+  "txt_cleanup_uri_unreachable": "Tavoittamattomia: {count}",
+  "txt_cleanup_uri_unknown": "Varmistamattomia: {count}",
+  "txt_cleanup_uri_all_issues": "Vain ongelmat",
+  "txt_cleanup_uri_show_all": "Näytä kaikki",
+  "txt_cleanup_uri_no_issues": "Tavoittamattomia linkkejä ei löytynyt.",
+  "txt_cleanup_move_to_trash": "Siirrä roskakoriin ({count})",
+  "txt_cleanup_clear_selection": "Tyhjennä valinta",
+  "txt_cleanup_confirm_title": "Siirretäänkö roskakoriin?",
+  "txt_cleanup_confirm_message": "{count} kohdetta siirretään roskakoriin. Voit palauttaa ne myöhemmin.",
+  "txt_cleanup_moved_to_trash": "{count} kohdetta siirretty roskakoriin",
+  "txt_cleanup_move_failed": "Kohteiden siirtäminen roskakoriin epäonnistui.",
+  "txt_cleanup_badge_duplicate": "Kaksoiskappale",
+  "txt_cleanup_uri_ok": "Saavutettavissa",
+  "txt_cleanup_uri_unreachable_short": "Tavoittamaton",
+  "txt_cleanup_uri_unknown_short": "Varmistamaton",
+  "txt_cleanup_item_no_uri": "Ei linkkiä",
+  "txt_cleanup_created": "Luotu {value}",
+  "txt_cleanup_updated": "Päivitetty {value}"
+});
+
 export default fi;

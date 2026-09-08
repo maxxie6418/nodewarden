@@ -1468,4 +1468,42 @@ Object.assign(it, { "txt_password_security_show_all": "Show all", "txt_password_
 
 Object.assign(it, { "nav_config_files": "File di configurazione" });
 
+Object.assign(it, {
+  "nav_vault_cleanup": "Pulizia della cassaforte",
+  "txt_vault_cleanup": "Pulizia della cassaforte",
+  "txt_vault_cleanup_privacy": "Tutte le analisi vengono eseguite localmente nel browser. Esamina le voci segnalate e sposta nel cestino quelle non più necessarie.",
+  "txt_cleanup_domain_section": "Più account sotto lo stesso dominio",
+  "txt_cleanup_domain_summary": "{groups} domini · {count} voci",
+  "txt_cleanup_domain_help": "Le voci sono raggruppate per dominio principale (sottodomini e www sono considerati lo stesso sito). Vengono elencati solo i gruppi con due o più voci; seleziona le voci non più necessarie.",
+  "txt_cleanup_domain_empty": "Nessun gruppo di domini con più voci.",
+  "txt_cleanup_select_group": "Seleziona tutto il gruppo",
+  "txt_cleanup_select_older_duplicates": "Seleziona i duplicati più vecchi",
+  "txt_cleanup_uri_section": "Collegamenti non raggiungibili",
+  "txt_cleanup_uri_summary": "{count} voci con collegamenti",
+  "txt_cleanup_uri_help": "La verifica viene eseguita dal browser ed è solo indicativa. Le voci non verificabili potrebbero ancora funzionare; confermale prima di eliminarle.",
+  "txt_cleanup_uri_start": "Verifica collegamenti",
+  "txt_cleanup_uri_recheck": "Verifica di nuovo",
+  "txt_cleanup_uri_stop": "Interrompi",
+  "txt_cleanup_probe_progress": "Verifica {checked} / {total}",
+  "txt_cleanup_uri_checked": "Verificati: {count}",
+  "txt_cleanup_uri_unreachable": "Non raggiungibili: {count}",
+  "txt_cleanup_uri_unknown": "Non verificabili: {count}",
+  "txt_cleanup_uri_all_issues": "Solo problemi",
+  "txt_cleanup_uri_show_all": "Mostra tutto",
+  "txt_cleanup_uri_no_issues": "Nessun collegamento non raggiungibile trovato.",
+  "txt_cleanup_move_to_trash": "Sposta nel cestino ({count})",
+  "txt_cleanup_clear_selection": "Cancella selezione",
+  "txt_cleanup_confirm_title": "Spostare nel cestino?",
+  "txt_cleanup_confirm_message": "{count} voci verranno spostate nel cestino. Potrai ripristinarle in seguito.",
+  "txt_cleanup_moved_to_trash": "{count} voci spostate nel cestino",
+  "txt_cleanup_move_failed": "Impossibile spostare le voci nel cestino.",
+  "txt_cleanup_badge_duplicate": "Duplicato",
+  "txt_cleanup_uri_ok": "Raggiungibile",
+  "txt_cleanup_uri_unreachable_short": "Non raggiungibile",
+  "txt_cleanup_uri_unknown_short": "Non verificabile",
+  "txt_cleanup_item_no_uri": "Nessun collegamento",
+  "txt_cleanup_created": "Creato il {value}",
+  "txt_cleanup_updated": "Aggiornato il {value}"
+});
+
 export default it;

@@ -1468,4 +1468,42 @@ Object.assign(sv, { "txt_password_security_show_all": "Show all", "txt_password_
 
 Object.assign(sv, { "nav_config_files": "Konfigurationsfiler" });
 
+Object.assign(sv, {
+  "nav_vault_cleanup": "Städning av valvet",
+  "txt_vault_cleanup": "Städning av valvet",
+  "txt_vault_cleanup_privacy": "All analys körs lokalt i din webbläsare. Granska de markerade posterna och flytta de du inte längre behöver till papperskorgen.",
+  "txt_cleanup_domain_section": "Flera konton under samma domän",
+  "txt_cleanup_domain_summary": "{groups} domäner · {count} poster",
+  "txt_cleanup_domain_help": "Posterna grupperas efter huvuddomän (underdomäner och www räknas som samma webbplats). Endast grupper med två eller fler poster visas; markera poster du inte längre behöver.",
+  "txt_cleanup_domain_empty": "Inga domäner med flera poster.",
+  "txt_cleanup_select_group": "Markera hela gruppen",
+  "txt_cleanup_select_older_duplicates": "Markera äldre dubbletter",
+  "txt_cleanup_uri_section": "Onåbara länkar",
+  "txt_cleanup_uri_summary": "{count} poster med länkar",
+  "txt_cleanup_uri_help": "Kontrollen görs från din webbläsare och är endast vägledande. Poster som inte kan verifieras kan fortfarande fungera; bekräfta dem innan du tar bort dem.",
+  "txt_cleanup_uri_start": "Kontrollera länkar",
+  "txt_cleanup_uri_recheck": "Kontrollera igen",
+  "txt_cleanup_uri_stop": "Stoppa",
+  "txt_cleanup_probe_progress": "Kontrollerar {checked} / {total}",
+  "txt_cleanup_uri_checked": "Kontrollerade: {count}",
+  "txt_cleanup_uri_unreachable": "Onåbara: {count}",
+  "txt_cleanup_uri_unknown": "Ej verifierbara: {count}",
+  "txt_cleanup_uri_all_issues": "Endast problem",
+  "txt_cleanup_uri_show_all": "Visa alla",
+  "txt_cleanup_uri_no_issues": "Inga onåbara länkar hittades.",
+  "txt_cleanup_move_to_trash": "Flytta till papperskorgen ({count})",
+  "txt_cleanup_clear_selection": "Rensa markering",
+  "txt_cleanup_confirm_title": "Flytta till papperskorgen?",
+  "txt_cleanup_confirm_message": "{count} poster flyttas till papperskorgen. Du kan återställa dem senare.",
+  "txt_cleanup_moved_to_trash": "Flyttade {count} poster till papperskorgen",
+  "txt_cleanup_move_failed": "Kunde inte flytta posterna till papperskorgen.",
+  "txt_cleanup_badge_duplicate": "Dubblett",
+  "txt_cleanup_uri_ok": "Nåbar",
+  "txt_cleanup_uri_unreachable_short": "Onåbar",
+  "txt_cleanup_uri_unknown_short": "Ej verifierbar",
+  "txt_cleanup_item_no_uri": "Ingen länk",
+  "txt_cleanup_created": "Skapad {value}",
+  "txt_cleanup_updated": "Uppdaterad {value}"
+});
+
 export default sv;

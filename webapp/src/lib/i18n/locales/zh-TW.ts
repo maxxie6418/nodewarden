@@ -1498,4 +1498,42 @@ Object.assign(zhTW, {
 
 Object.assign(zhTW, { "nav_config_files": "設定檔" });
 
+Object.assign(zhTW, {
+  "nav_vault_cleanup": "沉澱清理",
+  "txt_vault_cleanup": "沉澱清理",
+  "txt_vault_cleanup_privacy": "所有分析均在本地瀏覽器中完成。請確認標記出的條目，把不再需要的移動到回收站。",
+  "txt_cleanup_domain_section": "同網域下的多個帳號",
+  "txt_cleanup_domain_summary": "{groups} 個網域 · {count} 條",
+  "txt_cleanup_domain_help": "按主網域分組（子網域與 www 視為同一站台），僅列出含 2 條及以上的分組，勾選不再需要的條目。",
+  "txt_cleanup_domain_empty": "沒有包含多個條目的網域分組。",
+  "txt_cleanup_select_group": "全選本組",
+  "txt_cleanup_select_older_duplicates": "選中重複中的舊條目",
+  "txt_cleanup_uri_section": "無法存取的連結",
+  "txt_cleanup_uri_summary": "共 {count} 條含連結",
+  "txt_cleanup_uri_help": "檢測由瀏覽器發起，結果僅供參考。標記為無法驗證的條目可能仍然有效，刪除前請先人工確認。",
+  "txt_cleanup_uri_start": "開始檢測",
+  "txt_cleanup_uri_recheck": "重新檢測",
+  "txt_cleanup_uri_stop": "停止",
+  "txt_cleanup_probe_progress": "檢測中 {checked} / {total}",
+  "txt_cleanup_uri_checked": "已檢測：{count}",
+  "txt_cleanup_uri_unreachable": "無法存取：{count}",
+  "txt_cleanup_uri_unknown": "無法驗證：{count}",
+  "txt_cleanup_uri_all_issues": "僅看異常",
+  "txt_cleanup_uri_show_all": "顯示全部",
+  "txt_cleanup_uri_no_issues": "未發現無法存取的連結。",
+  "txt_cleanup_move_to_trash": "移入回收站（{count}）",
+  "txt_cleanup_clear_selection": "取消選擇",
+  "txt_cleanup_confirm_title": "確認移入回收站？",
+  "txt_cleanup_confirm_message": "將把 {count} 個條目移入回收站，之後可在回收站中還原。",
+  "txt_cleanup_moved_to_trash": "已將 {count} 個條目移入回收站",
+  "txt_cleanup_move_failed": "移入回收站失敗。",
+  "txt_cleanup_badge_duplicate": "重複",
+  "txt_cleanup_uri_ok": "可存取",
+  "txt_cleanup_uri_unreachable_short": "無法存取",
+  "txt_cleanup_uri_unknown_short": "無法驗證",
+  "txt_cleanup_item_no_uri": "無連結",
+  "txt_cleanup_created": "建立於 {value}",
+  "txt_cleanup_updated": "更新於 {value}"
+});
+
 export default zhTW;

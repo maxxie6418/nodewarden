@@ -1468,4 +1468,42 @@ Object.assign(es, { "txt_password_security_show_all": "Show all", "txt_password_
 
 Object.assign(es, { "nav_config_files": "Archivos de configuración" });
 
+Object.assign(es, {
+  "nav_vault_cleanup": "Limpieza de la bóveda",
+  "txt_vault_cleanup": "Limpieza de la bóveda",
+  "txt_vault_cleanup_privacy": "Todo el análisis se ejecuta localmente en su navegador. Revise los elementos marcados y mueva a la papelera los que ya no necesite.",
+  "txt_cleanup_domain_section": "Varias cuentas bajo el mismo dominio",
+  "txt_cleanup_domain_summary": "{groups} dominios · {count} elementos",
+  "txt_cleanup_domain_help": "Los elementos se agrupan por dominio principal (los subdominios y www se consideran el mismo sitio). Solo se muestran grupos con dos o más elementos; marque las entradas que ya no necesite.",
+  "txt_cleanup_domain_empty": "No hay grupos de dominios con varios elementos.",
+  "txt_cleanup_select_group": "Seleccionar todo el grupo",
+  "txt_cleanup_select_older_duplicates": "Seleccionar duplicados antiguos",
+  "txt_cleanup_uri_section": "Enlaces inaccesibles",
+  "txt_cleanup_uri_summary": "{count} elementos con enlaces",
+  "txt_cleanup_uri_help": "La comprobación se realiza desde su navegador y es solo orientativa. Los elementos no verificables pueden seguir funcionando; confírmelos antes de eliminarlos.",
+  "txt_cleanup_uri_start": "Comprobar enlaces",
+  "txt_cleanup_uri_recheck": "Comprobar de nuevo",
+  "txt_cleanup_uri_stop": "Detener",
+  "txt_cleanup_probe_progress": "Comprobando {checked} / {total}",
+  "txt_cleanup_uri_checked": "Comprobados: {count}",
+  "txt_cleanup_uri_unreachable": "Inaccesibles: {count}",
+  "txt_cleanup_uri_unknown": "No verificables: {count}",
+  "txt_cleanup_uri_all_issues": "Solo incidencias",
+  "txt_cleanup_uri_show_all": "Mostrar todo",
+  "txt_cleanup_uri_no_issues": "No se encontraron enlaces inaccesibles.",
+  "txt_cleanup_move_to_trash": "Mover a la papelera ({count})",
+  "txt_cleanup_clear_selection": "Quitar selección",
+  "txt_cleanup_confirm_title": "¿Mover a la papelera?",
+  "txt_cleanup_confirm_message": "{count} elementos se moverán a la papelera. Podrá restaurarlos más tarde.",
+  "txt_cleanup_moved_to_trash": "{count} elementos movidos a la papelera",
+  "txt_cleanup_move_failed": "No se pudieron mover los elementos a la papelera.",
+  "txt_cleanup_badge_duplicate": "Duplicado",
+  "txt_cleanup_uri_ok": "Accesible",
+  "txt_cleanup_uri_unreachable_short": "Inaccesible",
+  "txt_cleanup_uri_unknown_short": "No verificable",
+  "txt_cleanup_item_no_uri": "Sin enlace",
+  "txt_cleanup_created": "Creado {value}",
+  "txt_cleanup_updated": "Actualizado {value}"
+});
+
 export default es;

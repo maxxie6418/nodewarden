@@ -1468,4 +1468,42 @@ Object.assign(ru, { "txt_password_security_show_all": "Show all", "txt_password_
 
 Object.assign(ru, { "nav_config_files": "Файлы конфигурации" });
 
+Object.assign(ru, {
+  "nav_vault_cleanup": "Очистка хранилища",
+  "txt_vault_cleanup": "Очистка хранилища",
+  "txt_vault_cleanup_privacy": "Весь анализ выполняется локально в вашем браузере. Проверьте отмеченные записи и переместите ненужные в корзину.",
+  "txt_cleanup_domain_section": "Несколько учётных записей на одном домене",
+  "txt_cleanup_domain_summary": "{groups} доменов · {count} записей",
+  "txt_cleanup_domain_help": "Записи группируются по основному домену (поддомены и www считаются одним сайтом). Показываются только группы из двух и более записей; отметьте ненужные записи.",
+  "txt_cleanup_domain_empty": "Нет доменов с несколькими записями.",
+  "txt_cleanup_select_group": "Выбрать всю группу",
+  "txt_cleanup_select_older_duplicates": "Выбрать старые дубликаты",
+  "txt_cleanup_uri_section": "Недоступные ссылки",
+  "txt_cleanup_uri_summary": "Записей со ссылками: {count}",
+  "txt_cleanup_uri_help": "Проверка выполняется из браузера и носит ориентировочный характер. Записи, которые не удалось проверить, могут ещё работать; подтвердите их перед удалением.",
+  "txt_cleanup_uri_start": "Проверить ссылки",
+  "txt_cleanup_uri_recheck": "Проверить снова",
+  "txt_cleanup_uri_stop": "Остановить",
+  "txt_cleanup_probe_progress": "Проверка {checked} / {total}",
+  "txt_cleanup_uri_checked": "Проверено: {count}",
+  "txt_cleanup_uri_unreachable": "Недоступно: {count}",
+  "txt_cleanup_uri_unknown": "Непроверяемо: {count}",
+  "txt_cleanup_uri_all_issues": "Только проблемы",
+  "txt_cleanup_uri_show_all": "Показать все",
+  "txt_cleanup_uri_no_issues": "Недоступных ссылок не найдено.",
+  "txt_cleanup_move_to_trash": "Переместить в корзину ({count})",
+  "txt_cleanup_clear_selection": "Снять выделение",
+  "txt_cleanup_confirm_title": "Переместить в корзину?",
+  "txt_cleanup_confirm_message": "{count} записей будут перемещены в корзину. Позже их можно будет восстановить.",
+  "txt_cleanup_moved_to_trash": "Перемещено в корзину: {count}",
+  "txt_cleanup_move_failed": "Не удалось переместить записи в корзину.",
+  "txt_cleanup_badge_duplicate": "Дубликат",
+  "txt_cleanup_uri_ok": "Доступно",
+  "txt_cleanup_uri_unreachable_short": "Недоступно",
+  "txt_cleanup_uri_unknown_short": "Непроверяемо",
+  "txt_cleanup_item_no_uri": "Нет ссылки",
+  "txt_cleanup_created": "Создано {value}",
+  "txt_cleanup_updated": "Обновлено {value}"
+});
+
 export default ru;
