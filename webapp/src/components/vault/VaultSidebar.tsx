@@ -37,6 +37,8 @@ interface VaultSidebarProps {
   folderSortMode: VaultSortMode;
   folderSortMenuOpen: boolean;
   folderSortMenuRef: RefObject<HTMLDivElement>;
+  /** When true the "Type" section is hidden (used by single-type views such as Config Files). */
+  hideTypeSection?: boolean;
   onCloseMobileSidebar: () => void;
   onChangeFilter: (filter: SidebarFilter) => void;
   onOpenDeleteAllFolders: () => void;
@@ -117,8 +119,9 @@ export default function VaultSidebar(props: VaultSidebarProps) {
         </button>
       </div>
 
-      <div className="sidebar-block">
-        <div className="sidebar-title">{t('txt_type')}</div>
+      {!props.hideTypeSection && (
+        <div className="sidebar-block">
+          <div className="sidebar-title">{t('txt_type')}</div>
         <button type="button" className={`tree-btn ${props.sidebarFilter.kind === 'type' && props.sidebarFilter.value === 'login' ? 'active' : ''}`} onClick={() => props.onChangeFilter({ kind: 'type', value: 'login' })}>
           <Globe size={14} className="tree-icon" /> <span className="tree-label">{t('txt_login')}</span>
         </button>
@@ -143,7 +146,8 @@ export default function VaultSidebar(props: VaultSidebarProps) {
         <button type="button" className={`tree-btn ${props.sidebarFilter.kind === 'type' && props.sidebarFilter.value === 'ssh' ? 'active' : ''}`} onClick={() => props.onChangeFilter({ kind: 'type', value: 'ssh' })}>
           <KeyRound size={14} className="tree-icon" /> <span className="tree-label">{t('txt_ssh_key')}</span>
         </button>
-      </div>
+        </div>
+      )}
 
       <div className="sidebar-block">
         <div className="sidebar-title-row">

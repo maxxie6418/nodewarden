@@ -97,6 +97,8 @@ interface VaultListPanelProps {
   listSubtitle: (cipher: Cipher) => string;
   /** Overrides the "new item" type menu. Defaults to all standard vault types. */
   createTypeOptions?: TypeOption[];
+  /** Hides the mobile "Type" filter menu (used by single-type views such as Config Files). */
+  hideTypeFilter?: boolean;
 }
 
 interface CipherListItemProps {
@@ -407,7 +409,7 @@ export default function VaultListPanel(props: VaultListPanelProps) {
         {props.isMobileLayout && (
           <div className="mobile-vault-filter-row" aria-label={t('txt_filter')}>
             {renderMobileFilterMenu('menu', t('txt_menu'), menuFilterSelected, <LayoutGrid size={14} />, menuFilterOptions)}
-            {renderMobileFilterMenu('type', t('txt_type'), typeFilterSelected, <Globe size={14} />, typeMobileFilterOptions)}
+            {!props.hideTypeFilter && renderMobileFilterMenu('type', t('txt_type'), typeFilterSelected, <Globe size={14} />, typeMobileFilterOptions)}
             {renderMobileFilterMenu('folder', t('txt_folder'), folderFilterSelected, <FolderIcon size={14} />, folderMobileFilterOptions)}
           </div>
         )}

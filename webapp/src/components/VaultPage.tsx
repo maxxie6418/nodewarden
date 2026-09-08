@@ -75,6 +75,8 @@ interface VaultPageProps {
   lockedSidebarFilter?: SidebarFilter;
   /** Overrides the "new item" type menu options (used by the Config Files view). */
   createTypeOptions?: TypeOption[];
+  /** Hides the sidebar "Type" section (used by single-type views such as Config Files). */
+  hideTypeSection?: boolean;
 }
 
 
@@ -1241,6 +1243,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
           onOpenDeleteFolder={setPendingDeleteFolder}
           onToggleFolderSortMenu={handleToggleFolderSortMenu}
           onSelectFolderSortMode={handleSelectFolderSortMode}
+          hideTypeSection={props.hideTypeSection}
         />
 
         <VaultListPanel
@@ -1284,6 +1287,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
           onStartCreate={startCreate}
           onBulkRestore={handleBulkRestore}
           createTypeOptions={props.createTypeOptions}
+          hideTypeFilter={props.hideTypeSection}
           onBulkArchive={handleBulkArchive}
           onBulkUnarchive={handleBulkUnarchive}
           onOpenMove={handleOpenMove}

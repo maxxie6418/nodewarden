@@ -77,6 +77,7 @@ export default function ConfigFilesPage(props: ConfigFilesPageProps) {
       defaultCreateType={CONFIG_FILE_CIPHER_TYPE}
       lockedSidebarFilter={{ kind: 'all' }}
       createTypeOptions={[{ type: CONFIG_FILE_CIPHER_TYPE, label: configFileTypeLabel() }]}
+      hideTypeSection
     />
   );
 }
