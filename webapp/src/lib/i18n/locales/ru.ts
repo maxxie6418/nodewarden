@@ -1580,7 +1580,15 @@ Object.assign(ru, {
   "txt_cleanup_expand_group": "Развернуть группу",
   "txt_cleanup_collapse_group": "Свернуть группу",
   "txt_cleanup_open_link": "Открыть ссылку",
-  "txt_cleanup_uri_pagination": "Пагинация"
+  "txt_cleanup_uri_pagination": "Пагинация",
+  "txt_cleanup_uri_help": "Проверка выполняется в вашем браузере; ссылки http повторно проверяются по https. Результаты ориентировочны. Элементы, отмеченные как непроверяемые или требующие входа, могут работать — проверьте их перед удалением.",
+  "txt_cleanup_uri_ok_count": "Доступно: {count}",
+  "txt_cleanup_uri_restricted_short": "Требуется вход",
+  "txt_cleanup_uri_restricted_count": "Требуется вход: {count}",
+  "txt_cleanup_uri_gone_short": "Не найдено",
+  "txt_cleanup_uri_gone_count": "Не найдено: {count}",
+  "txt_cleanup_uri_server_error_short": "Ошибка сервера",
+  "txt_cleanup_uri_server_error_count": "Ошибки сервера: {count}"
 });
 
 export default ru;

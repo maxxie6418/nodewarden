@@ -27,6 +27,19 @@ type CleanupMode = 'domains' | 'accounts' | 'links';
 
 const LINK_PAGE_SIZE = 20;
 
+const RESULT_META: ReadonlyArray<{ verdict: UriReachability; css: string; badgeKey: string; countKey: string }> = [
+  { verdict: 'ok', css: 'ok', badgeKey: 'txt_cleanup_uri_ok', countKey: 'txt_cleanup_uri_ok_count' },
+  { verdict: 'restricted', css: 'warn', badgeKey: 'txt_cleanup_uri_restricted_short', countKey: 'txt_cleanup_uri_restricted_count' },
+  { verdict: 'gone', css: 'danger', badgeKey: 'txt_cleanup_uri_gone_short', countKey: 'txt_cleanup_uri_gone_count' },
+  { verdict: 'server_error', css: 'warn', badgeKey: 'txt_cleanup_uri_server_error_short', countKey: 'txt_cleanup_uri_server_error_count' },
+  { verdict: 'unreachable', css: 'danger', badgeKey: 'txt_cleanup_uri_unreachable_short', countKey: 'txt_cleanup_uri_unreachable' },
+  { verdict: 'unknown', css: 'muted', badgeKey: 'txt_cleanup_uri_unknown_short', countKey: 'txt_cleanup_uri_unknown' },
+];
+
+function isLinkIssue(result: UriReachability | undefined): boolean {
+  return !!result && (result === 'gone' || result === 'server_error' || result === 'unreachable' || result === 'unknown');
+}
+
 function duplicateKeyOf(candidate: CleanupCandidate): string {
   return `${candidate.username.toLowerCase()}\u0000${candidate.password}`;
 }
@@ -168,18 +181,15 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
 
   const checkedSummary = useMemo(() => {
     const results = Object.values(rowResults);
-    const unreachable = results.filter((r) => r === 'unreachable').length;
-    const unknown = results.filter((r) => r === 'unknown').length;
-    return { checked: results.length, unreachable, unknown };
+    const counts: Record<UriReachability, number> = { ok: 0, restricted: 0, gone: 0, server_error: 0, unreachable: 0, unknown: 0 };
+    for (const result of results) counts[result] += 1;
+    return { checked: results.length, ...counts };
   }, [rowResults]);
 
   const visibleIssueRows = useMemo(() => {
     if (!linkRows) return [];
     if (uriFilter === 'all') return visibleRows;
-    return visibleRows.filter((row) => {
-      const result = rowResults[rowKey(row)];
-      return result === 'unreachable' || result === 'unknown';
-    });
+    return visibleRows.filter((row) => isLinkIssue(rowResults[rowKey(row)]));
   }, [visibleRows, rowResults, uriFilter, rowKey]);
 
   const isLinkImported = linkRows !== null;
@@ -521,7 +531,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
             )}
 
             <div className="vault-cleanup-rows">
-              {visibleIssueRows.length === 0 && rowCount > 0 && (
+              {visibleIssueRows.length === 0 && rowCount > 0 && uriFilter === 'issues' && (
                 <div className="vault-cleanup-empty"><CheckCircle2 size={24} aria-hidden="true" /> <span>{t('txt_cleanup_uri_no_issues')}</span></div>
               )}
               {visibleIssueRows.map((row) => {
@@ -590,8 +600,11 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
             {checkedSummary.checked > 0 && !batchRunning && (
               <div className="vault-cleanup-probe-summary">
                 <span className="vault-cleanup-chip">{t('txt_cleanup_uri_checked', { count: checkedSummary.checked })}</span>
-                <span className="vault-cleanup-chip danger">{t('txt_cleanup_uri_unreachable', { count: checkedSummary.unreachable })}</span>
-                <span className="vault-cleanup-chip muted">{t('txt_cleanup_uri_unknown', { count: checkedSummary.unknown })}</span>
+                {RESULT_META.map(({ verdict, css, countKey }) =>
+                  checkedSummary[verdict] > 0 ? (
+                    <span key={verdict} className={`vault-cleanup-chip ${css}`}>{t(countKey, { count: checkedSummary[verdict] })}</span>
+                  ) : null
+                )}
                 <button
                   type="button"
                   className={`vault-cleanup-chip toggle ${uriFilter === 'issues' ? 'active' : ''}`}
@@ -685,19 +698,19 @@ function LinkRow(props: {
   onCheck: () => void;
 }) {
   const result = props.reachability;
-  const hasResult = result === 'ok' || result === 'unreachable' || result === 'unknown';
   const checking = props.checking;
+  const resultMeta = result ? RESULT_META.find((meta) => meta.verdict === result) : undefined;
   return (
     <label className={`vault-cleanup-row vault-cleanup-link-row ${props.selected ? 'selected' : ''}`}>
       <input type="checkbox" checked={props.selected} disabled={props.batchRunning} onChange={props.onToggle} />
       <span className="vault-cleanup-row-main">
         <span className="vault-cleanup-row-title">
           <strong>{props.row.name || t('txt_no_name')}</strong>
-          {hasResult && result === 'ok' && <span className="vault-cleanup-badge ok">{t('txt_cleanup_uri_ok')}</span>}
-          {hasResult && result === 'unreachable' && <span className="vault-cleanup-badge danger">{t('txt_cleanup_uri_unreachable_short')}</span>}
-          {hasResult && result === 'unknown' && <span className="vault-cleanup-badge muted">{t('txt_cleanup_uri_unknown_short')}</span>}
           {checking && <span className="vault-cleanup-badge muted">{t('txt_cleanup_uri_checking_one')}</span>}
-          {!checking && !hasResult && <span className="vault-cleanup-badge muted">{t('txt_cleanup_uri_pending')}</span>}
+          {!checking && resultMeta && (
+            <span className={`vault-cleanup-badge ${resultMeta.css}`}>{t(resultMeta.badgeKey)}</span>
+          )}
+          {!checking && !resultMeta && <span className="vault-cleanup-badge muted">{t('txt_cleanup_uri_pending')}</span>}
         </span>
         <span className="vault-cleanup-row-sub">
           <span className="vault-cleanup-row-uri" title={props.row.uri}>{props.row.uri}</span>

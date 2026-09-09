@@ -1580,7 +1580,15 @@ Object.assign(fr, {
   "txt_cleanup_expand_group": "Développer le groupe",
   "txt_cleanup_collapse_group": "Réduire le groupe",
   "txt_cleanup_open_link": "Ouvrir le lien",
-  "txt_cleanup_uri_pagination": "Pagination"
+  "txt_cleanup_uri_pagination": "Pagination",
+  "txt_cleanup_uri_help": "Les vérifications partent de votre navigateur ; les liens http simples sont réessayés en https. Les résultats ne sont qu'indicatifs. Les éléments marqués comme non vérifiables ou protégés par connexion peuvent toujours fonctionner, vérifiez avant de supprimer.",
+  "txt_cleanup_uri_ok_count": "Accessibles : {count}",
+  "txt_cleanup_uri_restricted_short": "Connexion requise",
+  "txt_cleanup_uri_restricted_count": "Connexion requise : {count}",
+  "txt_cleanup_uri_gone_short": "Introuvable",
+  "txt_cleanup_uri_gone_count": "Introuvables : {count}",
+  "txt_cleanup_uri_server_error_short": "Erreur serveur",
+  "txt_cleanup_uri_server_error_count": "Erreurs serveur : {count}"
 });
 
 export default fr;

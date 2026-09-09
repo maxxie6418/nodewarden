@@ -1580,7 +1580,15 @@ Object.assign(it, {
   "txt_cleanup_expand_group": "Espandi gruppo",
   "txt_cleanup_collapse_group": "Comprimi gruppo",
   "txt_cleanup_open_link": "Apri collegamento",
-  "txt_cleanup_uri_pagination": "Impaginazione"
+  "txt_cleanup_uri_pagination": "Impaginazione",
+  "txt_cleanup_uri_help": "I controlli partono dal tuo browser; i link http semplici vengono riprovati su https. I risultati sono solo indicativi. Gli elementi contrassegnati come non verificabili o protetti da login possono comunque funzionare; rivedili prima di eliminarli.",
+  "txt_cleanup_uri_ok_count": "Raggiungibili: {count}",
+  "txt_cleanup_uri_restricted_short": "Login richiesto",
+  "txt_cleanup_uri_restricted_count": "Login richiesto: {count}",
+  "txt_cleanup_uri_gone_short": "Non trovato",
+  "txt_cleanup_uri_gone_count": "Non trovati: {count}",
+  "txt_cleanup_uri_server_error_short": "Errore server",
+  "txt_cleanup_uri_server_error_count": "Errori server: {count}"
 });
 
 export default it;

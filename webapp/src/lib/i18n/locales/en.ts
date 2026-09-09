@@ -1659,7 +1659,15 @@ Object.assign(en, {
   "txt_cleanup_expand_group": "Expand group",
   "txt_cleanup_collapse_group": "Collapse group",
   "txt_cleanup_open_link": "Open link",
-  "txt_cleanup_uri_pagination": "Pagination"
+  "txt_cleanup_uri_pagination": "Pagination",
+  "txt_cleanup_uri_help": "Checks run from your browser; plain http links are retried over https. Results are indicative only. Items marked unverifiable or login-gated may still work, so review before deleting.",
+  "txt_cleanup_uri_ok_count": "Reachable: {count}",
+  "txt_cleanup_uri_restricted_short": "Login required",
+  "txt_cleanup_uri_restricted_count": "Login required: {count}",
+  "txt_cleanup_uri_gone_short": "Not found",
+  "txt_cleanup_uri_gone_count": "Not found: {count}",
+  "txt_cleanup_uri_server_error_short": "Server error",
+  "txt_cleanup_uri_server_error_count": "Server errors: {count}"
 });
 
 export default en;

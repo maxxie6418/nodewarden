@@ -1610,7 +1610,15 @@ Object.assign(zhCN, {
   "txt_cleanup_expand_group": "展开分组",
   "txt_cleanup_collapse_group": "收起分组",
   "txt_cleanup_open_link": "打开链接",
-  "txt_cleanup_uri_pagination": "分页"
+  "txt_cleanup_uri_pagination": "分页",
+  "txt_cleanup_uri_help": "检测由浏览器发起，纯 http 链接会改用 https 重试。结果仅供参考，标记为无法验证或需登录的条目可能仍然有效，删除前请先人工确认。",
+  "txt_cleanup_uri_ok_count": "可访问：{count}",
+  "txt_cleanup_uri_restricted_short": "需登录",
+  "txt_cleanup_uri_restricted_count": "需登录：{count}",
+  "txt_cleanup_uri_gone_short": "不存在",
+  "txt_cleanup_uri_gone_count": "不存在：{count}",
+  "txt_cleanup_uri_server_error_short": "服务端错误",
+  "txt_cleanup_uri_server_error_count": "服务端错误：{count}"
 });
 
 export default zhCN;

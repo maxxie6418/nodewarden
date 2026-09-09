@@ -1580,7 +1580,15 @@ Object.assign(sv, {
   "txt_cleanup_expand_group": "Expandera grupp",
   "txt_cleanup_collapse_group": "Fäll ihop grupp",
   "txt_cleanup_open_link": "Öppna länk",
-  "txt_cleanup_uri_pagination": "Paginering"
+  "txt_cleanup_uri_pagination": "Paginering",
+  "txt_cleanup_uri_help": "Kontroller körs från din webbläsare; rena http-länkar prövas om via https. Resultaten är bara vägledande. Objekt som markerats som overifierbara eller inloggningsskyddade kan fortfarande fungera – granska dem innan du raderar.",
+  "txt_cleanup_uri_ok_count": "Nåbara: {count}",
+  "txt_cleanup_uri_restricted_short": "Inloggning krävs",
+  "txt_cleanup_uri_restricted_count": "Inloggning krävs: {count}",
+  "txt_cleanup_uri_gone_short": "Hittades inte",
+  "txt_cleanup_uri_gone_count": "Hittades inte: {count}",
+  "txt_cleanup_uri_server_error_short": "Serverfel",
+  "txt_cleanup_uri_server_error_count": "Serverfel: {count}"
 });
 
 export default sv;

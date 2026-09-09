@@ -1580,7 +1580,15 @@ Object.assign(es, {
   "txt_cleanup_expand_group": "Expandir grupo",
   "txt_cleanup_collapse_group": "Contraer grupo",
   "txt_cleanup_open_link": "Abrir enlace",
-  "txt_cleanup_uri_pagination": "Paginación"
+  "txt_cleanup_uri_pagination": "Paginación",
+  "txt_cleanup_uri_help": "Las comprobaciones se ejecutan desde tu navegador; los enlaces http se reintentan por https. Los resultados son solo orientativos. Los elementos marcados como no verificables o con inicio de sesión pueden seguir funcionando; revísalos antes de eliminar.",
+  "txt_cleanup_uri_ok_count": "Accesibles: {count}",
+  "txt_cleanup_uri_restricted_short": "Requiere inicio de sesión",
+  "txt_cleanup_uri_restricted_count": "Requieren inicio de sesión: {count}",
+  "txt_cleanup_uri_gone_short": "No encontrado",
+  "txt_cleanup_uri_gone_count": "No encontrados: {count}",
+  "txt_cleanup_uri_server_error_short": "Error del servidor",
+  "txt_cleanup_uri_server_error_count": "Errores del servidor: {count}"
 });
 
 export default es;

@@ -1610,7 +1610,15 @@ Object.assign(zhTW, {
   "txt_cleanup_expand_group": "展開分組",
   "txt_cleanup_collapse_group": "收合分組",
   "txt_cleanup_open_link": "開啟連結",
-  "txt_cleanup_uri_pagination": "分頁"
+  "txt_cleanup_uri_pagination": "分頁",
+  "txt_cleanup_uri_help": "檢測由瀏覽器發起，純 http 連結會改用 https 重試。結果僅供參考，標記為無法驗證或需登入的條目可能仍然有效，刪除前請先人工確認。",
+  "txt_cleanup_uri_ok_count": "可存取：{count}",
+  "txt_cleanup_uri_restricted_short": "需登入",
+  "txt_cleanup_uri_restricted_count": "需登入：{count}",
+  "txt_cleanup_uri_gone_short": "不存在",
+  "txt_cleanup_uri_gone_count": "不存在：{count}",
+  "txt_cleanup_uri_server_error_short": "伺服器錯誤",
+  "txt_cleanup_uri_server_error_count": "伺服器錯誤：{count}"
 });
 
 export default zhTW;

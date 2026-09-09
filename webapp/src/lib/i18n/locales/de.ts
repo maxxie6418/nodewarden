@@ -1580,7 +1580,15 @@ Object.assign(de, {
   "txt_cleanup_expand_group": "Gruppe erweitern",
   "txt_cleanup_collapse_group": "Gruppe einklappen",
   "txt_cleanup_open_link": "Link öffnen",
-  "txt_cleanup_uri_pagination": "Seitennavigation"
+  "txt_cleanup_uri_pagination": "Seitennavigation",
+  "txt_cleanup_uri_help": "Die Prüfung läuft in Ihrem Browser; reine http-Links werden über https erneut versucht. Ergebnisse sind nur Richtwerte. Als unverifizierbar oder anmeldegeschützt markierte Einträge können weiterhin funktionieren – bitte vor dem Löschen prüfen.",
+  "txt_cleanup_uri_ok_count": "Erreichbar: {count}",
+  "txt_cleanup_uri_restricted_short": "Anmeldung nötig",
+  "txt_cleanup_uri_restricted_count": "Anmeldung nötig: {count}",
+  "txt_cleanup_uri_gone_short": "Nicht gefunden",
+  "txt_cleanup_uri_gone_count": "Nicht gefunden: {count}",
+  "txt_cleanup_uri_server_error_short": "Serverfehler",
+  "txt_cleanup_uri_server_error_count": "Serverfehler: {count}"
 });
 
 export default de;

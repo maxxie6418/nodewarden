@@ -1580,7 +1580,15 @@ Object.assign(fi, {
   "txt_cleanup_expand_group": "Laajenna ryhmä",
   "txt_cleanup_collapse_group": "Kutista ryhmä",
   "txt_cleanup_open_link": "Avaa linkki",
-  "txt_cleanup_uri_pagination": "Sivutus"
+  "txt_cleanup_uri_pagination": "Sivutus",
+  "txt_cleanup_uri_help": "Tarkistukset ajetaan selaimestasi; pelkät http-linkit yritetään uudelleen https-yhteydellä. Tulokset ovat vain suuntaa antavia. Kohteet, jotka on merkitty vahvistamattomiksi tai kirjautumisen taakse, voivat silti toimia – tarkista ennen poistamista.",
+  "txt_cleanup_uri_ok_count": "Saavutettavissa: {count}",
+  "txt_cleanup_uri_restricted_short": "Vaatii kirjautumisen",
+  "txt_cleanup_uri_restricted_count": "Vaatii kirjautumisen: {count}",
+  "txt_cleanup_uri_gone_short": "Ei löydy",
+  "txt_cleanup_uri_gone_count": "Ei löydy: {count}",
+  "txt_cleanup_uri_server_error_short": "Palvelinvirhe",
+  "txt_cleanup_uri_server_error_count": "Palvelinvirheitä: {count}"
 });
 
 export default fi;

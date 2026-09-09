@@ -6,7 +6,19 @@ const URI_PROBE_TIMEOUT_MS = 8_000;
 const URI_PROBE_MAX_CONCURRENT = 2;
 export const URI_PROBE_BATCH_SIZE = 8;
 
-export type UriReachability = 'ok' | 'unreachable' | 'unknown';
+// Reachability verdicts reported per link row.
+//  - ok: the resource responded and is usable (2xx/3xx).
+//  - restricted: the server responded but gates the content (401/403/405/407/408/429).
+//    The link is alive, but access requires auth or is rate limited.
+//  - gone: the resource is confirmed missing (404/410) or its name no longer resolves.
+//  - server_error: the server responded with an error status (5xx). The link exists
+//    but is currently broken.
+//  - unreachable: the resource could not be reached at all (network/DNS/TLS failure,
+//    connection refused or timed out, and no server answered).
+//  - unknown: no verdict could be produced (non-http(s) scheme, http target probed
+//    from an https page whose server rejects https upgrades, CORS-blocked check
+//    that also timed out, etc.). It may still be valid.
+export type UriReachability = 'ok' | 'restricted' | 'gone' | 'server_error' | 'unreachable' | 'unknown';
 
 export interface CleanupCandidate {
   cipherId: string;
@@ -46,6 +58,7 @@ export interface UriProbeResult {
   checked: number;
   unreachableCount: number;
   unknownCount: number;
+  deadCount: number;
 }
 
 export interface CleanupOverview {
@@ -230,17 +243,27 @@ export function buildUriProbeRows(ciphers: Cipher[]): UriProbeItem[] {
 }
 
 export function createUriProbeResult(total: number): UriProbeResult {
-  return { items: [], total, checked: 0, unreachableCount: 0, unknownCount: 0 };
+  return { items: [], total, checked: 0, unreachableCount: 0, unknownCount: 0, deadCount: 0 };
 }
 
 function isHttpUrl(uri: string): boolean {
   return /^https?:\/\//i.test(uri);
 }
 
-function reachableStatus(status: number): boolean {
-  // 2xx/3xx obviously fine; 401/403/407/408/429 mean the resource exists but
-  // the request was gated (login/rate-limit), so treat them as reachable.
-  return (status >= 200 && status < 400) || [401, 403, 405, 407, 408, 429].includes(status);
+/** Classify an HTTP status code into a verdict. */
+function verdictFromStatus(status: number): UriReachability {
+  if (status >= 200 && status < 400) return 'ok';
+  if (status === 401 || status === 403 || status === 405 || status === 407 || status === 408 || status === 429) {
+    return 'restricted';
+  }
+  if (status === 404 || status === 410) return 'gone';
+  if (status >= 500) return 'server_error';
+  return 'unknown';
+}
+
+/** Upgrade an http:// target to https:// so it can be probed from an https page. */
+function httpsUpgradeUri(uri: string): string | null {
+  return /^http:\/\//i.test(uri) ? `https://${uri.slice(7)}` : null;
 }
 
 export function probeUriReachability(uri: string, signal?: AbortSignal): Promise<UriReachability> {
@@ -269,39 +292,63 @@ export function probeUriReachability(uri: string, signal?: AbortSignal): Promise
       return;
     }
 
-    // Browsers block http:// requests from https pages (mixed content); we
-    // cannot distinguish a blocked request from a dead link, so mark unknown.
-    if (typeof window !== 'undefined' && window.location.protocol === 'https:' && /^http:\/\//i.test(uri)) {
-      finish('unknown');
-      return;
-    }
+    // Browsers block http:// requests from https pages (mixed content). Retry
+    // such targets over https:// instead of giving up on them.
+    const httpsPage = typeof window !== 'undefined' && window.location.protocol === 'https:';
+    const upgradeUri = httpsPage && /^http:\/\//i.test(uri) ? httpsUpgradeUri(uri) : null;
 
-    timeoutId = window.setTimeout(() => finish('unreachable'), URI_PROBE_TIMEOUT_MS);
+    // When the probe is running against a possibly-http-only site (upgraded to
+    // https) a timeout does not prove the site is dead, so keep it 'unknown'.
+    timeoutId = window.setTimeout(() => finish(upgradeUri ? 'unknown' : 'unreachable'), URI_PROBE_TIMEOUT_MS);
 
-    const attemptNoCors = () => {
-      void fetch(uri, { method: 'GET', mode: 'no-cors', redirect: 'follow', signal: controller.signal }).then(
+    const attemptNoCors = (probeUri: string) => {
+      void fetch(probeUri, { method: 'GET', mode: 'no-cors', redirect: 'follow', signal: controller.signal }).then(
         () => finish('ok'),
-        () => finish('unreachable')
+        () => finish(upgradeUri ? 'unknown' : 'unreachable')
       );
     };
 
-    void fetch(uri, { method: 'HEAD', mode: 'cors', redirect: 'follow', signal: controller.signal })
-      .then((response) => {
-        // CORS allowed: we can read the real status code.
-        finish(reachableStatus(response.status) ? 'ok' : 'unreachable');
-      })
-      .catch(() => {
-        // HEAD cors may fail for servers that do not support HEAD or CORS.
-        // Fall back to a GET cors attempt so we can still read a status when allowed.
-        if (settled) return;
-        void fetch(uri, { method: 'GET', mode: 'cors', redirect: 'follow', signal: controller.signal })
-          .then((response) => finish(reachableStatus(response.status) ? 'ok' : 'unreachable'))
-          .catch(() => {
-            // CORS blocked (or network failure): fall back to opaque no-cors probe.
-            if (settled) return;
-            attemptNoCors();
-          });
-      });
+    const probeWithFallback = (probeUri: string) => {
+      void fetch(probeUri, { method: 'HEAD', mode: 'cors', redirect: 'follow', signal: controller.signal })
+        .then((response) => finish(verdictFromStatus(response.status)))
+        .catch(() => {
+          if (settled) return;
+          void fetch(probeUri, { method: 'GET', mode: 'cors', redirect: 'follow', signal: controller.signal })
+            .then((response) => finish(verdictFromStatus(response.status)))
+            .catch(() => {
+              if (settled) return;
+              attemptNoCors(probeUri);
+            });
+        });
+    };
+
+    if (upgradeUri) {
+      // Retry the link over https. A status from the https server proves the
+      // site is alive; an opaque answer proves it answers; any hard failure
+      // leaves us unable to tell http-only sites apart from dead ones.
+      void fetch(upgradeUri, { method: 'HEAD', mode: 'cors', redirect: 'follow', signal: controller.signal })
+        .then((response) => {
+          if (settled) return;
+          const verdict = verdictFromStatus(response.status);
+          finish(verdict === 'unreachable' ? 'unknown' : verdict);
+        })
+        .catch(() => {
+          if (settled) return;
+          void fetch(upgradeUri, { method: 'GET', mode: 'cors', redirect: 'follow', signal: controller.signal })
+            .then((response) => {
+              if (settled) return;
+              const verdict = verdictFromStatus(response.status);
+              finish(verdict === 'unreachable' ? 'unknown' : verdict);
+            })
+            .catch(() => {
+              if (settled) return;
+              attemptNoCors(upgradeUri);
+            });
+        });
+      return;
+    }
+
+    probeWithFallback(uri);
   });
 }
 
@@ -345,7 +392,10 @@ export async function runUriProbe(
         });
       }
       result.checked += 1;
-      if (reachability === 'unreachable') result.unreachableCount += 1;
+      if (reachability === 'unreachable' || reachability === 'gone' || reachability === 'server_error') {
+        result.unreachableCount += 1;
+        result.deadCount += 1;
+      }
       if (reachability === 'unknown') result.unknownCount += 1;
       onProgress?.(result.checked, entries.length);
     }
