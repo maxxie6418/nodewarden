@@ -1598,7 +1598,8 @@ Object.assign(zhCN, {
   "txt_cleanup_uri_link_count": "共 {count} 条链接",
   "txt_cleanup_uri_page_info": "第 {page}/{pages} 页",
   "txt_cleanup_uri_prev_page": "上一页",
-  "txt_cleanup_uri_next_page": "下一页"
+  "txt_cleanup_uri_next_page": "下一页",
+  "txt_cleanup_uri_import_hint": "导入密码库中保存的登录链接，然后勾选要检测的条目。"
 });
 
 export default zhCN;

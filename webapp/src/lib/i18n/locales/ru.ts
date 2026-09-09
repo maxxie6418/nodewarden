@@ -1568,7 +1568,8 @@ Object.assign(ru, {
   "txt_cleanup_uri_link_count": "{count} ссылок",
   "txt_cleanup_uri_page_info": "Страница {page} из {pages}",
   "txt_cleanup_uri_prev_page": "Предыдущая страница",
-  "txt_cleanup_uri_next_page": "Следующая страница"
+  "txt_cleanup_uri_next_page": "Следующая страница",
+  "txt_cleanup_uri_import_hint": "Импортируйте ссылки для входа из хранилища и отметьте нужные для проверки."
 });
 
 export default ru;

@@ -1598,7 +1598,8 @@ Object.assign(zhTW, {
   "txt_cleanup_uri_link_count": "共 {count} 條連結",
   "txt_cleanup_uri_page_info": "第 {page}/{pages} 頁",
   "txt_cleanup_uri_prev_page": "上一頁",
-  "txt_cleanup_uri_next_page": "下一頁"
+  "txt_cleanup_uri_next_page": "下一頁",
+  "txt_cleanup_uri_import_hint": "匯入密碼庫中儲存的登入連結，再勾選要偵測的項目。"
 });
 
 export default zhTW;

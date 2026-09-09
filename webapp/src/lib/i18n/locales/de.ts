@@ -1568,7 +1568,8 @@ Object.assign(de, {
   "txt_cleanup_uri_link_count": "{count} Links",
   "txt_cleanup_uri_page_info": "Seite {page} von {pages}",
   "txt_cleanup_uri_prev_page": "Vorherige Seite",
-  "txt_cleanup_uri_next_page": "Nächste Seite"
+  "txt_cleanup_uri_next_page": "Nächste Seite",
+  "txt_cleanup_uri_import_hint": "Importieren Sie die im Tresor gespeicherten Login-Links und prüfen Sie dann die gewünschten."
 });
 
 export default de;

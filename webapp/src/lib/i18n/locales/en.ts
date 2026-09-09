@@ -1647,7 +1647,8 @@ Object.assign(en, {
   "txt_cleanup_uri_link_count": "{count} links",
   "txt_cleanup_uri_page_info": "Page {page} of {pages}",
   "txt_cleanup_uri_prev_page": "Previous page",
-  "txt_cleanup_uri_next_page": "Next page"
+  "txt_cleanup_uri_next_page": "Next page",
+  "txt_cleanup_uri_import_hint": "Import the login links saved in your vault, then check the ones you want."
 });
 
 export default en;

@@ -1568,7 +1568,8 @@ Object.assign(sv, {
   "txt_cleanup_uri_link_count": "{count} länkar",
   "txt_cleanup_uri_page_info": "Sida {page} av {pages}",
   "txt_cleanup_uri_prev_page": "Föregående sida",
-  "txt_cleanup_uri_next_page": "Nästa sida"
+  "txt_cleanup_uri_next_page": "Nästa sida",
+  "txt_cleanup_uri_import_hint": "Importera inloggningslänkarna från valvet och markera de du vill kontrollera."
 });
 
 export default sv;

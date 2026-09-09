@@ -1568,7 +1568,8 @@ Object.assign(es, {
   "txt_cleanup_uri_link_count": "{count} enlaces",
   "txt_cleanup_uri_page_info": "Página {page} de {pages}",
   "txt_cleanup_uri_prev_page": "Página anterior",
-  "txt_cleanup_uri_next_page": "Página siguiente"
+  "txt_cleanup_uri_next_page": "Página siguiente",
+  "txt_cleanup_uri_import_hint": "Importa los enlaces guardados en tu vault y luego marca los que quieras comprobar."
 });
 
 export default es;

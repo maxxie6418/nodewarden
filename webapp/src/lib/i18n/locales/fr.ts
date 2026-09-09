@@ -1568,7 +1568,8 @@ Object.assign(fr, {
   "txt_cleanup_uri_link_count": "{count} liens",
   "txt_cleanup_uri_page_info": "Page {page} sur {pages}",
   "txt_cleanup_uri_prev_page": "Page précédente",
-  "txt_cleanup_uri_next_page": "Page suivante"
+  "txt_cleanup_uri_next_page": "Page suivante",
+  "txt_cleanup_uri_import_hint": "Importez les liens enregistrés dans votre coffre, puis cochez ceux à vérifier."
 });
 
 export default fr;

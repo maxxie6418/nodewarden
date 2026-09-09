@@ -1568,7 +1568,8 @@ Object.assign(fi, {
   "txt_cleanup_uri_link_count": "{count} linkkiä",
   "txt_cleanup_uri_page_info": "Sivu {page}/{pages}",
   "txt_cleanup_uri_prev_page": "Edellinen sivu",
-  "txt_cleanup_uri_next_page": "Seuraava sivu"
+  "txt_cleanup_uri_next_page": "Seuraava sivu",
+  "txt_cleanup_uri_import_hint": "Tuo holviin tallennetut kirjautumislinkit ja valitse tarkistettavat."
 });
 
 export default fi;
