@@ -175,7 +175,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
     rowResultsRef.current = {};
     setRowResults({});
     setLinkPage(1);
-    setUriFilter('issues');
+    setUriFilter('all');
     setSelectedRowKeys(new Set(rows.map(rowKey)));
     setBatchRunning(false);
     setBatchProgress({ checked: 0, total: 0 });
@@ -247,9 +247,6 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
           next.delete(key);
           return next;
         });
-      }
-      if (!controller.signal.aborted) {
-        setUriFilter('issues');
       }
       setBatchRunning(false);
     })();
@@ -678,6 +675,17 @@ function LinkRow(props: {
         <button type="button" className="btn btn-secondary small" disabled={checking || props.batchRunning} onClick={props.onCheck}>
           <Link2 size={14} className="btn-icon" /> {t('txt_cleanup_uri_check_one')}
         </button>
+        {props.row.uri ? (
+          <a
+            href={props.row.uri}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary small"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <ExternalLink size={14} className="btn-icon" /> {t('txt_cleanup_open_link')}
+          </a>
+        ) : null}
         <Link href={`/vault?cipher=${encodeURIComponent(props.row.cipherId)}`} className="btn btn-secondary small">
           <ExternalLink size={14} className="btn-icon" />{t('txt_password_security_jump')}
         </Link>
