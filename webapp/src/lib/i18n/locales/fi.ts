@@ -1554,4 +1554,21 @@ Object.assign(fi, {
   "txt_cleanup_updated": "Päivitetty {value}"
 });
 
+
+Object.assign(fi, {
+  "txt_cleanup_uri_import": "Tuo linkit holvista",
+  "txt_cleanup_uri_reimport": "Tuo uudelleen",
+  "txt_cleanup_uri_no_links": "Ei linkkejä tarkistettavaksi holvissa.",
+  "txt_cleanup_uri_batch_check": "Tarkista valitut ({count})",
+  "txt_cleanup_uri_check_one": "Tarkista",
+  "txt_cleanup_uri_checking_one": "Tarkistetaan…",
+  "txt_cleanup_uri_select_all": "Valitse kaikki",
+  "txt_cleanup_uri_select_none": "Poista valinnat",
+  "txt_cleanup_uri_pending": "Odottaa",
+  "txt_cleanup_uri_link_count": "{count} linkkiä",
+  "txt_cleanup_uri_page_info": "Sivu {page}/{pages}",
+  "txt_cleanup_uri_prev_page": "Edellinen sivu",
+  "txt_cleanup_uri_next_page": "Seuraava sivu"
+});
+
 export default fi;

@@ -1554,4 +1554,21 @@ Object.assign(de, {
   "txt_cleanup_updated": "Aktualisiert {value}"
 });
 
+
+Object.assign(de, {
+  "txt_cleanup_uri_import": "Links aus Tresor importieren",
+  "txt_cleanup_uri_reimport": "Erneut importieren",
+  "txt_cleanup_uri_no_links": "Keine Links zum Prüfen im Tresor.",
+  "txt_cleanup_uri_batch_check": "Ausgewählte prüfen ({count})",
+  "txt_cleanup_uri_check_one": "Prüfen",
+  "txt_cleanup_uri_checking_one": "Prüfe…",
+  "txt_cleanup_uri_select_all": "Alle auswählen",
+  "txt_cleanup_uri_select_none": "Keine auswählen",
+  "txt_cleanup_uri_pending": "Ausstehend",
+  "txt_cleanup_uri_link_count": "{count} Links",
+  "txt_cleanup_uri_page_info": "Seite {page} von {pages}",
+  "txt_cleanup_uri_prev_page": "Vorherige Seite",
+  "txt_cleanup_uri_next_page": "Nächste Seite"
+});
+
 export default de;

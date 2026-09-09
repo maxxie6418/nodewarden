@@ -1584,4 +1584,21 @@ Object.assign(zhTW, {
   "txt_cleanup_updated": "更新于 {value}"
 });
 
+
+Object.assign(zhTW, {
+  "txt_cleanup_uri_import": "匯入密碼庫連結",
+  "txt_cleanup_uri_reimport": "重新匯入",
+  "txt_cleanup_uri_no_links": "密碼庫中暫無可偵測的連結。",
+  "txt_cleanup_uri_batch_check": "批次偵測（{count}）",
+  "txt_cleanup_uri_check_one": "偵測",
+  "txt_cleanup_uri_checking_one": "偵測中…",
+  "txt_cleanup_uri_select_all": "全選",
+  "txt_cleanup_uri_select_none": "全不選",
+  "txt_cleanup_uri_pending": "待偵測",
+  "txt_cleanup_uri_link_count": "共 {count} 條連結",
+  "txt_cleanup_uri_page_info": "第 {page}/{pages} 頁",
+  "txt_cleanup_uri_prev_page": "上一頁",
+  "txt_cleanup_uri_next_page": "下一頁"
+});
+
 export default zhTW;

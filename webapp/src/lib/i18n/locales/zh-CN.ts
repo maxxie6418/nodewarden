@@ -1584,4 +1584,21 @@ Object.assign(zhCN, {
   "txt_cleanup_updated": "更新于 {value}"
 });
 
+
+Object.assign(zhCN, {
+  "txt_cleanup_uri_import": "导入密码库链接",
+  "txt_cleanup_uri_reimport": "重新导入",
+  "txt_cleanup_uri_no_links": "密码库中暂无可检测的链接。",
+  "txt_cleanup_uri_batch_check": "批量检测（{count}）",
+  "txt_cleanup_uri_check_one": "检测",
+  "txt_cleanup_uri_checking_one": "检测中…",
+  "txt_cleanup_uri_select_all": "全选",
+  "txt_cleanup_uri_select_none": "全不选",
+  "txt_cleanup_uri_pending": "待检测",
+  "txt_cleanup_uri_link_count": "共 {count} 条链接",
+  "txt_cleanup_uri_page_info": "第 {page}/{pages} 页",
+  "txt_cleanup_uri_prev_page": "上一页",
+  "txt_cleanup_uri_next_page": "下一页"
+});
+
 export default zhCN;

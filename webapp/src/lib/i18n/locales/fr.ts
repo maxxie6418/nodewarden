@@ -1554,4 +1554,21 @@ Object.assign(fr, {
   "txt_cleanup_updated": "Mis à jour le {value}"
 });
 
+
+Object.assign(fr, {
+  "txt_cleanup_uri_import": "Importer les liens du coffre",
+  "txt_cleanup_uri_reimport": "Réimporter",
+  "txt_cleanup_uri_no_links": "Aucun lien à vérifier dans votre coffre.",
+  "txt_cleanup_uri_batch_check": "Vérifier la sélection ({count})",
+  "txt_cleanup_uri_check_one": "Vérifier",
+  "txt_cleanup_uri_checking_one": "Vérification…",
+  "txt_cleanup_uri_select_all": "Tout sélectionner",
+  "txt_cleanup_uri_select_none": "Tout désélectionner",
+  "txt_cleanup_uri_pending": "En attente",
+  "txt_cleanup_uri_link_count": "{count} liens",
+  "txt_cleanup_uri_page_info": "Page {page} sur {pages}",
+  "txt_cleanup_uri_prev_page": "Page précédente",
+  "txt_cleanup_uri_next_page": "Page suivante"
+});
+
 export default fr;

@@ -1633,4 +1633,21 @@ Object.assign(en, {
   "txt_cleanup_updated": "Updated {value}"
 });
 
+
+Object.assign(en, {
+  "txt_cleanup_uri_import": "Import vault links",
+  "txt_cleanup_uri_reimport": "Re-import",
+  "txt_cleanup_uri_no_links": "No links to check in your vault.",
+  "txt_cleanup_uri_batch_check": "Check selected ({count})",
+  "txt_cleanup_uri_check_one": "Check",
+  "txt_cleanup_uri_checking_one": "Checking…",
+  "txt_cleanup_uri_select_all": "Select all",
+  "txt_cleanup_uri_select_none": "Select none",
+  "txt_cleanup_uri_pending": "Pending",
+  "txt_cleanup_uri_link_count": "{count} links",
+  "txt_cleanup_uri_page_info": "Page {page} of {pages}",
+  "txt_cleanup_uri_prev_page": "Previous page",
+  "txt_cleanup_uri_next_page": "Next page"
+});
+
 export default en;

@@ -1554,4 +1554,21 @@ Object.assign(ru, {
   "txt_cleanup_updated": "Обновлено {value}"
 });
 
+
+Object.assign(ru, {
+  "txt_cleanup_uri_import": "Импортировать ссылки из хранилища",
+  "txt_cleanup_uri_reimport": "Импортировать заново",
+  "txt_cleanup_uri_no_links": "В хранилище нет ссылок для проверки.",
+  "txt_cleanup_uri_batch_check": "Проверить выбранные ({count})",
+  "txt_cleanup_uri_check_one": "Проверить",
+  "txt_cleanup_uri_checking_one": "Проверка…",
+  "txt_cleanup_uri_select_all": "Выбрать все",
+  "txt_cleanup_uri_select_none": "Снять выбор",
+  "txt_cleanup_uri_pending": "Ожидает",
+  "txt_cleanup_uri_link_count": "{count} ссылок",
+  "txt_cleanup_uri_page_info": "Страница {page} из {pages}",
+  "txt_cleanup_uri_prev_page": "Предыдущая страница",
+  "txt_cleanup_uri_next_page": "Следующая страница"
+});
+
 export default ru;

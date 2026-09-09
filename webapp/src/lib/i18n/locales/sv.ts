@@ -1554,4 +1554,21 @@ Object.assign(sv, {
   "txt_cleanup_updated": "Uppdaterad {value}"
 });
 
+
+Object.assign(sv, {
+  "txt_cleanup_uri_import": "Importera länkar från valvet",
+  "txt_cleanup_uri_reimport": "Importera igen",
+  "txt_cleanup_uri_no_links": "Inga länkar att kontrollera i valvet.",
+  "txt_cleanup_uri_batch_check": "Kontrollera valda ({count})",
+  "txt_cleanup_uri_check_one": "Kontrollera",
+  "txt_cleanup_uri_checking_one": "Kontrollerar…",
+  "txt_cleanup_uri_select_all": "Markera alla",
+  "txt_cleanup_uri_select_none": "Avmarkera alla",
+  "txt_cleanup_uri_pending": "Väntar",
+  "txt_cleanup_uri_link_count": "{count} länkar",
+  "txt_cleanup_uri_page_info": "Sida {page} av {pages}",
+  "txt_cleanup_uri_prev_page": "Föregående sida",
+  "txt_cleanup_uri_next_page": "Nästa sida"
+});
+
 export default sv;
