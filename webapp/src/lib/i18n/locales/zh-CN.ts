@@ -1608,7 +1608,8 @@ Object.assign(zhCN, {
   "txt_cleanup_expand_all": "全部展开",
   "txt_cleanup_collapse_all": "全部收起",
   "txt_cleanup_expand_group": "展开分组",
-  "txt_cleanup_collapse_group": "收起分组"
+  "txt_cleanup_collapse_group": "收起分组",
+  "txt_cleanup_open_link": "打开链接"
 });
 
 export default zhCN;

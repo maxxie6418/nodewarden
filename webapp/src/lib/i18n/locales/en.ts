@@ -1657,7 +1657,8 @@ Object.assign(en, {
   "txt_cleanup_expand_all": "Expand all",
   "txt_cleanup_collapse_all": "Collapse all",
   "txt_cleanup_expand_group": "Expand group",
-  "txt_cleanup_collapse_group": "Collapse group"
+  "txt_cleanup_collapse_group": "Collapse group",
+  "txt_cleanup_open_link": "Open link"
 });
 
 export default en;

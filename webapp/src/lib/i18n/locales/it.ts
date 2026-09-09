@@ -1578,7 +1578,8 @@ Object.assign(it, {
   "txt_cleanup_expand_all": "Espandi tutto",
   "txt_cleanup_collapse_all": "Comprimi tutto",
   "txt_cleanup_expand_group": "Espandi gruppo",
-  "txt_cleanup_collapse_group": "Comprimi gruppo"
+  "txt_cleanup_collapse_group": "Comprimi gruppo",
+  "txt_cleanup_open_link": "Apri collegamento"
 });
 
 export default it;
