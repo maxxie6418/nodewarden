@@ -1536,4 +1536,52 @@ Object.assign(zhCN, {
   "txt_cleanup_updated": "更新于 {value}"
 });
 
+
+Object.assign(zhCN, {
+  "nav_vault_cleanup": "沉淀清理",
+  "txt_cleanup_mode": "清理模式",
+  "txt_cleanup_probe_status_running": "检测中",
+  "txt_cleanup_probe_status_paused": "已暂停",
+  "txt_cleanup_probe_status_finished": "已完成",
+  "txt_cleanup_probe_status_stopped": "已结束",
+  "txt_cleanup_probe_batch_progress": "第 {batch} / {batches} 批",
+  "txt_cleanup_uri_pause": "暂停",
+  "txt_cleanup_uri_resume": "继续",
+  "txt_cleanup_uri_end": "结束",
+  "txt_vault_cleanup": "沉淀清理",
+  "txt_vault_cleanup_privacy": "所有分析均在本地浏览器中完成。请确认标记出的条目，把不再需要的移动到回收站。",
+  "txt_cleanup_domain_section": "同域名多账号",
+  "txt_cleanup_domain_summary": "{groups} 个域名 · {count} 条",
+  "txt_cleanup_domain_help": "按主域名分组，仅显示包含两条及以上条目的域名，请确认不再需要的条目。",
+  "txt_cleanup_domain_empty": "没有包含多个条目的域名分组。",
+  "txt_cleanup_select_group": "选择本组",
+  "txt_cleanup_select_older_duplicates": "选择较旧的重复项",
+  "txt_cleanup_uri_section": "无法访问的链接",
+  "txt_cleanup_uri_summary": "共 {count} 条含链接",
+  "txt_cleanup_uri_help": "检测按小批次在浏览器中执行，结果仅供参考，删除前请人工确认。",
+  "txt_cleanup_uri_start": "检测链接",
+  "txt_cleanup_uri_recheck": "重新检测",
+  "txt_cleanup_uri_stop": "停止",
+  "txt_cleanup_probe_progress": "检测中 {checked} / {total}",
+  "txt_cleanup_uri_checked": "已检测：{count}",
+  "txt_cleanup_uri_unreachable": "不可访问：{count}",
+  "txt_cleanup_uri_unknown": "无法验证：{count}",
+  "txt_cleanup_uri_all_issues": "仅看异常",
+  "txt_cleanup_uri_show_all": "显示全部",
+  "txt_cleanup_uri_no_issues": "未发现无法访问的链接。",
+  "txt_cleanup_move_to_trash": "移入回收站（{count}）",
+  "txt_cleanup_clear_selection": "取消选择",
+  "txt_cleanup_confirm_title": "确认移入回收站？",
+  "txt_cleanup_confirm_message": "将把 {count} 个条目移入回收站，之后可以恢复。",
+  "txt_cleanup_moved_to_trash": "已将 {count} 个条目移入回收站",
+  "txt_cleanup_move_failed": "移入回收站失败。",
+  "txt_cleanup_badge_duplicate": "重复",
+  "txt_cleanup_uri_ok": "可访问",
+  "txt_cleanup_uri_unreachable_short": "不可访问",
+  "txt_cleanup_uri_unknown_short": "无法验证",
+  "txt_cleanup_item_no_uri": "无链接",
+  "txt_cleanup_created": "创建于 {value}",
+  "txt_cleanup_updated": "更新于 {value}"
+});
+
 export default zhCN;

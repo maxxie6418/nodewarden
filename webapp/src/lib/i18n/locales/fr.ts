@@ -1506,4 +1506,52 @@ Object.assign(fr, {
   "txt_cleanup_updated": "Mis à jour le {value}"
 });
 
+
+Object.assign(fr, {
+  "nav_vault_cleanup": "Nettoyage du coffre",
+  "txt_cleanup_mode": "Mode de nettoyage",
+  "txt_cleanup_probe_status_running": "Vérification",
+  "txt_cleanup_probe_status_paused": "En pause",
+  "txt_cleanup_probe_status_finished": "Terminé",
+  "txt_cleanup_probe_status_stopped": "Arrêté",
+  "txt_cleanup_probe_batch_progress": "Lot {batch} / {batches}",
+  "txt_cleanup_uri_pause": "Mettre en pause",
+  "txt_cleanup_uri_resume": "Reprendre",
+  "txt_cleanup_uri_end": "Terminer",
+  "txt_vault_cleanup": "Nettoyage du coffre",
+  "txt_vault_cleanup_privacy": "L’analyse est locale dans votre navigateur. Vérifiez les éléments signalés avant de les déplacer vers la corbeille.",
+  "txt_cleanup_domain_section": "Plusieurs comptes sous le même domaine",
+  "txt_cleanup_domain_summary": "{groups} domaines · {count} éléments",
+  "txt_cleanup_domain_help": "Les éléments sont regroupés par domaine principal; seuls les groupes d’au moins deux éléments sont affichés.",
+  "txt_cleanup_domain_empty": "Aucun groupe de domaine multiple.",
+  "txt_cleanup_select_group": "Sélectionner le groupe",
+  "txt_cleanup_select_older_duplicates": "Sélectionner les anciens doublons",
+  "txt_cleanup_uri_section": "Liens inaccessibles",
+  "txt_cleanup_uri_summary": "{count} éléments avec des liens",
+  "txt_cleanup_uri_help": "La vérification utilise de petits lots dans le navigateur et reste indicative.",
+  "txt_cleanup_uri_start": "Vérifier les liens",
+  "txt_cleanup_uri_recheck": "Vérifier à nouveau",
+  "txt_cleanup_uri_stop": "Arrêter",
+  "txt_cleanup_probe_progress": "Vérification {checked} / {total}",
+  "txt_cleanup_uri_checked": "Vérifiés : {count}",
+  "txt_cleanup_uri_unreachable": "Inaccessibles : {count}",
+  "txt_cleanup_uri_unknown": "Invérifiables : {count}",
+  "txt_cleanup_uri_all_issues": "Anomalies uniquement",
+  "txt_cleanup_uri_show_all": "Tout afficher",
+  "txt_cleanup_uri_no_issues": "Aucun lien inaccessible trouvé.",
+  "txt_cleanup_move_to_trash": "Déplacer vers la corbeille ({count})",
+  "txt_cleanup_clear_selection": "Effacer la sélection",
+  "txt_cleanup_confirm_title": "Déplacer vers la corbeille ?",
+  "txt_cleanup_confirm_message": "{count} éléments seront déplacés vers la corbeille. Vous pourrez les restaurer.",
+  "txt_cleanup_moved_to_trash": "{count} éléments déplacés vers la corbeille",
+  "txt_cleanup_move_failed": "Échec du déplacement vers la corbeille.",
+  "txt_cleanup_badge_duplicate": "Doublon",
+  "txt_cleanup_uri_ok": "Accessible",
+  "txt_cleanup_uri_unreachable_short": "Inaccessible",
+  "txt_cleanup_uri_unknown_short": "Invérifiable",
+  "txt_cleanup_item_no_uri": "Aucun lien",
+  "txt_cleanup_created": "Créé le {value}",
+  "txt_cleanup_updated": "Mis à jour le {value}"
+});
+
 export default fr;

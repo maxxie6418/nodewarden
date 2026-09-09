@@ -1506,4 +1506,52 @@ Object.assign(ru, {
   "txt_cleanup_updated": "Обновлено {value}"
 });
 
+
+Object.assign(ru, {
+  "nav_vault_cleanup": "Очистка хранилища",
+  "txt_cleanup_mode": "Режим очистки",
+  "txt_cleanup_probe_status_running": "Проверка",
+  "txt_cleanup_probe_status_paused": "Приостановлено",
+  "txt_cleanup_probe_status_finished": "Завершено",
+  "txt_cleanup_probe_status_stopped": "Остановлено",
+  "txt_cleanup_probe_batch_progress": "Пакет {batch} / {batches}",
+  "txt_cleanup_uri_pause": "Пауза",
+  "txt_cleanup_uri_resume": "Продолжить",
+  "txt_cleanup_uri_end": "Завершить",
+  "txt_vault_cleanup": "Очистка хранилища",
+  "txt_vault_cleanup_privacy": "Анализ выполняется локально в браузере. Проверьте отмеченные записи перед перемещением в корзину.",
+  "txt_cleanup_domain_section": "Несколько аккаунтов в одном домене",
+  "txt_cleanup_domain_summary": "{groups} доменов · {count} записей",
+  "txt_cleanup_domain_help": "Записи сгруппированы по основному домену; показаны группы из двух и более записей.",
+  "txt_cleanup_domain_empty": "Нет доменов с несколькими записями.",
+  "txt_cleanup_select_group": "Выбрать группу",
+  "txt_cleanup_select_older_duplicates": "Выбрать старые дубликаты",
+  "txt_cleanup_uri_section": "Недоступные ссылки",
+  "txt_cleanup_uri_summary": "Записей со ссылками: {count}",
+  "txt_cleanup_uri_help": "Проверка выполняется небольшими пакетами в браузере и носит ориентировочный характер.",
+  "txt_cleanup_uri_start": "Проверить ссылки",
+  "txt_cleanup_uri_recheck": "Проверить снова",
+  "txt_cleanup_uri_stop": "Остановить",
+  "txt_cleanup_probe_progress": "Проверка {checked} / {total}",
+  "txt_cleanup_uri_checked": "Проверено: {count}",
+  "txt_cleanup_uri_unreachable": "Недоступно: {count}",
+  "txt_cleanup_uri_unknown": "Непроверяемо: {count}",
+  "txt_cleanup_uri_all_issues": "Только проблемы",
+  "txt_cleanup_uri_show_all": "Показать все",
+  "txt_cleanup_uri_no_issues": "Недоступных ссылок не найдено.",
+  "txt_cleanup_move_to_trash": "Переместить в корзину ({count})",
+  "txt_cleanup_clear_selection": "Снять выделение",
+  "txt_cleanup_confirm_title": "Переместить в корзину?",
+  "txt_cleanup_confirm_message": "{count} записей будут перемещены в корзину. Позже их можно восстановить.",
+  "txt_cleanup_moved_to_trash": "Перемещено в корзину: {count}",
+  "txt_cleanup_move_failed": "Не удалось переместить записи в корзину.",
+  "txt_cleanup_badge_duplicate": "Дубликат",
+  "txt_cleanup_uri_ok": "Доступно",
+  "txt_cleanup_uri_unreachable_short": "Недоступно",
+  "txt_cleanup_uri_unknown_short": "Непроверяемо",
+  "txt_cleanup_item_no_uri": "Нет ссылки",
+  "txt_cleanup_created": "Создано {value}",
+  "txt_cleanup_updated": "Обновлено {value}"
+});
+
 export default ru;

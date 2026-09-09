@@ -1585,4 +1585,52 @@ Object.assign(en, {
   "txt_cleanup_updated": "Updated {value}"
 });
 
+
+Object.assign(en, {
+  "nav_vault_cleanup": "Vault Cleanup",
+  "txt_cleanup_mode": "Cleanup mode",
+  "txt_cleanup_probe_status_running": "Checking",
+  "txt_cleanup_probe_status_paused": "Paused",
+  "txt_cleanup_probe_status_finished": "Finished",
+  "txt_cleanup_probe_status_stopped": "Ended",
+  "txt_cleanup_probe_batch_progress": "Batch {batch} / {batches}",
+  "txt_cleanup_uri_pause": "Pause",
+  "txt_cleanup_uri_resume": "Resume",
+  "txt_cleanup_uri_end": "End",
+  "txt_vault_cleanup": "Vault Cleanup",
+  "txt_vault_cleanup_privacy": "All analysis runs locally in your browser. Review the flagged items and move the ones you no longer need to the trash.",
+  "txt_cleanup_domain_section": "Multiple accounts under the same domain",
+  "txt_cleanup_domain_summary": "{groups} domains · {count} items",
+  "txt_cleanup_domain_help": "Items are grouped by main domain. Only groups with two or more items are listed; review entries you no longer need.",
+  "txt_cleanup_domain_empty": "No domain groups with multiple items.",
+  "txt_cleanup_select_group": "Select group",
+  "txt_cleanup_select_older_duplicates": "Select older duplicates",
+  "txt_cleanup_uri_section": "Unreachable links",
+  "txt_cleanup_uri_summary": "{count} items with links",
+  "txt_cleanup_uri_help": "Checks run in small batches from your browser. Results are indicative only; review items before deleting.",
+  "txt_cleanup_uri_start": "Check links",
+  "txt_cleanup_uri_recheck": "Check again",
+  "txt_cleanup_uri_stop": "Stop",
+  "txt_cleanup_probe_progress": "Checking {checked} / {total}",
+  "txt_cleanup_uri_checked": "Checked: {count}",
+  "txt_cleanup_uri_unreachable": "Unreachable: {count}",
+  "txt_cleanup_uri_unknown": "Unverifiable: {count}",
+  "txt_cleanup_uri_all_issues": "Issues only",
+  "txt_cleanup_uri_show_all": "Show all",
+  "txt_cleanup_uri_no_issues": "No unreachable links found.",
+  "txt_cleanup_move_to_trash": "Move to trash ({count})",
+  "txt_cleanup_clear_selection": "Clear selection",
+  "txt_cleanup_confirm_title": "Move items to trash?",
+  "txt_cleanup_confirm_message": "{count} items will be moved to the trash. You can restore them later.",
+  "txt_cleanup_moved_to_trash": "Moved {count} items to the trash",
+  "txt_cleanup_move_failed": "Failed to move items to the trash.",
+  "txt_cleanup_badge_duplicate": "Duplicate",
+  "txt_cleanup_uri_ok": "Reachable",
+  "txt_cleanup_uri_unreachable_short": "Unreachable",
+  "txt_cleanup_uri_unknown_short": "Unverifiable",
+  "txt_cleanup_item_no_uri": "No link",
+  "txt_cleanup_created": "Created {value}",
+  "txt_cleanup_updated": "Updated {value}"
+});
+
 export default en;

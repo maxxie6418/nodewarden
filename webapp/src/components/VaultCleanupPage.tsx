@@ -5,8 +5,10 @@ import ConfirmDialog from '@/components/ConfirmDialog';
 import {
   buildCleanupOverview,
   buildUriProbePlan,
+  createUriProbeResult,
   isCipherVisibleInCleanup,
   runUriProbe,
+  URI_PROBE_BATCH_SIZE,
   type CleanupCandidate,
   type UriProbeResult,
 } from '@/lib/vault-cleanup';
@@ -22,6 +24,8 @@ interface VaultCleanupPageProps {
 }
 
 type UriFilter = 'issues' | 'all';
+type CleanupMode = 'domains' | 'links';
+type ProbeStatus = 'idle' | 'running' | 'paused' | 'finished' | 'stopped';
 
 function duplicateKeyOf(candidate: CleanupCandidate): string {
   return `${candidate.username.toLowerCase()}\u0000${candidate.password}`;
@@ -34,14 +38,19 @@ function formatDate(value: number): string {
 
 export default function VaultCleanupPage(props: VaultCleanupPageProps) {
   const overview = useMemo(() => buildCleanupOverview(props.ciphers), [props.ciphers]);
+  const [mode, setMode] = useState<CleanupMode>('domains');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
   const [probeResult, setProbeResult] = useState<UriProbeResult | null>(null);
-  const [probing, setProbing] = useState(false);
-  const [probeProgress, setProbeProgress] = useState({ checked: 0, total: 0 });
+  const [probeStatus, setProbeStatus] = useState<ProbeStatus>('idle');
+  const [probeProgress, setProbeProgress] = useState({ checked: 0, total: 0, batch: 0, batches: 0 });
   const [uriFilter, setUriFilter] = useState<UriFilter>('issues');
+  const probeAbortRef = useRef<AbortController | null>(null);
+  const probePlanRef = useRef<CleanupCandidate[]>([]);
+  const probeBatchIndexRef = useRef(0);
+  const probeResultRef = useRef<UriProbeResult | null>(null);
+  const probeStatusRef = useRef<ProbeStatus>('idle');
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const probeAbortRef = useRef<AbortController | null>(null);
 
   useEffect(() => () => {
     probeAbortRef.current?.abort();
@@ -104,29 +113,83 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
     }
   };
 
+  const updateProbeStatus = (status: ProbeStatus) => {
+    probeStatusRef.current = status;
+    setProbeStatus(status);
+  };
+
+  const runNextProbeBatch = () => {
+    if (probeStatusRef.current !== 'running') return;
+    const plan = probePlanRef.current;
+    const batchIndex = probeBatchIndexRef.current;
+    if (batchIndex >= plan.length) {
+      updateProbeStatus('finished');
+      return;
+    }
+    const batch = plan.slice(batchIndex, batchIndex + URI_PROBE_BATCH_SIZE);
+    const controller = new AbortController();
+    const baseChecked = probeResultRef.current?.checked || 0;
+    probeAbortRef.current = controller;
+    probeBatchIndexRef.current += batch.length;
+    void runUriProbe(batch, controller.signal, (checked, total) => {
+      setProbeProgress((current) => ({
+        ...current,
+        checked: baseChecked + checked,
+        total: Math.max(current.total, baseChecked + total),
+      }));
+    }).then((result) => {
+      const current = probeResultRef.current || createUriProbeResult(0);
+      const merged: UriProbeResult = {
+        items: [...current.items, ...result.items],
+        total: current.total + result.total,
+        checked: current.checked + result.checked,
+        unreachableCount: current.unreachableCount + result.unreachableCount,
+        unknownCount: current.unknownCount + result.unknownCount,
+      };
+      probeResultRef.current = merged;
+      setProbeResult(merged);
+      setProbeProgress((progress) => ({
+        ...progress,
+        checked: merged.checked,
+        batch: Math.ceil(probeBatchIndexRef.current / URI_PROBE_BATCH_SIZE),
+      }));
+      if (probeStatusRef.current === 'running') {
+        window.setTimeout(runNextProbeBatch, 0);
+      }
+    });
+  };
+
   const stopProbe = () => {
     probeAbortRef.current?.abort();
+    updateProbeStatus('stopped');
+  };
+
+  const pauseProbe = () => {
+    if (probeStatus !== 'running') return;
+    updateProbeStatus('paused');
+  };
+
+  const resumeProbe = () => {
+    if (probeStatus !== 'paused') return;
+    updateProbeStatus('running');
+    window.setTimeout(runNextProbeBatch, 0);
   };
 
   const startProbe = () => {
-    if (probing) return;
+    if (probeStatus === 'running') return;
     probeAbortRef.current?.abort();
-    const controller = new AbortController();
-    probeAbortRef.current = controller;
-    setProbing(true);
-    setProbeResult(null);
-    setUriFilter('issues');
     const plan = buildUriProbePlan(props.ciphers);
-    setProbeProgress({ checked: 0, total: plan.reduce((sum, item) => sum + item.uris.length, 0) });
-    void runUriProbe(
-      plan,
-      controller.signal,
-      (checked, total) => setProbeProgress({ checked, total })
-    ).then((result) => {
-      if (controller.signal.aborted) return;
-      setProbeResult(result);
-      setProbing(false);
-    });
+    probePlanRef.current = plan;
+    probeBatchIndexRef.current = 0;
+    const total = plan.reduce((sum, item) => sum + item.uris.length, 0);
+    const batches = Math.ceil(plan.length / URI_PROBE_BATCH_SIZE);
+    const initial = createUriProbeResult(0);
+    probeResultRef.current = initial;
+    setProbeResult(initial);
+    setUriFilter('issues');
+    setProbeProgress({ checked: 0, total, batch: 0, batches });
+    updateProbeStatus('running');
+    window.setTimeout(runNextProbeBatch, 0);
   };
 
   const probeItemsByCipher = useMemo(() => {
@@ -168,7 +231,16 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
         </div>
       </div>
 
-      <div className="vault-cleanup-section card">
+      <div className="vault-cleanup-mode-switch" role="tablist" aria-label={t('txt_cleanup_mode')}>
+        <button type="button" role="tab" aria-selected={mode === 'domains'} className={`vault-cleanup-mode-tab ${mode === 'domains' ? 'active' : ''}`} onClick={() => setMode('domains')}>
+          <Globe size={15} className="btn-icon" /> {t('txt_cleanup_domain_section')}
+        </button>
+        <button type="button" role="tab" aria-selected={mode === 'links'} className={`vault-cleanup-mode-tab ${mode === 'links' ? 'active' : ''}`} onClick={() => setMode('links')}>
+          <Link2 size={15} className="btn-icon" /> {t('txt_cleanup_uri_section')}
+        </button>
+      </div>
+
+      {mode === 'domains' && <div className="vault-cleanup-section card">
         <div className="vault-cleanup-section-head">
           <div className="vault-cleanup-section-title">
             <Globe size={17} />
@@ -212,9 +284,9 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
             ))}
           </div>
         )}
-      </div>
+      </div>}
 
-      <div className="vault-cleanup-section card">
+      {mode === 'links' && <div className="vault-cleanup-section card">
         <div className="vault-cleanup-section-head">
           <div className="vault-cleanup-section-title">
             <Link2 size={17} />
@@ -227,10 +299,24 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
         <p className="vault-cleanup-section-help muted">{t('txt_cleanup_uri_help')}</p>
 
         <div className="vault-cleanup-probe-actions">
-          {probing ? (
-            <button type="button" className="btn btn-secondary" onClick={stopProbe}>
-              <Square size={15} className="btn-icon" /> {t('txt_cleanup_uri_stop')}
-            </button>
+          {probeStatus === 'running' ? (
+            <>
+              <button type="button" className="btn btn-secondary" onClick={pauseProbe}>
+                <Square size={15} className="btn-icon" /> {t('txt_cleanup_uri_pause')}
+              </button>
+              <button type="button" className="btn btn-danger" onClick={stopProbe}>
+                <Square size={15} className="btn-icon" /> {t('txt_cleanup_uri_end')}
+              </button>
+            </>
+          ) : probeStatus === 'paused' ? (
+            <>
+              <button type="button" className="btn btn-primary" onClick={resumeProbe}>
+                <RefreshCw size={15} className="btn-icon" /> {t('txt_cleanup_uri_resume')}
+              </button>
+              <button type="button" className="btn btn-danger" onClick={stopProbe}>
+                <Square size={15} className="btn-icon" /> {t('txt_cleanup_uri_end')}
+              </button>
+            </>
           ) : (
             <button
               type="button"
@@ -238,19 +324,26 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
               disabled={props.loading || overview.uriCandidateCount === 0}
               onClick={startProbe}
             >
-              {probeResult ? <RefreshCw size={15} className="btn-icon" /> : <Link2 size={15} className="btn-icon" />}
-              {probeResult ? t('txt_cleanup_uri_recheck') : t('txt_cleanup_uri_start')}
+              {probeStatus === 'finished' || probeStatus === 'stopped' ? <RefreshCw size={15} className="btn-icon" /> : <Link2 size={15} className="btn-icon" />}
+              {probeStatus === 'finished' || probeStatus === 'stopped' ? t('txt_cleanup_uri_recheck') : t('txt_cleanup_uri_start')}
             </button>
           )}
-          {probing && (
+          {probeStatus !== 'idle' && (
             <span className="vault-cleanup-probe-progress" aria-live="polite">
-              <RefreshCw size={14} className="btn-icon spin" />
-              {t('txt_cleanup_probe_progress', { checked: probeProgress.checked, total: probeProgress.total })}
+              <span>{t(`txt_cleanup_probe_status_${probeStatus}`)}</span>
+              <span>{t('txt_cleanup_probe_progress', { checked: probeProgress.checked, total: probeProgress.total })}</span>
             </span>
           )}
         </div>
 
-        {probeResult && !probing && (
+        {probeStatus !== 'idle' && (
+          <div className="vault-cleanup-progress-wrap">
+            <progress max={probeProgress.total || 1} value={probeProgress.checked} aria-label={t('txt_cleanup_probe_progress', { checked: probeProgress.checked, total: probeProgress.total })} />
+            <span>{t('txt_cleanup_probe_batch_progress', { batch: probeProgress.batch, batches: probeProgress.batches })}</span>
+          </div>
+        )}
+
+        {probeResult && probeStatus !== 'running' && (
           <div className="vault-cleanup-probe-summary">
             <span className="vault-cleanup-chip">{t('txt_cleanup_uri_checked', { count: probeResult.checked })}</span>
             <span className="vault-cleanup-chip danger">{t('txt_cleanup_uri_unreachable', { count: probeResult.unreachableCount })}</span>
@@ -265,11 +358,11 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
           </div>
         )}
 
-        {probeResult && !probing && !filteredProbeCiphers.length && (
+        {probeResult && probeStatus !== 'running' && !filteredProbeCiphers.length && (
           <div className="vault-cleanup-empty"><CheckCircle2 size={24} aria-hidden="true" /> <span>{t('txt_cleanup_uri_no_issues')}</span></div>
         )}
 
-        {probeResult && !probing && filteredProbeCiphers.length > 0 && (
+        {probeResult && probeStatus !== 'running' && filteredProbeCiphers.length > 0 && (
           <div className="vault-cleanup-groups">
             {filteredProbeCiphers.map((cipher) => {
               const items = probeItemsByCipher.get(cipher.id) || [];
@@ -302,7 +395,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
             })}
           </div>
         )}
-      </div>
+      </div>}
 
       <div className="vault-cleanup-footer">
         <button

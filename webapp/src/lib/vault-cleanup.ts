@@ -3,7 +3,8 @@ import type { Cipher } from './types';
 import { hostFromUri } from './website-utils';
 
 const URI_PROBE_TIMEOUT_MS = 8_000;
-const URI_PROBE_MAX_CONCURRENT = 4;
+const URI_PROBE_MAX_CONCURRENT = 2;
+export const URI_PROBE_BATCH_SIZE = 8;
 
 export type UriReachability = 'ok' | 'unreachable' | 'unknown';
 
@@ -220,7 +221,6 @@ export async function runUriProbe(
   signal?: AbortSignal,
   onProgress?: (checked: number, total: number) => void
 ): Promise<UriProbeResult> {
-  const result = createUriProbeResult(candidates.length);
   const entries: Array<{ candidate: CleanupCandidate; uri: string }> = [];
   for (const candidate of candidates) {
     for (const uri of candidate.uris) {
@@ -228,6 +228,7 @@ export async function runUriProbe(
     }
   }
 
+  const result = createUriProbeResult(entries.length);
   let nextIndex = 0;
   const workerCount = Math.min(URI_PROBE_MAX_CONCURRENT, entries.length || 1);
   const runWorker = async () => {

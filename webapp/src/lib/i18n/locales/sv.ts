@@ -1506,4 +1506,52 @@ Object.assign(sv, {
   "txt_cleanup_updated": "Uppdaterad {value}"
 });
 
+
+Object.assign(sv, {
+  "nav_vault_cleanup": "Rensa valvet",
+  "txt_cleanup_mode": "Rensningsläge",
+  "txt_cleanup_probe_status_running": "Kontrollerar",
+  "txt_cleanup_probe_status_paused": "Pausad",
+  "txt_cleanup_probe_status_finished": "Klar",
+  "txt_cleanup_probe_status_stopped": "Avslutad",
+  "txt_cleanup_probe_batch_progress": "Omgång {batch} / {batches}",
+  "txt_cleanup_uri_pause": "Pausa",
+  "txt_cleanup_uri_resume": "Fortsätt",
+  "txt_cleanup_uri_end": "Avsluta",
+  "txt_vault_cleanup": "Rensa valvet",
+  "txt_vault_cleanup_privacy": "Analysen körs lokalt i webbläsaren. Granska markerade poster innan de flyttas till papperskorgen.",
+  "txt_cleanup_domain_section": "Flera konton under samma domän",
+  "txt_cleanup_domain_summary": "{groups} domäner · {count} poster",
+  "txt_cleanup_domain_help": "Poster grupperas efter huvuddomän; endast grupper med minst två poster visas.",
+  "txt_cleanup_domain_empty": "Inga domäner med flera poster.",
+  "txt_cleanup_select_group": "Markera grupp",
+  "txt_cleanup_select_older_duplicates": "Markera äldre dubbletter",
+  "txt_cleanup_uri_section": "Onåbara länkar",
+  "txt_cleanup_uri_summary": "{count} poster med länkar",
+  "txt_cleanup_uri_help": "Kontrollen körs i små batcher i webbläsaren och är vägledande.",
+  "txt_cleanup_uri_start": "Kontrollera länkar",
+  "txt_cleanup_uri_recheck": "Kontrollera igen",
+  "txt_cleanup_uri_stop": "Stoppa",
+  "txt_cleanup_probe_progress": "Kontrollerar {checked} / {total}",
+  "txt_cleanup_uri_checked": "Kontrollerade: {count}",
+  "txt_cleanup_uri_unreachable": "Onåbara: {count}",
+  "txt_cleanup_uri_unknown": "Ej verifierbara: {count}",
+  "txt_cleanup_uri_all_issues": "Endast problem",
+  "txt_cleanup_uri_show_all": "Visa alla",
+  "txt_cleanup_uri_no_issues": "Inga onåbara länkar hittades.",
+  "txt_cleanup_move_to_trash": "Flytta till papperskorgen ({count})",
+  "txt_cleanup_clear_selection": "Rensa markering",
+  "txt_cleanup_confirm_title": "Flytta till papperskorgen?",
+  "txt_cleanup_confirm_message": "{count} poster flyttas till papperskorgen. Du kan återställa dem senare.",
+  "txt_cleanup_moved_to_trash": "Flyttade {count} poster till papperskorgen",
+  "txt_cleanup_move_failed": "Kunde inte flytta posterna till papperskorgen.",
+  "txt_cleanup_badge_duplicate": "Dubblett",
+  "txt_cleanup_uri_ok": "Nåbar",
+  "txt_cleanup_uri_unreachable_short": "Onåbar",
+  "txt_cleanup_uri_unknown_short": "Ej verifierbar",
+  "txt_cleanup_item_no_uri": "Ingen länk",
+  "txt_cleanup_created": "Skapad {value}",
+  "txt_cleanup_updated": "Uppdaterad {value}"
+});
+
 export default sv;
