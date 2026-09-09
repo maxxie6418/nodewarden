@@ -1569,7 +1569,16 @@ Object.assign(sv, {
   "txt_cleanup_uri_page_info": "Sida {page} av {pages}",
   "txt_cleanup_uri_prev_page": "Föregående sida",
   "txt_cleanup_uri_next_page": "Nästa sida",
-  "txt_cleanup_uri_import_hint": "Importera inloggningslänkarna från valvet och markera de du vill kontrollera."
+  "txt_cleanup_uri_import_hint": "Importera inloggningslänkarna från valvet och markera de du vill kontrollera.",
+  "txt_cleanup_account_section": "Konton över domäner",
+  "txt_cleanup_account_summary": "{groups} konton",
+  "txt_cleanup_account_help": "Objekt grupperas efter inloggningsnamn. Granska konton du inte längre behöver.",
+  "txt_cleanup_account_empty": "Inga kontogrupper hittades.",
+  "txt_cleanup_no_username": "(inget användarnamn)",
+  "txt_cleanup_expand_all": "Expandera alla",
+  "txt_cleanup_collapse_all": "Fäll ihop alla",
+  "txt_cleanup_expand_group": "Expandera grupp",
+  "txt_cleanup_collapse_group": "Fäll ihop grupp"
 });
 
 export default sv;

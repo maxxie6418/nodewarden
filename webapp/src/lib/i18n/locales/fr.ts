@@ -1569,7 +1569,16 @@ Object.assign(fr, {
   "txt_cleanup_uri_page_info": "Page {page} sur {pages}",
   "txt_cleanup_uri_prev_page": "Page précédente",
   "txt_cleanup_uri_next_page": "Page suivante",
-  "txt_cleanup_uri_import_hint": "Importez les liens enregistrés dans votre coffre, puis cochez ceux à vérifier."
+  "txt_cleanup_uri_import_hint": "Importez les liens enregistrés dans votre coffre, puis cochez ceux à vérifier.",
+  "txt_cleanup_account_section": "Comptes par domaine",
+  "txt_cleanup_account_summary": "{groups} comptes",
+  "txt_cleanup_account_help": "Les éléments sont regroupés par identifiant de connexion. Examinez les comptes que vous n'utilisez plus.",
+  "txt_cleanup_account_empty": "Aucun groupe de comptes.",
+  "txt_cleanup_no_username": "(sans identifiant)",
+  "txt_cleanup_expand_all": "Tout développer",
+  "txt_cleanup_collapse_all": "Tout réduire",
+  "txt_cleanup_expand_group": "Développer le groupe",
+  "txt_cleanup_collapse_group": "Réduire le groupe"
 });
 
 export default fr;

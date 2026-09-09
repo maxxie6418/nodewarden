@@ -1569,7 +1569,16 @@ Object.assign(ru, {
   "txt_cleanup_uri_page_info": "Страница {page} из {pages}",
   "txt_cleanup_uri_prev_page": "Предыдущая страница",
   "txt_cleanup_uri_next_page": "Следующая страница",
-  "txt_cleanup_uri_import_hint": "Импортируйте ссылки для входа из хранилища и отметьте нужные для проверки."
+  "txt_cleanup_uri_import_hint": "Импортируйте ссылки для входа из хранилища и отметьте нужные для проверки.",
+  "txt_cleanup_account_section": "Учётные записи по доменам",
+  "txt_cleanup_account_summary": "{groups} учётных записей",
+  "txt_cleanup_account_help": "Элементы сгруппированы по логину. Просмотрите ненужные учётные записи.",
+  "txt_cleanup_account_empty": "Группы учётных записей не найдены.",
+  "txt_cleanup_no_username": "(без логина)",
+  "txt_cleanup_expand_all": "Развернуть все",
+  "txt_cleanup_collapse_all": "Свернуть все",
+  "txt_cleanup_expand_group": "Развернуть группу",
+  "txt_cleanup_collapse_group": "Свернуть группу"
 });
 
 export default ru;

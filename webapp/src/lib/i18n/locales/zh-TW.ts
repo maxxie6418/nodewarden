@@ -1599,7 +1599,16 @@ Object.assign(zhTW, {
   "txt_cleanup_uri_page_info": "第 {page}/{pages} 頁",
   "txt_cleanup_uri_prev_page": "上一頁",
   "txt_cleanup_uri_next_page": "下一頁",
-  "txt_cleanup_uri_import_hint": "匯入密碼庫中儲存的登入連結，再勾選要偵測的項目。"
+  "txt_cleanup_uri_import_hint": "匯入密碼庫中儲存的登入連結，再勾選要偵測的項目。",
+  "txt_cleanup_account_section": "跨域帳號整理",
+  "txt_cleanup_account_summary": "{groups} 個帳號",
+  "txt_cleanup_account_help": "依登入使用者名稱分組，彙整同一帳號在不同網站的使用情況。",
+  "txt_cleanup_account_empty": "暫無帳號分組。",
+  "txt_cleanup_no_username": "（無使用者名稱）",
+  "txt_cleanup_expand_all": "全部展開",
+  "txt_cleanup_collapse_all": "全部收合",
+  "txt_cleanup_expand_group": "展開分組",
+  "txt_cleanup_collapse_group": "收合分組"
 });
 
 export default zhTW;

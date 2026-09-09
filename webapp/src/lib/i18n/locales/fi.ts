@@ -1569,7 +1569,16 @@ Object.assign(fi, {
   "txt_cleanup_uri_page_info": "Sivu {page}/{pages}",
   "txt_cleanup_uri_prev_page": "Edellinen sivu",
   "txt_cleanup_uri_next_page": "Seuraava sivu",
-  "txt_cleanup_uri_import_hint": "Tuo holviin tallennetut kirjautumislinkit ja valitse tarkistettavat."
+  "txt_cleanup_uri_import_hint": "Tuo holviin tallennetut kirjautumislinkit ja valitse tarkistettavat.",
+  "txt_cleanup_account_section": "Tilit eri verkkotunnuksissa",
+  "txt_cleanup_account_summary": "{groups} tiliä",
+  "txt_cleanup_account_help": "Kohteet ryhmitellään kirjautumistunnuksen mukaan. Tarkista tilit, joita et enää tarvitse.",
+  "txt_cleanup_account_empty": "Ei tiliryhmiä.",
+  "txt_cleanup_no_username": "(ei käyttäjänimeä)",
+  "txt_cleanup_expand_all": "Laajenna kaikki",
+  "txt_cleanup_collapse_all": "Kutista kaikki",
+  "txt_cleanup_expand_group": "Laajenna ryhmä",
+  "txt_cleanup_collapse_group": "Kutista ryhmä"
 });
 
 export default fi;

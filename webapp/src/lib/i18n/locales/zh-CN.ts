@@ -1599,7 +1599,16 @@ Object.assign(zhCN, {
   "txt_cleanup_uri_page_info": "第 {page}/{pages} 页",
   "txt_cleanup_uri_prev_page": "上一页",
   "txt_cleanup_uri_next_page": "下一页",
-  "txt_cleanup_uri_import_hint": "导入密码库中保存的登录链接，然后勾选要检测的条目。"
+  "txt_cleanup_uri_import_hint": "导入密码库中保存的登录链接，然后勾选要检测的条目。",
+  "txt_cleanup_account_section": "跨域账号整理",
+  "txt_cleanup_account_summary": "{groups} 个账号",
+  "txt_cleanup_account_help": "按登录用户名分组，汇总同一账号在不同网站的使用情况。",
+  "txt_cleanup_account_empty": "暂无账号分组。",
+  "txt_cleanup_no_username": "（无用户名）",
+  "txt_cleanup_expand_all": "全部展开",
+  "txt_cleanup_collapse_all": "全部收起",
+  "txt_cleanup_expand_group": "展开分组",
+  "txt_cleanup_collapse_group": "收起分组"
 });
 
 export default zhCN;

@@ -1648,7 +1648,16 @@ Object.assign(en, {
   "txt_cleanup_uri_page_info": "Page {page} of {pages}",
   "txt_cleanup_uri_prev_page": "Previous page",
   "txt_cleanup_uri_next_page": "Next page",
-  "txt_cleanup_uri_import_hint": "Import the login links saved in your vault, then check the ones you want."
+  "txt_cleanup_uri_import_hint": "Import the login links saved in your vault, then check the ones you want.",
+  "txt_cleanup_account_section": "Accounts across domains",
+  "txt_cleanup_account_summary": "{groups} accounts",
+  "txt_cleanup_account_help": "Items are grouped by login username. Review accounts you no longer need.",
+  "txt_cleanup_account_empty": "No account groups found.",
+  "txt_cleanup_no_username": "(no username)",
+  "txt_cleanup_expand_all": "Expand all",
+  "txt_cleanup_collapse_all": "Collapse all",
+  "txt_cleanup_expand_group": "Expand group",
+  "txt_cleanup_collapse_group": "Collapse group"
 });
 
 export default en;

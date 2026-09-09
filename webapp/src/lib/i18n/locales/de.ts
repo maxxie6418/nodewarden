@@ -1569,7 +1569,16 @@ Object.assign(de, {
   "txt_cleanup_uri_page_info": "Seite {page} von {pages}",
   "txt_cleanup_uri_prev_page": "Vorherige Seite",
   "txt_cleanup_uri_next_page": "Nächste Seite",
-  "txt_cleanup_uri_import_hint": "Importieren Sie die im Tresor gespeicherten Login-Links und prüfen Sie dann die gewünschten."
+  "txt_cleanup_uri_import_hint": "Importieren Sie die im Tresor gespeicherten Login-Links und prüfen Sie dann die gewünschten.",
+  "txt_cleanup_account_section": "Konten über Domains",
+  "txt_cleanup_account_summary": "{groups} Konten",
+  "txt_cleanup_account_help": "Elemente werden nach Login-Benutzername gruppiert. Prüfen Sie Konten, die Sie nicht mehr benötigen.",
+  "txt_cleanup_account_empty": "Keine Kontogruppen gefunden.",
+  "txt_cleanup_no_username": "(kein Benutzername)",
+  "txt_cleanup_expand_all": "Alle erweitern",
+  "txt_cleanup_collapse_all": "Alle einklappen",
+  "txt_cleanup_expand_group": "Gruppe erweitern",
+  "txt_cleanup_collapse_group": "Gruppe einklappen"
 });
 
 export default de;

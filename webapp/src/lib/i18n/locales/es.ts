@@ -1569,7 +1569,16 @@ Object.assign(es, {
   "txt_cleanup_uri_page_info": "Página {page} de {pages}",
   "txt_cleanup_uri_prev_page": "Página anterior",
   "txt_cleanup_uri_next_page": "Página siguiente",
-  "txt_cleanup_uri_import_hint": "Importa los enlaces guardados en tu vault y luego marca los que quieras comprobar."
+  "txt_cleanup_uri_import_hint": "Importa los enlaces guardados en tu vault y luego marca los que quieras comprobar.",
+  "txt_cleanup_account_section": "Cuentas entre dominios",
+  "txt_cleanup_account_summary": "{groups} cuentas",
+  "txt_cleanup_account_help": "Los elementos se agrupan por nombre de usuario. Revisa las cuentas que ya no necesites.",
+  "txt_cleanup_account_empty": "No se encontraron grupos de cuentas.",
+  "txt_cleanup_no_username": "(sin usuario)",
+  "txt_cleanup_expand_all": "Expandir todo",
+  "txt_cleanup_collapse_all": "Contraer todo",
+  "txt_cleanup_expand_group": "Expandir grupo",
+  "txt_cleanup_collapse_group": "Contraer grupo"
 });
 
 export default es;
