@@ -51,6 +51,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
   const [uriFilter, setUriFilter] = useState<UriFilter>('issues');
   const [checkingRows, setCheckingRows] = useState<Set<string>>(() => new Set());
   const [batchRunning, setBatchRunning] = useState(false);
+  const [batchProgress, setBatchProgress] = useState({ checked: 0, total: 0 });
   const batchAbortRef = useRef<AbortController | null>(null);
   const rowResultsRef = useRef<Record<string, UriReachability>>({});
 
@@ -117,6 +118,8 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
 
   // ===================== Dead-link import + check =====================
 
+  const rowKey = (row: UriProbeItem) => uriProbeRowKey(row.cipherId, row.uri);
+
   const rowCount = linkRows?.length ?? 0;
   const pageCount = Math.max(1, Math.ceil(rowCount / LINK_PAGE_SIZE));
   const safePage = Math.min(Math.max(1, linkPage), pageCount);
@@ -141,11 +144,9 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
       const result = rowResults[rowKey(row)];
       return result === 'unreachable' || result === 'unknown';
     });
-  }, [visibleRows, rowResults, uriFilter]);
+  }, [visibleRows, rowResults, uriFilter, rowKey]);
 
   const isLinkImported = linkRows !== null;
-
-  const rowKey = (row: UriProbeItem) => uriProbeRowKey(row.cipherId, row.uri);
 
   const importLinks = () => {
     const rows = buildUriProbeRows(props.ciphers);
@@ -156,6 +157,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
     setUriFilter('issues');
     setSelectedRowKeys(new Set(rows.map(rowKey)));
     setBatchRunning(false);
+    setBatchProgress({ checked: 0, total: 0 });
   };
 
   const reimportLinks = () => {
@@ -204,6 +206,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
     const controller = new AbortController();
     batchAbortRef.current = controller;
     setBatchRunning(true);
+    setBatchProgress({ checked: 0, total: targetRows.length });
     void (async () => {
       let index = 0;
       while (index < targetRows.length) {
@@ -216,6 +219,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
         if (!controller.signal.aborted) {
           rowResultsRef.current = { ...rowResultsRef.current, [key]: reachability };
           setRowResults(rowResultsRef.current);
+          setBatchProgress({ checked: index, total: targetRows.length });
         }
         setCheckingRows((current) => {
           const next = new Set(current);
@@ -373,6 +377,13 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                 )}
               </div>
             </div>
+
+            {batchRunning && (
+              <div className="vault-cleanup-progress-wrap" aria-live="polite">
+                <progress max={batchProgress.total || 1} value={batchProgress.checked} aria-label={t('txt_cleanup_probe_progress', { checked: batchProgress.checked, total: batchProgress.total })} />
+                <span>{t('txt_cleanup_probe_progress', { checked: batchProgress.checked, total: batchProgress.total })}</span>
+              </div>
+            )}
 
             <div className="vault-cleanup-rows">
               {visibleIssueRows.length === 0 && rowCount > 0 && (
