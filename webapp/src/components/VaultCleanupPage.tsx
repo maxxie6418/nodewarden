@@ -37,12 +37,13 @@ function formatDate(value: number): string {
 }
 
 function paginationItems(current: number, total: number): Array<number | 'gap'> {
-  if (total <= 7) {
+  const SIBLING = 3;
+  if (total <= 1 + SIBLING * 2 + 2) {
     return Array.from({ length: total }, (_, i) => i + 1);
   }
   const items: Array<number | 'gap'> = [1];
-  const start = Math.max(2, current - 1);
-  const end = Math.min(total - 1, current + 1);
+  const start = Math.max(2, current - SIBLING);
+  const end = Math.min(total - 1, current + SIBLING);
   if (start > 2) items.push('gap');
   for (let page = start; page <= end; page += 1) items.push(page);
   if (end < total - 1) items.push('gap');
