@@ -29,17 +29,45 @@ export type SidebarFilter =
   | { kind: 'type'; value: TypeFilter }
   | { kind: 'folder'; folderId: string | null };
 
-// Custom "config file" item type used by the fork-only Config Files feature.
-// It reuses the standard cipher storage/encryption pipeline (name/notes/fields/
-// attachments) but is only surfaced through the dedicated /config-files view.
-export const CONFIG_FILE_CIPHER_TYPE = 9;
+// Fork-only "Config Files" feature.
+// Config files are stored as official type 2 (Secure Note) ciphers so that
+// official Bitwarden clients (whose SDKs hard-validate cipher types) keep
+// syncing. They are identified by a dedicated folder plus a name prefix.
+export const CONFIG_FILE_CIPHER_TYPE = 2;
+export const CONFIG_FILE_FOLDER_NAME = '配置文件';
+export const CONFIG_FILE_NAME_PREFIX = '[配置文件] ';
 
-export function isConfigFileCipher(cipher: Pick<Cipher, 'type'>): boolean {
-  return Number(cipher?.type || 0) === CONFIG_FILE_CIPHER_TYPE;
+export function isConfigFileFolder(folder: { id?: string | null; name?: string | null; decName?: string } | null | undefined): boolean {
+  if (!folder) return false;
+  const name = String(folder.decName || folder.name || '').trim();
+  return name === CONFIG_FILE_FOLDER_NAME;
+}
+
+export function isConfigFileCipher(
+  cipher: Pick<Cipher, 'type' | 'folderId' | 'name' | 'decName'>,
+  configFolderIds?: ReadonlySet<string> | null
+): boolean {
+  if (Number(cipher?.type || 0) !== CONFIG_FILE_CIPHER_TYPE) return false;
+  const name = String(cipher.decName || cipher.name || '');
+  if (name.startsWith(CONFIG_FILE_NAME_PREFIX)) return true;
+  // A note living in a known config folder is still treated as a config file.
+  if (configFolderIds && configFolderIds.size > 0 && cipher.folderId && configFolderIds.has(cipher.folderId)) return true;
+  return false;
 }
 
 export function configFileTypeLabel(): string {
   return t('nav_config_files');
+}
+
+export function withConfigFileNamePrefix(name: string): string {
+  const trimmed = String(name || '').trim();
+  if (!trimmed) return trimmed;
+  return trimmed.startsWith(CONFIG_FILE_NAME_PREFIX) ? trimmed : `${CONFIG_FILE_NAME_PREFIX}${trimmed}`;
+}
+
+export function stripConfigFileNamePrefix(name: string): string {
+  const value = String(name || '');
+  return value.startsWith(CONFIG_FILE_NAME_PREFIX) ? value.slice(CONFIG_FILE_NAME_PREFIX.length) : value;
 }
 
 interface TypeOption {
@@ -286,7 +314,6 @@ export function cipherTypeLabel(type: number): string {
   if (type === 6) return t('txt_bank_account');
   if (type === 7) return t('txt_drivers_license');
   if (type === 8) return t('txt_passport');
-  if (type === CONFIG_FILE_CIPHER_TYPE) return t('nav_config_files');
   return t('txt_item');
 }
 

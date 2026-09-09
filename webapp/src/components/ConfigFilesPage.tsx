@@ -1,6 +1,13 @@
-import { useMemo } from 'preact/hooks';
+import { useCallback, useEffect, useMemo, useRef } from 'preact/hooks';
 import VaultPage from '@/components/VaultPage';
-import { CONFIG_FILE_CIPHER_TYPE, configFileTypeLabel, isConfigFileCipher } from '@/components/vault/vault-page-helpers';
+import {
+  CONFIG_FILE_CIPHER_TYPE,
+  CONFIG_FILE_FOLDER_NAME,
+  isConfigFileFolder,
+  isConfigFileCipher,
+  withConfigFileNamePrefix,
+  stripConfigFileNamePrefix,
+} from '@/components/vault/vault-page-helpers';
 import type { Cipher, Folder, VaultDraft } from '@/lib/types';
 
 export interface ConfigFilesPageProps {
@@ -37,9 +44,58 @@ export interface ConfigFilesPageProps {
 }
 
 export default function ConfigFilesPage(props: ConfigFilesPageProps) {
+  const configFolder = useMemo(
+    () => props.folders.find((folder) => isConfigFileFolder(folder)) || null,
+    [props.folders]
+  );
+  const configFolderId = configFolder?.id || '';
+  const createFolderAttemptedRef = useRef(false);
+
+  useEffect(() => {
+    if (createFolderAttemptedRef.current) return;
+    if (props.loading || props.error) return;
+    if (configFolder) return;
+    createFolderAttemptedRef.current = true;
+    props.onCreateFolder(CONFIG_FILE_FOLDER_NAME).catch(() => {
+      createFolderAttemptedRef.current = false;
+    });
+  }, [props.loading, props.error, configFolder, props.onCreateFolder]);
+
+  const configFolderIds = useMemo(
+    () => (configFolderId ? new Set<string>([configFolderId]) : null),
+    [configFolderId]
+  );
+
   const configCiphers = useMemo(
-    () => props.ciphers.filter((cipher) => isConfigFileCipher(cipher)),
-    [props.ciphers]
+    () => props.ciphers.filter((cipher) => isConfigFileCipher(cipher, configFolderIds)),
+    [props.ciphers, configFolderIds]
+  );
+
+  const normalizeDraft = useCallback(
+    (draft: VaultDraft): VaultDraft => {
+      const name = stripConfigFileNamePrefix(draft.name);
+      return {
+        ...draft,
+        type: CONFIG_FILE_CIPHER_TYPE,
+        folderId: configFolderId || draft.folderId || '',
+        name: name ? withConfigFileNamePrefix(name) : '',
+      };
+    },
+    [configFolderId]
+  );
+
+  const handleCreate = useCallback(
+    async (draft: VaultDraft, attachments?: File[]) => {
+      await props.onCreate(normalizeDraft(draft), attachments);
+    },
+    [props.onCreate, normalizeDraft]
+  );
+
+  const handleUpdate = useCallback(
+    async (cipher: Cipher, draft: VaultDraft, options?: { addFiles?: File[]; removeAttachmentIds?: string[] }) => {
+      await props.onUpdate(cipher, normalizeDraft(draft), options);
+    },
+    [props.onUpdate, normalizeDraft]
   );
 
   return (
@@ -50,8 +106,8 @@ export default function ConfigFilesPage(props: ConfigFilesPageProps) {
       error={props.error}
       emailForReprompt={props.emailForReprompt}
       onRefresh={props.onRefresh}
-      onCreate={props.onCreate}
-      onUpdate={props.onUpdate}
+      onCreate={handleCreate}
+      onUpdate={handleUpdate}
       onDelete={props.onDelete}
       onArchive={props.onArchive}
       onUnarchive={props.onUnarchive}
@@ -76,8 +132,9 @@ export default function ConfigFilesPage(props: ConfigFilesPageProps) {
       mobileSidebarToggleKey={props.mobileSidebarToggleKey}
       defaultCreateType={CONFIG_FILE_CIPHER_TYPE}
       lockedSidebarFilter={{ kind: 'all' }}
-      createTypeOptions={[{ type: CONFIG_FILE_CIPHER_TYPE, label: configFileTypeLabel() }]}
+      createTypeOptions={[{ type: CONFIG_FILE_CIPHER_TYPE, label: '配置文件' }]}
       hideTypeSection
+      defaultFolderId={configFolderId}
     />
   );
 }

@@ -74,6 +74,7 @@ export const DEMO_FOLDERS: Folder[] = [
   { id: 'folder-work', name: 'Work', decName: 'Work', creationDate: DEMO_NOW, revisionDate: DEMO_NOW },
   { id: 'folder-personal', name: 'Personal', decName: 'Personal', creationDate: DEMO_NOW, revisionDate: DEMO_NOW },
   { id: 'folder-devops', name: 'DevOps', decName: 'DevOps', creationDate: DEMO_NOW, revisionDate: DEMO_NOW },
+  { id: 'folder-config', name: '配置文件', decName: '配置文件', creationDate: DEMO_NOW, revisionDate: DEMO_NOW },
 ];
 
 export const DEMO_CIPHERS: Cipher[] = [
@@ -543,14 +544,15 @@ export const DEMO_CIPHERS: Cipher[] = [
   },
   {
     id: 'cipher-config-nginx',
-    type: 9,
-    folderId: '',
+    type: 2,
+    folderId: 'folder-config',
     favorite: false,
     reprompt: 0,
-    name: 'nginx.conf',
+    name: '[配置文件] nginx.conf',
     notes: 'server {\n  listen 443 ssl;\n  server_name example.com;\n  ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;\n}',
-    decName: 'nginx.conf',
+    decName: '[配置文件] nginx.conf',
     decNotes: 'server {\n  listen 443 ssl;\n  server_name example.com;\n  ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;\n}',
+    secureNote: { type: 0 },
     creationDate: '2026-05-04T08:00:00.000Z',
     revisionDate: '2026-05-04T08:00:00.000Z',
     fields: [

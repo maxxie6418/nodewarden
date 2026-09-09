@@ -77,6 +77,8 @@ interface VaultPageProps {
   createTypeOptions?: TypeOption[];
   /** Hides the sidebar "Type" section (used by single-type views such as Config Files). */
   hideTypeSection?: boolean;
+  /** Default folder for new items (used by the Config Files view). */
+  defaultFolderId?: string;
 }
 
 
@@ -673,7 +675,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
   }, []);
 
   const startCreate = useCallback((type: number): void => {
-    setDraft(createEmptyDraft(type));
+    setDraft({ ...createEmptyDraft(type), folderId: props.defaultFolderId || '' });
     setIsCreating(true);
     setIsEditing(true);
     setCreateMenuOpen(false);
@@ -686,7 +688,7 @@ const folderName = useCallback((id: string | null | undefined): string => {
     if (isMobileLayout) setMobilePanel('edit');
     setMobileSidebarOpen(false);
     if (type === 5) void seedSshDefaults();
-  }, [isMobileLayout]);
+  }, [isMobileLayout, props.defaultFolderId]);
 
   const startEdit = useCallback((): void => {
     if (!selectedCipher) return;
