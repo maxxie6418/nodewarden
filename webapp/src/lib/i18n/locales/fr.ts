@@ -1579,7 +1579,8 @@ Object.assign(fr, {
   "txt_cleanup_collapse_all": "Tout réduire",
   "txt_cleanup_expand_group": "Développer le groupe",
   "txt_cleanup_collapse_group": "Réduire le groupe",
-  "txt_cleanup_open_link": "Ouvrir le lien"
+  "txt_cleanup_open_link": "Ouvrir le lien",
+  "txt_cleanup_uri_pagination": "Pagination"
 });
 
 export default fr;

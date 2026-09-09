@@ -1579,7 +1579,8 @@ Object.assign(fi, {
   "txt_cleanup_collapse_all": "Kutista kaikki",
   "txt_cleanup_expand_group": "Laajenna ryhmä",
   "txt_cleanup_collapse_group": "Kutista ryhmä",
-  "txt_cleanup_open_link": "Avaa linkki"
+  "txt_cleanup_open_link": "Avaa linkki",
+  "txt_cleanup_uri_pagination": "Sivutus"
 });
 
 export default fi;

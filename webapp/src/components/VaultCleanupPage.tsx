@@ -36,6 +36,20 @@ function formatDate(value: number): string {
   return new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(value);
 }
 
+function paginationItems(current: number, total: number): Array<number | 'gap'> {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  const items: Array<number | 'gap'> = [1];
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  if (start > 2) items.push('gap');
+  for (let page = start; page <= end; page += 1) items.push(page);
+  if (end < total - 1) items.push('gap');
+  items.push(total);
+  return items;
+}
+
 export default function VaultCleanupPage(props: VaultCleanupPageProps) {
   const overview = useMemo(() => buildCleanupOverview(props.ciphers), [props.ciphers]);
   const [mode, setMode] = useState<CleanupMode>('domains');
@@ -532,7 +546,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
             </div>
 
             {pageCount > 1 && (
-              <div className="vault-cleanup-pagination">
+              <div className="vault-cleanup-pagination" role="navigation" aria-label={t('txt_cleanup_uri_pagination')}>
                 <button
                   type="button"
                   className="btn btn-secondary small"
@@ -542,7 +556,24 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                 >
                   <ChevronLeft size={14} className="btn-icon" />
                 </button>
-                <span className="vault-cleanup-page-info">{t('txt_cleanup_uri_page_info', { page: safePage, pages: pageCount })}</span>
+                <div className="vault-cleanup-pagination-pages">
+                  {paginationItems(safePage, pageCount).map((item, index) =>
+                    item === 'gap' ? (
+                      <span key={`gap-${index}`} className="vault-cleanup-page-gap">…</span>
+                    ) : (
+                      <button
+                        key={item}
+                        type="button"
+                        className={`vault-cleanup-page-btn ${item === safePage ? 'active' : ''}`}
+                        disabled={batchRunning}
+                        onClick={() => goToPage(item)}
+                        aria-current={item === safePage ? 'page' : undefined}
+                      >
+                        {item}
+                      </button>
+                    )
+                  )}
+                </div>
                 <button
                   type="button"
                   className="btn btn-secondary small"

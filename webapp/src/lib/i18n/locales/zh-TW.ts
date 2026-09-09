@@ -1609,7 +1609,8 @@ Object.assign(zhTW, {
   "txt_cleanup_collapse_all": "全部收合",
   "txt_cleanup_expand_group": "展開分組",
   "txt_cleanup_collapse_group": "收合分組",
-  "txt_cleanup_open_link": "開啟連結"
+  "txt_cleanup_open_link": "開啟連結",
+  "txt_cleanup_uri_pagination": "分頁"
 });
 
 export default zhTW;

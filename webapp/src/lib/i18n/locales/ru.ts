@@ -1579,7 +1579,8 @@ Object.assign(ru, {
   "txt_cleanup_collapse_all": "Свернуть все",
   "txt_cleanup_expand_group": "Развернуть группу",
   "txt_cleanup_collapse_group": "Свернуть группу",
-  "txt_cleanup_open_link": "Открыть ссылку"
+  "txt_cleanup_open_link": "Открыть ссылку",
+  "txt_cleanup_uri_pagination": "Пагинация"
 });
 
 export default ru;

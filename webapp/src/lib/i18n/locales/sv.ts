@@ -1579,7 +1579,8 @@ Object.assign(sv, {
   "txt_cleanup_collapse_all": "Fäll ihop alla",
   "txt_cleanup_expand_group": "Expandera grupp",
   "txt_cleanup_collapse_group": "Fäll ihop grupp",
-  "txt_cleanup_open_link": "Öppna länk"
+  "txt_cleanup_open_link": "Öppna länk",
+  "txt_cleanup_uri_pagination": "Paginering"
 });
 
 export default sv;

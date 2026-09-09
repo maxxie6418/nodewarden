@@ -1579,7 +1579,8 @@ Object.assign(de, {
   "txt_cleanup_collapse_all": "Alle einklappen",
   "txt_cleanup_expand_group": "Gruppe erweitern",
   "txt_cleanup_collapse_group": "Gruppe einklappen",
-  "txt_cleanup_open_link": "Link öffnen"
+  "txt_cleanup_open_link": "Link öffnen",
+  "txt_cleanup_uri_pagination": "Seitennavigation"
 });
 
 export default de;

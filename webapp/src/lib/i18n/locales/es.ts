@@ -1579,7 +1579,8 @@ Object.assign(es, {
   "txt_cleanup_collapse_all": "Contraer todo",
   "txt_cleanup_expand_group": "Expandir grupo",
   "txt_cleanup_collapse_group": "Contraer grupo",
-  "txt_cleanup_open_link": "Abrir enlace"
+  "txt_cleanup_open_link": "Abrir enlace",
+  "txt_cleanup_uri_pagination": "Paginación"
 });
 
 export default es;
