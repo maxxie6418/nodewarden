@@ -175,6 +175,34 @@ export function buildUriProbePlan(ciphers: Cipher[]): CleanupCandidate[] {
     .filter((candidate) => candidate.uris.length > 0);
 }
 
+export function uriProbeRowKey(cipherId: string, uri: string): string {
+  return `${cipherId}\u0000${uri}`;
+}
+
+// Builds one row per URI so each link can be checked and displayed independently.
+export function buildUriProbeRows(ciphers: Cipher[]): UriProbeItem[] {
+  const rows: UriProbeItem[] = [];
+  const seen = new Set<string>();
+  for (const candidate of ciphers.filter(isCipherVisibleInCleanup).map(buildCandidate)) {
+    for (const uri of candidate.uris) {
+      const key = uriProbeRowKey(candidate.cipherId, uri);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      rows.push({
+        cipherId: candidate.cipherId,
+        name: candidate.name,
+        uri,
+        host: hostFromUri(uri).trim().toLowerCase(),
+        reachability: 'unknown',
+        createdAt: candidate.createdAt,
+        updatedAt: candidate.updatedAt,
+      });
+    }
+  }
+  rows.sort((a, b) => a.host.localeCompare(b.host) || a.uri.localeCompare(b.uri));
+  return rows;
+}
+
 export function createUriProbeResult(total: number): UriProbeResult {
   return { items: [], total, checked: 0, unreachableCount: 0, unknownCount: 0 };
 }
