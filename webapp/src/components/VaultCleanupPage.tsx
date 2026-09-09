@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { CheckCircle2, ChevronLeft, ChevronRight, Eraser, ExternalLink, Globe, Link2, RefreshCw, Trash2 } from 'lucide-preact';
+import { CheckCircle2, ChevronLeft, ChevronRight, Eraser, ExternalLink, Globe, Link2, RefreshCw, Trash2, Users } from 'lucide-preact';
 import { Link } from 'wouter';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import {
@@ -23,7 +23,7 @@ interface VaultCleanupPageProps {
 }
 
 type UriFilter = 'issues' | 'all';
-type CleanupMode = 'domains' | 'links';
+type CleanupMode = 'domains' | 'accounts' | 'links';
 
 const LINK_PAGE_SIZE = 20;
 
@@ -42,6 +42,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => new Set());
 
   // ---- Dead-link importable rows (one URI per row) ----
   const [linkRows, setLinkRows] = useState<UriProbeItem[] | null>(null);
@@ -70,6 +71,26 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
       const next = new Set(current);
       if (next.has(cipherId)) next.delete(cipherId);
       else next.add(cipherId);
+      return next;
+    });
+  };
+
+  const toggleGroupCollapsed = (key: string) => {
+    setExpandedGroups((current) => {
+      const next = new Set(current);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
+
+  const setAllGroupsExpanded = (keys: string[], expanded: boolean) => {
+    setExpandedGroups((current) => {
+      const next = new Set(current);
+      for (const key of keys) {
+        if (expanded) next.add(key);
+        else next.delete(key);
+      }
       return next;
     });
   };
@@ -274,6 +295,9 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
         <button type="button" role="tab" aria-selected={mode === 'domains'} className={`vault-cleanup-mode-tab ${mode === 'domains' ? 'active' : ''}`} onClick={() => setMode('domains')}>
           <Globe size={15} className="btn-icon" /> {t('txt_cleanup_domain_section')}
         </button>
+        <button type="button" role="tab" aria-selected={mode === 'accounts'} className={`vault-cleanup-mode-tab ${mode === 'accounts' ? 'active' : ''}`} onClick={() => setMode('accounts')}>
+          <Users size={15} className="btn-icon" /> {t('txt_cleanup_account_section')}
+        </button>
         <button type="button" role="tab" aria-selected={mode === 'links'} className={`vault-cleanup-mode-tab ${mode === 'links' ? 'active' : ''}`} onClick={() => setMode('links')}>
           <Link2 size={15} className="btn-icon" /> {t('txt_cleanup_uri_section')}
         </button>
@@ -296,32 +320,131 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
         {!overview.domainGroups.length && !props.loading ? (
           <div className="vault-cleanup-empty"><CheckCircle2 size={24} aria-hidden="true" /> <span>{t('txt_cleanup_domain_empty')}</span></div>
         ) : (
-          <div className="vault-cleanup-groups">
-            {overview.domainGroups.map((group) => (
-              <div className="vault-cleanup-group" key={group.site}>
-                <div className="vault-cleanup-group-head">
-                  <span className="vault-cleanup-group-site">{group.site} · {group.items.length}</span>
-                  <button type="button" className="btn btn-secondary small" onClick={() => selectGroupAll(group)}>
-                    {t('txt_cleanup_select_group')}
-                  </button>
-                  <button type="button" className="btn btn-secondary small" onClick={() => selectOlderDuplicates(group)}>
-                    {t('txt_cleanup_select_older_duplicates')}
-                  </button>
-                </div>
-                <div className="vault-cleanup-rows">
-                  {group.items.map((item) => (
-                    <CleanupRow
-                      key={item.cipherId}
-                      item={item}
-                      selected={selectedIds.has(item.cipherId)}
-                      duplicate={duplicateIdSet.has(item.cipherId)}
-                      onToggle={() => toggleSelected(item.cipherId)}
-                    />
-                  ))}
-                </div>
+          <>
+            {overview.domainGroups.length > 0 && (
+              <div className="vault-cleanup-group-toggle-row">
+                <button type="button" className="btn btn-secondary small" onClick={() => setAllGroupsExpanded(overview.domainGroups.map((g) => `domain:${g.site}`), true)}>
+                  <ChevronRight size={14} className="btn-icon vault-cleanup-chevron-down" /> {t('txt_cleanup_expand_all')}
+                </button>
+                <button type="button" className="btn btn-secondary small" onClick={() => setAllGroupsExpanded(overview.domainGroups.map((g) => `domain:${g.site}`), false)}>
+                  <ChevronRight size={14} className="btn-icon" /> {t('txt_cleanup_collapse_all')}
+                </button>
               </div>
-            ))}
+            )}
+            <div className="vault-cleanup-groups">
+              {overview.domainGroups.map((group) => {
+                const groupKey = `domain:${group.site}`;
+                const expanded = expandedGroups.has(groupKey);
+                return (
+                  <div className="vault-cleanup-group" key={group.site}>
+                    <div className="vault-cleanup-group-head">
+                      <button
+                        type="button"
+                        className="vault-cleanup-group-fold"
+                        aria-expanded={expanded}
+                        aria-label={expanded ? t('txt_cleanup_collapse_group') : t('txt_cleanup_expand_group')}
+                        onClick={() => toggleGroupCollapsed(groupKey)}
+                      >
+                        <ChevronRight size={15} className={expanded ? 'vault-cleanup-chevron-down' : ''} />
+                      </button>
+                      <span className="vault-cleanup-group-site">{group.site} · {group.items.length}</span>
+                      <button type="button" className="btn btn-secondary small" onClick={() => selectGroupAll(group)}>
+                        {t('txt_cleanup_select_group')}
+                      </button>
+                      <button type="button" className="btn btn-secondary small" onClick={() => selectOlderDuplicates(group)}>
+                        {t('txt_cleanup_select_older_duplicates')}
+                      </button>
+                    </div>
+                    {expanded && (
+                      <div className="vault-cleanup-rows">
+                        {group.items.map((item) => (
+                          <CleanupRow
+                            key={item.cipherId}
+                            item={item}
+                            selected={selectedIds.has(item.cipherId)}
+                            duplicate={duplicateIdSet.has(item.cipherId)}
+                            onToggle={() => toggleSelected(item.cipherId)}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
+      </div>}
+
+      {mode === 'accounts' && <div className="vault-cleanup-section card">
+        <div className="vault-cleanup-section-head">
+          <div className="vault-cleanup-section-title">
+            <Users size={17} />
+            <h3>{t('txt_cleanup_account_section')}</h3>
           </div>
+          {overview.accountGroups.length > 0 && (
+            <span className="vault-cleanup-section-meta">
+              {t('txt_cleanup_account_summary', { groups: overview.accountGroups.length })}
+            </span>
+          )}
+        </div>
+        <p className="vault-cleanup-section-help muted">{t('txt_cleanup_account_help')}</p>
+
+        {!overview.accountGroups.length && !props.loading ? (
+          <div className="vault-cleanup-empty"><CheckCircle2 size={24} aria-hidden="true" /> <span>{t('txt_cleanup_account_empty')}</span></div>
+        ) : (
+          <>
+            <div className="vault-cleanup-group-toggle-row">
+              <button type="button" className="btn btn-secondary small" onClick={() => setAllGroupsExpanded(overview.accountGroups.map((g) => `account:${g.account}`), true)}>
+                <ChevronRight size={14} className="btn-icon vault-cleanup-chevron-down" /> {t('txt_cleanup_expand_all')}
+              </button>
+              <button type="button" className="btn btn-secondary small" onClick={() => setAllGroupsExpanded(overview.accountGroups.map((g) => `account:${g.account}`), false)}>
+                <ChevronRight size={14} className="btn-icon" /> {t('txt_cleanup_collapse_all')}
+              </button>
+            </div>
+            <div className="vault-cleanup-groups">
+              {overview.accountGroups.map((group) => {
+                const groupKey = `account:${group.account}`;
+                const expanded = expandedGroups.has(groupKey);
+                const displayAccount = group.account || t('txt_cleanup_no_username');
+                return (
+                  <div className="vault-cleanup-group" key={groupKey}>
+                    <div className="vault-cleanup-group-head">
+                      <button
+                        type="button"
+                        className="vault-cleanup-group-fold"
+                        aria-expanded={expanded}
+                        aria-label={expanded ? t('txt_cleanup_collapse_group') : t('txt_cleanup_expand_group')}
+                        onClick={() => toggleGroupCollapsed(groupKey)}
+                      >
+                        <ChevronRight size={15} className={expanded ? 'vault-cleanup-chevron-down' : ''} />
+                      </button>
+                      <span className="vault-cleanup-group-site">{displayAccount} · {group.items.length}</span>
+                      <button type="button" className="btn btn-secondary small" onClick={() => selectGroupAll(group)}>
+                        {t('txt_cleanup_select_group')}
+                      </button>
+                      <button type="button" className="btn btn-secondary small" onClick={() => selectOlderDuplicates(group)}>
+                        {t('txt_cleanup_select_older_duplicates')}
+                      </button>
+                    </div>
+                    {expanded && (
+                      <div className="vault-cleanup-rows">
+                        {group.items.map((item) => (
+                          <CleanupRow
+                            key={item.cipherId}
+                            item={item}
+                            selected={selectedIds.has(item.cipherId)}
+                            duplicate={duplicateIdSet.has(item.cipherId)}
+                            onToggle={() => toggleSelected(item.cipherId)}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>}
 

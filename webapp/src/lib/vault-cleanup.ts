@@ -25,6 +25,11 @@ export interface DomainGroup {
   items: CleanupCandidate[];
 }
 
+export interface AccountGroup {
+  account: string;
+  items: CleanupCandidate[];
+}
+
 export interface UriProbeItem {
   cipherId: string;
   name: string;
@@ -45,6 +50,7 @@ export interface UriProbeResult {
 
 export interface CleanupOverview {
   domainGroups: DomainGroup[];
+  accountGroups: AccountGroup[];
   groupedCount: number;
   duplicateCipherIds: string[];
   uriCandidateCount: number;
@@ -151,6 +157,25 @@ export function buildCleanupOverview(ciphers: Cipher[]): CleanupOverview {
   }
   domainGroups.sort((a, b) => b.items.length - a.items.length || a.site.localeCompare(b.site));
 
+  const byAccount = new Map<string, CleanupCandidate[]>();
+  for (const candidate of candidates) {
+    const account = candidate.username.trim() || '\u0000empty';
+    const group = byAccount.get(account) || [];
+    group.push(candidate);
+    byAccount.set(account, group);
+  }
+
+  const accountGroups: AccountGroup[] = [];
+  for (const [account, items] of byAccount) {
+    items.sort((a, b) => {
+      if (b.updatedAt !== a.updatedAt) return b.updatedAt - a.updatedAt;
+      if (b.createdAt !== a.createdAt) return b.createdAt - a.createdAt;
+      return a.name.localeCompare(b.name);
+    });
+    accountGroups.push({ account: account === '\u0000empty' ? '' : account, items });
+  }
+  accountGroups.sort((a, b) => b.items.length - a.items.length || a.account.localeCompare(b.account));
+
   const keyCounts = new Map<string, number>();
   for (const candidate of candidates) {
     const key = candidateKey(candidate);
@@ -162,6 +187,7 @@ export function buildCleanupOverview(ciphers: Cipher[]): CleanupOverview {
 
   return {
     domainGroups,
+    accountGroups,
     groupedCount: domainGroups.reduce((sum, group) => sum + group.items.length, 0),
     duplicateCipherIds,
     uriCandidateCount: candidates.filter((candidate) => candidate.uris.length > 0).length,
