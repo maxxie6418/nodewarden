@@ -233,6 +233,16 @@ export function createUriProbeResult(total: number): UriProbeResult {
   return { items: [], total, checked: 0, unreachableCount: 0, unknownCount: 0 };
 }
 
+function isHttpUrl(uri: string): boolean {
+  return /^https?:\/\//i.test(uri);
+}
+
+function reachableStatus(status: number): boolean {
+  // 2xx/3xx obviously fine; 401/403/407/408/429 mean the resource exists but
+  // the request was gated (login/rate-limit), so treat them as reachable.
+  return (status >= 200 && status < 400) || [401, 403, 405, 407, 408, 429].includes(status);
+}
+
 export function probeUriReachability(uri: string, signal?: AbortSignal): Promise<UriReachability> {
   return new Promise((resolve) => {
     let settled = false;
@@ -253,20 +263,45 @@ export function probeUriReachability(uri: string, signal?: AbortSignal): Promise
     const onExternalAbort = () => finish('unknown');
     signal?.addEventListener('abort', onExternalAbort, { once: true });
 
-    if (window.location.protocol === 'https:' && uri.toLowerCase().startsWith('http:')) {
+    if (!isHttpUrl(uri)) {
+      // Non-http(s) schemes (mailto:, custom protocols...) can't be probed.
       finish('unknown');
       return;
     }
 
-    try {
-      timeoutId = window.setTimeout(() => finish('unreachable'), URI_PROBE_TIMEOUT_MS);
-      void fetch(uri, { mode: 'no-cors', redirect: 'follow', signal: controller.signal }).then(
+    // Browsers block http:// requests from https pages (mixed content); we
+    // cannot distinguish a blocked request from a dead link, so mark unknown.
+    if (typeof window !== 'undefined' && window.location.protocol === 'https:' && /^http:\/\//i.test(uri)) {
+      finish('unknown');
+      return;
+    }
+
+    timeoutId = window.setTimeout(() => finish('unreachable'), URI_PROBE_TIMEOUT_MS);
+
+    const attemptNoCors = () => {
+      void fetch(uri, { method: 'GET', mode: 'no-cors', redirect: 'follow', signal: controller.signal }).then(
         () => finish('ok'),
         () => finish('unreachable')
       );
-    } catch {
-      finish('unknown');
-    }
+    };
+
+    void fetch(uri, { method: 'HEAD', mode: 'cors', redirect: 'follow', signal: controller.signal })
+      .then((response) => {
+        // CORS allowed: we can read the real status code.
+        finish(reachableStatus(response.status) ? 'ok' : 'unreachable');
+      })
+      .catch(() => {
+        // HEAD cors may fail for servers that do not support HEAD or CORS.
+        // Fall back to a GET cors attempt so we can still read a status when allowed.
+        if (settled) return;
+        void fetch(uri, { method: 'GET', mode: 'cors', redirect: 'follow', signal: controller.signal })
+          .then((response) => finish(reachableStatus(response.status) ? 'ok' : 'unreachable'))
+          .catch(() => {
+            // CORS blocked (or network failure): fall back to opaque no-cors probe.
+            if (settled) return;
+            attemptNoCors();
+          });
+      });
   });
 }
 
