@@ -1590,8 +1590,8 @@ Object.assign(sv, {
   "txt_cleanup_uri_server_error_short": "Serverfel",
   "txt_cleanup_uri_server_error_count": "Serverfel: {count}",
   "txt_cleanup_confirm_row_message": "{name} flyttas till papperskorgen. Du kan återställa det från papperskorgen senare.",
-  "txt_cleanup_delete_group": "Ta bort gruppen",
-  "txt_cleanup_confirm_group_message": "{name}: {count} poster flyttas till papperskorgen. Du kan återställa dem senare."
+  "txt_cleanup_delete_checked": "Ta bort markerade ({count})",
+  "txt_cleanup_confirm_group_message": "{name}: de {count} markerade posterna flyttas till papperskorgen. Du kan återställa dem senare."
 });
 
 export default sv;

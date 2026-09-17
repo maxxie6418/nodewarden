@@ -1669,8 +1669,8 @@ Object.assign(en, {
   "txt_cleanup_uri_server_error_short": "Server error",
   "txt_cleanup_uri_server_error_count": "Server errors: {count}",
   "txt_cleanup_confirm_row_message": "{name} will be moved to the trash. You can restore it from the trash later.",
-  "txt_cleanup_delete_group": "Delete group",
-  "txt_cleanup_confirm_group_message": "{name}: {count} items will be moved to the trash. You can restore them from the trash later."
+  "txt_cleanup_delete_checked": "Delete checked ({count})",
+  "txt_cleanup_confirm_group_message": "{name}: the {count} checked items will be moved to the trash. You can restore them from the trash later."
 });
 
 export default en;

@@ -1590,8 +1590,8 @@ Object.assign(de, {
   "txt_cleanup_uri_server_error_short": "Serverfehler",
   "txt_cleanup_uri_server_error_count": "Serverfehler: {count}",
   "txt_cleanup_confirm_row_message": "„{name}“ wird in den Papierkorb verschoben. Du kannst es später aus dem Papierkorb wiederherstellen.",
-  "txt_cleanup_delete_group": "Gruppe löschen",
-  "txt_cleanup_confirm_group_message": "{name}: {count} Einträge werden in den Papierkorb verschoben. Du kannst sie später wiederherstellen."
+  "txt_cleanup_delete_checked": "Auswahl löschen ({count})",
+  "txt_cleanup_confirm_group_message": "{name}: die {count} ausgewählten Einträge werden in den Papierkorb verschoben. Du kannst sie später wiederherstellen."
 });
 
 export default de;

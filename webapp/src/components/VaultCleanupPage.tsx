@@ -44,6 +44,10 @@ function duplicateKeyOf(candidate: CleanupCandidate): string {
   return `${candidate.username.toLowerCase()}\u0000${candidate.password}`;
 }
 
+function checkedIdsInGroup(group: { items: CleanupCandidate[] }, selectedIds: Set<string>): string[] {
+  return group.items.filter((item) => selectedIds.has(item.cipherId)).map((item) => item.cipherId);
+}
+
 function formatDate(value: number): string {
   if (!value) return '—';
   return new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(value);
@@ -349,10 +353,6 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
 
   const requestRowDelete = (ids: string[], name: string) => requestDelete(ids, name, 'row');
 
-  const requestGroupDelete = (label: string, items: CleanupCandidate[]) => {
-    requestDelete(items.map((item) => item.cipherId), label, 'group');
-  };
-
   // 分页数据变化时若批量在跑禁止翻页，翻页后保留选择与结果
   const goToPage = (page: number) => {
     if (batchRunning) return;
@@ -413,6 +413,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
               {overview.domainGroups.map((group) => {
                 const groupKey = `domain:${group.site}`;
                 const expanded = expandedGroups.has(groupKey);
+                const checkedIds = checkedIdsInGroup(group, selectedIds);
                 return (
                   <div className="vault-cleanup-group" key={group.site}>
                     <div className="vault-cleanup-group-head">
@@ -435,9 +436,10 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                       <button
                         type="button"
                         className="btn btn-danger small"
-                        onClick={() => requestGroupDelete(group.site, group.items)}
+                        disabled={checkedIds.length === 0}
+                        onClick={() => requestDelete(checkedIds, group.site, 'group')}
                       >
-                        <Trash2 size={14} className="btn-icon" /> {t('txt_cleanup_delete_group')}
+                        <Trash2 size={14} className="btn-icon" /> {t('txt_cleanup_delete_checked', { count: checkedIds.length })}
                       </button>
                     </div>
                     {expanded && (
@@ -493,6 +495,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                 const groupKey = `account:${group.account}`;
                 const expanded = expandedGroups.has(groupKey);
                 const displayAccount = group.account || t('txt_cleanup_no_username');
+                const checkedIds = checkedIdsInGroup(group, selectedIds);
                 return (
                   <div className="vault-cleanup-group" key={groupKey}>
                     <div className="vault-cleanup-group-head">
@@ -515,9 +518,10 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                       <button
                         type="button"
                         className="btn btn-danger small"
-                        onClick={() => requestGroupDelete(displayAccount, group.items)}
+                        disabled={checkedIds.length === 0}
+                        onClick={() => requestDelete(checkedIds, displayAccount, 'group')}
                       >
-                        <Trash2 size={14} className="btn-icon" /> {t('txt_cleanup_delete_group')}
+                        <Trash2 size={14} className="btn-icon" /> {t('txt_cleanup_delete_checked', { count: checkedIds.length })}
                       </button>
                     </div>
                     {expanded && (

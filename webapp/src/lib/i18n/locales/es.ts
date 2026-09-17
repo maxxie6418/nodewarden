@@ -1590,8 +1590,8 @@ Object.assign(es, {
   "txt_cleanup_uri_server_error_short": "Error del servidor",
   "txt_cleanup_uri_server_error_count": "Errores del servidor: {count}",
   "txt_cleanup_confirm_row_message": "«{name}» se moverá a la papelera. Puedes restaurarlo desde la papelera más tarde.",
-  "txt_cleanup_delete_group": "Eliminar grupo",
-  "txt_cleanup_confirm_group_message": "{name}: {count} elementos se moverán a la papelera. Podrás restaurarlos después."
+  "txt_cleanup_delete_checked": "Eliminar marcados ({count})",
+  "txt_cleanup_confirm_group_message": "{name}: los {count} elementos marcados se moverán a la papelera. Podrás restaurarlos después."
 });
 
 export default es;

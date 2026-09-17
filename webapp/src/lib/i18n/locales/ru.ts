@@ -1590,8 +1590,8 @@ Object.assign(ru, {
   "txt_cleanup_uri_server_error_short": "Ошибка сервера",
   "txt_cleanup_uri_server_error_count": "Ошибки сервера: {count}",
   "txt_cleanup_confirm_row_message": "«{name}» будет перемещён в корзину. Позже его можно восстановить из корзины.",
-  "txt_cleanup_delete_group": "Удалить группу",
-  "txt_cleanup_confirm_group_message": "{name}: {count} записей будут перемещены в корзину. Позже их можно восстановить."
+  "txt_cleanup_delete_checked": "Удалить отмеченные ({count})",
+  "txt_cleanup_confirm_group_message": "{name}: {count} отмеченных записей будут перемещены в корзину. Позже их можно восстановить."
 });
 
 export default ru;
