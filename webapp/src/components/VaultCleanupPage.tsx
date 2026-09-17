@@ -765,6 +765,17 @@ function CleanupRow(props: {
         </span>
       </span>
       <span className="vault-cleanup-row-actions" onClick={(event) => event.stopPropagation()}>
+        {uri ? (
+          <a
+            href={uri}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary small"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <ExternalLink size={14} className="btn-icon" /> {t('txt_cleanup_open_link')}
+          </a>
+        ) : null}
         <Link href={`/vault?cipher=${encodeURIComponent(props.item.cipherId)}`} className="btn btn-secondary small">
           <ExternalLink size={14} className="btn-icon" />{t('txt_password_security_jump')}
         </Link>
