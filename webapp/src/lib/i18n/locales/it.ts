@@ -1589,7 +1589,9 @@ Object.assign(it, {
   "txt_cleanup_uri_gone_count": "Non trovati: {count}",
   "txt_cleanup_uri_server_error_short": "Errore server",
   "txt_cleanup_uri_server_error_count": "Errori server: {count}",
-  "txt_cleanup_confirm_row_message": "«{name}» verrà spostato nel cestino. Potrai ripristinarlo dal cestino in seguito."
+  "txt_cleanup_confirm_row_message": "«{name}» verrà spostato nel cestino. Potrai ripristinarlo dal cestino in seguito.",
+  "txt_cleanup_delete_group": "Elimina gruppo",
+  "txt_cleanup_confirm_group_message": "{name}: {count} voci verranno spostate nel cestino. Potrai ripristinarle in seguito."
 });
 
 export default it;

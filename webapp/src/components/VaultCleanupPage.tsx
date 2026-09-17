@@ -74,7 +74,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
   const [mode, setMode] = useState<CleanupMode>('domains');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [rowDeleteTarget, setRowDeleteTarget] = useState<{ ids: string[]; name: string } | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ ids: string[]; name: string; kind: 'row' | 'group' } | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => new Set());
 
@@ -333,7 +333,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
       });
       dropDeletedRows(ids);
       setConfirmOpen(false);
-      setRowDeleteTarget(null);
+      setDeleteTarget(null);
       props.onNotify('success', t('txt_cleanup_moved_to_trash', { count: ids.length }));
     } catch {
       props.onNotify('error', t('txt_cleanup_move_failed'));
@@ -342,9 +342,15 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
     }
   };
 
-  const requestRowDelete = (ids: string[], name: string) => {
-    if (deleting) return;
-    setRowDeleteTarget({ ids, name });
+  const requestDelete = (ids: string[], name: string, kind: 'row' | 'group') => {
+    if (!ids.length || deleting) return;
+    setDeleteTarget({ ids, name, kind });
+  };
+
+  const requestRowDelete = (ids: string[], name: string) => requestDelete(ids, name, 'row');
+
+  const requestGroupDelete = (label: string, items: CleanupCandidate[]) => {
+    requestDelete(items.map((item) => item.cipherId), label, 'group');
   };
 
   // 分页数据变化时若批量在跑禁止翻页，翻页后保留选择与结果
@@ -426,6 +432,13 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                       <button type="button" className="btn btn-secondary small" onClick={() => selectOlderDuplicates(group)}>
                         {t('txt_cleanup_select_older_duplicates')}
                       </button>
+                      <button
+                        type="button"
+                        className="btn btn-danger small"
+                        onClick={() => requestGroupDelete(group.site, group.items)}
+                      >
+                        <Trash2 size={14} className="btn-icon" /> {t('txt_cleanup_delete_group')}
+                      </button>
                     </div>
                     {expanded && (
                       <div className="vault-cleanup-rows">
@@ -498,6 +511,13 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                       </button>
                       <button type="button" className="btn btn-secondary small" onClick={() => selectOlderDuplicates(group)}>
                         {t('txt_cleanup_select_older_duplicates')}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-danger small"
+                        onClick={() => requestGroupDelete(displayAccount, group.items)}
+                      >
+                        <Trash2 size={14} className="btn-icon" /> {t('txt_cleanup_delete_group')}
                       </button>
                     </div>
                     {expanded && (
@@ -696,19 +716,21 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
       </div>
 
       <ConfirmDialog
-        open={confirmOpen || rowDeleteTarget !== null}
+        open={confirmOpen || deleteTarget !== null}
         variant="warning"
         danger
         title={t('txt_cleanup_confirm_title')}
-        message={rowDeleteTarget
-          ? t('txt_cleanup_confirm_row_message', { name: rowDeleteTarget.name })
+        message={deleteTarget
+          ? deleteTarget.kind === 'group'
+            ? t('txt_cleanup_confirm_group_message', { name: deleteTarget.name, count: deleteTarget.ids.length })
+            : t('txt_cleanup_confirm_row_message', { name: deleteTarget.name })
           : t('txt_cleanup_confirm_message', { count: deletionCipherIds.length })}
-        confirmText={t('txt_cleanup_move_to_trash', { count: rowDeleteTarget ? 1 : deletionCipherIds.length })}
+        confirmText={t('txt_cleanup_move_to_trash', { count: deleteTarget ? deleteTarget.ids.length : deletionCipherIds.length })}
         confirmDisabled={deleting}
-        onConfirm={() => void moveToTrash(rowDeleteTarget ? rowDeleteTarget.ids : deletionCipherIds)}
+        onConfirm={() => void moveToTrash(deleteTarget ? deleteTarget.ids : deletionCipherIds)}
         onCancel={() => {
           setConfirmOpen(false);
-          setRowDeleteTarget(null);
+          setDeleteTarget(null);
         }}
       />
     </section>
