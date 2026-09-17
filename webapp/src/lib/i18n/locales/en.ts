@@ -1667,7 +1667,8 @@ Object.assign(en, {
   "txt_cleanup_uri_gone_short": "Not found",
   "txt_cleanup_uri_gone_count": "Not found: {count}",
   "txt_cleanup_uri_server_error_short": "Server error",
-  "txt_cleanup_uri_server_error_count": "Server errors: {count}"
+  "txt_cleanup_uri_server_error_count": "Server errors: {count}",
+  "txt_cleanup_confirm_row_message": "{name} will be moved to the trash. You can restore it from the trash later."
 });
 
 export default en;

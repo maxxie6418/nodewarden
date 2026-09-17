@@ -1588,7 +1588,8 @@ Object.assign(sv, {
   "txt_cleanup_uri_gone_short": "Hittades inte",
   "txt_cleanup_uri_gone_count": "Hittades inte: {count}",
   "txt_cleanup_uri_server_error_short": "Serverfel",
-  "txt_cleanup_uri_server_error_count": "Serverfel: {count}"
+  "txt_cleanup_uri_server_error_count": "Serverfel: {count}",
+  "txt_cleanup_confirm_row_message": "{name} flyttas till papperskorgen. Du kan återställa det från papperskorgen senare."
 });
 
 export default sv;

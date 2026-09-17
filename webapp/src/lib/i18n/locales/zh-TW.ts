@@ -1618,7 +1618,8 @@ Object.assign(zhTW, {
   "txt_cleanup_uri_gone_short": "不存在",
   "txt_cleanup_uri_gone_count": "不存在：{count}",
   "txt_cleanup_uri_server_error_short": "伺服器錯誤",
-  "txt_cleanup_uri_server_error_count": "伺服器錯誤：{count}"
+  "txt_cleanup_uri_server_error_count": "伺服器錯誤：{count}",
+  "txt_cleanup_confirm_row_message": "將把「{name}」移入回收站，之後可在回收站中還原。"
 });
 
 export default zhTW;

@@ -1588,7 +1588,8 @@ Object.assign(it, {
   "txt_cleanup_uri_gone_short": "Non trovato",
   "txt_cleanup_uri_gone_count": "Non trovati: {count}",
   "txt_cleanup_uri_server_error_short": "Errore server",
-  "txt_cleanup_uri_server_error_count": "Errori server: {count}"
+  "txt_cleanup_uri_server_error_count": "Errori server: {count}",
+  "txt_cleanup_confirm_row_message": "«{name}» verrà spostato nel cestino. Potrai ripristinarlo dal cestino in seguito."
 });
 
 export default it;

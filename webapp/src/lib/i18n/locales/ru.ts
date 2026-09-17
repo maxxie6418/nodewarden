@@ -1588,7 +1588,8 @@ Object.assign(ru, {
   "txt_cleanup_uri_gone_short": "Не найдено",
   "txt_cleanup_uri_gone_count": "Не найдено: {count}",
   "txt_cleanup_uri_server_error_short": "Ошибка сервера",
-  "txt_cleanup_uri_server_error_count": "Ошибки сервера: {count}"
+  "txt_cleanup_uri_server_error_count": "Ошибки сервера: {count}",
+  "txt_cleanup_confirm_row_message": "«{name}» будет перемещён в корзину. Позже его можно восстановить из корзины."
 });
 
 export default ru;

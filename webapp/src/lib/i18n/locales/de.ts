@@ -1588,7 +1588,8 @@ Object.assign(de, {
   "txt_cleanup_uri_gone_short": "Nicht gefunden",
   "txt_cleanup_uri_gone_count": "Nicht gefunden: {count}",
   "txt_cleanup_uri_server_error_short": "Serverfehler",
-  "txt_cleanup_uri_server_error_count": "Serverfehler: {count}"
+  "txt_cleanup_uri_server_error_count": "Serverfehler: {count}",
+  "txt_cleanup_confirm_row_message": "„{name}“ wird in den Papierkorb verschoben. Du kannst es später aus dem Papierkorb wiederherstellen."
 });
 
 export default de;

@@ -1588,7 +1588,8 @@ Object.assign(es, {
   "txt_cleanup_uri_gone_short": "No encontrado",
   "txt_cleanup_uri_gone_count": "No encontrados: {count}",
   "txt_cleanup_uri_server_error_short": "Error del servidor",
-  "txt_cleanup_uri_server_error_count": "Errores del servidor: {count}"
+  "txt_cleanup_uri_server_error_count": "Errores del servidor: {count}",
+  "txt_cleanup_confirm_row_message": "«{name}» se moverá a la papelera. Puedes restaurarlo desde la papelera más tarde."
 });
 
 export default es;

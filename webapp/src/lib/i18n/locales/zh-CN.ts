@@ -1618,7 +1618,8 @@ Object.assign(zhCN, {
   "txt_cleanup_uri_gone_short": "不存在",
   "txt_cleanup_uri_gone_count": "不存在：{count}",
   "txt_cleanup_uri_server_error_short": "服务端错误",
-  "txt_cleanup_uri_server_error_count": "服务端错误：{count}"
+  "txt_cleanup_uri_server_error_count": "服务端错误：{count}",
+  "txt_cleanup_confirm_row_message": "将把「{name}」移入回收站，之后可在回收站中恢复。"
 });
 
 export default zhCN;

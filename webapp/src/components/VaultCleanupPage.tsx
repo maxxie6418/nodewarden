@@ -49,6 +49,11 @@ function formatDate(value: number): string {
   return new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(value);
 }
 
+function rowDeleteLabel(name: string, secondary?: string): string {
+  const primary = name || t('txt_no_name');
+  return secondary ? `${primary} · ${secondary}` : primary;
+}
+
 function paginationItems(current: number, total: number): Array<number | 'gap'> {
   const SIBLING = 3;
   if (total <= 1 + SIBLING * 2 + 2) {
@@ -69,6 +74,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
   const [mode, setMode] = useState<CleanupMode>('domains');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [rowDeleteTarget, setRowDeleteTarget] = useState<{ ids: string[]; name: string } | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => new Set());
 
@@ -83,6 +89,8 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
   const [batchProgress, setBatchProgress] = useState({ checked: 0, total: 0 });
   const batchAbortRef = useRef<AbortController | null>(null);
   const rowResultsRef = useRef<Record<string, UriReachability>>({});
+  // 记录仍然显示在列表中的链接行，删除后的异步检测结果不再写回
+  const liveRowKeysRef = useRef<Set<string>>(new Set());
 
   // ---- Duplicate-domain helpers ----
   const duplicateIdSet = useMemo(
@@ -147,24 +155,6 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
     });
   };
 
-  const confirmMoveToTrash = async () => {
-    const ids = deletionCipherIds;
-    if (!ids.length || deleting) return;
-    setDeleting(true);
-    try {
-      await props.onBulkDelete(ids);
-      await props.onRefresh();
-      setSelectedIds(new Set());
-      setSelectedRowKeys(new Set());
-      setConfirmOpen(false);
-      props.onNotify('success', t('txt_cleanup_moved_to_trash', { count: ids.length }));
-    } catch {
-      props.onNotify('error', t('txt_cleanup_move_failed'));
-    } finally {
-      setDeleting(false);
-    }
-  };
-
   // ===================== Dead-link import + check =====================
 
   const rowKey = (row: UriProbeItem) => uriProbeRowKey(row.cipherId, row.uri);
@@ -197,6 +187,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
   const importLinks = () => {
     const rows = buildUriProbeRows(props.ciphers);
     setLinkRows(rows);
+    liveRowKeysRef.current = new Set(rows.map(rowKey));
     rowResultsRef.current = {};
     setRowResults({});
     setLinkPage(1);
@@ -232,6 +223,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
     try {
       const controller = new AbortController();
       const reachability = await probeUriReachability(row.uri, controller.signal);
+      if (!liveRowKeysRef.current.has(key)) return;
       rowResultsRef.current = { ...rowResultsRef.current, [key]: reachability };
       setRowResults(rowResultsRef.current);
     } finally {
@@ -263,8 +255,10 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
         setCheckingRows((current) => new Set(current).add(key));
         const reachability = await probeUriReachability(row.uri, controller.signal);
         if (!controller.signal.aborted) {
-          rowResultsRef.current = { ...rowResultsRef.current, [key]: reachability };
-          setRowResults(rowResultsRef.current);
+          if (liveRowKeysRef.current.has(key)) {
+            rowResultsRef.current = { ...rowResultsRef.current, [key]: reachability };
+            setRowResults(rowResultsRef.current);
+          }
           setBatchProgress({ checked: index, total: targetRows.length });
         }
         setCheckingRows((current) => {
@@ -296,6 +290,62 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
     if (mode !== 'links') return Array.from(selectedIds);
     return Array.from(linkSelectedCipherIds);
   }, [mode, selectedIds, linkSelectedCipherIds]);
+
+  // 删除后同步清理导入列表，避免已移入回收站的条目仍留在页面上
+  const dropDeletedRows = (ids: string[]) => {
+    const idSet = new Set(ids);
+    const droppedRows = linkRows?.filter((row) => idSet.has(row.cipherId)) ?? [];
+    if (!droppedRows.length) return;
+    setLinkRows((current) => (current ? current.filter((row) => !idSet.has(row.cipherId)) : current));
+    setSelectedRowKeys((current) => {
+      const next = new Set(current);
+      for (const row of droppedRows) {
+        next.delete(rowKey(row));
+        liveRowKeysRef.current.delete(rowKey(row));
+      }
+      return next;
+    });
+    const nextResults = { ...rowResultsRef.current };
+    let pruned = false;
+    for (const row of droppedRows) {
+      const key = rowKey(row);
+      if (key in nextResults) {
+        delete nextResults[key];
+        pruned = true;
+      }
+    }
+    if (pruned) {
+      rowResultsRef.current = nextResults;
+      setRowResults(nextResults);
+    }
+  };
+
+  const moveToTrash = async (ids: string[]) => {
+    if (!ids.length || deleting) return;
+    setDeleting(true);
+    try {
+      await props.onBulkDelete(ids);
+      await props.onRefresh();
+      setSelectedIds((current) => {
+        const next = new Set(current);
+        for (const id of ids) next.delete(id);
+        return next;
+      });
+      dropDeletedRows(ids);
+      setConfirmOpen(false);
+      setRowDeleteTarget(null);
+      props.onNotify('success', t('txt_cleanup_moved_to_trash', { count: ids.length }));
+    } catch {
+      props.onNotify('error', t('txt_cleanup_move_failed'));
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const requestRowDelete = (ids: string[], name: string) => {
+    if (deleting) return;
+    setRowDeleteTarget({ ids, name });
+  };
 
   // 分页数据变化时若批量在跑禁止翻页，翻页后保留选择与结果
   const goToPage = (page: number) => {
@@ -386,6 +436,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                             selected={selectedIds.has(item.cipherId)}
                             duplicate={duplicateIdSet.has(item.cipherId)}
                             onToggle={() => toggleSelected(item.cipherId)}
+                            onDelete={() => requestRowDelete([item.cipherId], rowDeleteLabel(item.name, item.username))}
                           />
                         ))}
                       </div>
@@ -458,6 +509,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                             selected={selectedIds.has(item.cipherId)}
                             duplicate={duplicateIdSet.has(item.cipherId)}
                             onToggle={() => toggleSelected(item.cipherId)}
+                            onDelete={() => requestRowDelete([item.cipherId], rowDeleteLabel(item.name, item.username))}
                           />
                         ))}
                       </div>
@@ -548,6 +600,7 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
                     reachability={result}
                     onToggle={() => toggleRow(key)}
                     onCheck={() => void checkSingleRow(row)}
+                    onDelete={() => requestRowDelete([row.cipherId], rowDeleteLabel(row.name, row.host))}
                   />
                 );
               })}
@@ -643,15 +696,20 @@ export default function VaultCleanupPage(props: VaultCleanupPageProps) {
       </div>
 
       <ConfirmDialog
-        open={confirmOpen}
+        open={confirmOpen || rowDeleteTarget !== null}
         variant="warning"
         danger
         title={t('txt_cleanup_confirm_title')}
-        message={t('txt_cleanup_confirm_message', { count: deletionCipherIds.length })}
-        confirmText={t('txt_cleanup_move_to_trash', { count: deletionCipherIds.length })}
+        message={rowDeleteTarget
+          ? t('txt_cleanup_confirm_row_message', { name: rowDeleteTarget.name })
+          : t('txt_cleanup_confirm_message', { count: deletionCipherIds.length })}
+        confirmText={t('txt_cleanup_move_to_trash', { count: rowDeleteTarget ? 1 : deletionCipherIds.length })}
         confirmDisabled={deleting}
-        onConfirm={() => void confirmMoveToTrash()}
-        onCancel={() => setConfirmOpen(false)}
+        onConfirm={() => void moveToTrash(rowDeleteTarget ? rowDeleteTarget.ids : deletionCipherIds)}
+        onCancel={() => {
+          setConfirmOpen(false);
+          setRowDeleteTarget(null);
+        }}
       />
     </section>
   );
@@ -662,6 +720,7 @@ function CleanupRow(props: {
   selected: boolean;
   duplicate: boolean;
   onToggle: () => void;
+  onDelete: () => void;
 }) {
   const uri = props.item.uris[0] || '';
   return (
@@ -683,6 +742,15 @@ function CleanupRow(props: {
         <Link href={`/vault?cipher=${encodeURIComponent(props.item.cipherId)}`} className="btn btn-secondary small">
           <ExternalLink size={14} className="btn-icon" />{t('txt_password_security_jump')}
         </Link>
+        <button
+          type="button"
+          className="btn btn-danger small vault-cleanup-row-delete"
+          title={t('txt_delete')}
+          aria-label={t('txt_delete')}
+          onClick={props.onDelete}
+        >
+          <Trash2 size={14} className="btn-icon" /> <span className="vault-cleanup-row-delete-label">{t('txt_delete')}</span>
+        </button>
       </span>
     </label>
   );
@@ -696,6 +764,7 @@ function LinkRow(props: {
   reachability?: UriReachability;
   onToggle: () => void;
   onCheck: () => void;
+  onDelete: () => void;
 }) {
   const result = props.reachability;
   const checking = props.checking;
@@ -734,6 +803,15 @@ function LinkRow(props: {
         <Link href={`/vault?cipher=${encodeURIComponent(props.row.cipherId)}`} className="btn btn-secondary small">
           <ExternalLink size={14} className="btn-icon" />{t('txt_password_security_jump')}
         </Link>
+        <button
+          type="button"
+          className="btn btn-danger small vault-cleanup-row-delete"
+          title={t('txt_delete')}
+          aria-label={t('txt_delete')}
+          onClick={props.onDelete}
+        >
+          <Trash2 size={14} className="btn-icon" /> <span className="vault-cleanup-row-delete-label">{t('txt_delete')}</span>
+        </button>
       </span>
     </label>
   );

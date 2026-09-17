@@ -1588,7 +1588,8 @@ Object.assign(fr, {
   "txt_cleanup_uri_gone_short": "Introuvable",
   "txt_cleanup_uri_gone_count": "Introuvables : {count}",
   "txt_cleanup_uri_server_error_short": "Erreur serveur",
-  "txt_cleanup_uri_server_error_count": "Erreurs serveur : {count}"
+  "txt_cleanup_uri_server_error_count": "Erreurs serveur : {count}",
+  "txt_cleanup_confirm_row_message": "« {name} » sera déplacé vers la corbeille. Vous pourrez le restaurer depuis la corbeille."
 });
 
 export default fr;

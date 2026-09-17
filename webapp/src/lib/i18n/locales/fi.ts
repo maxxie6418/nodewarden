@@ -1588,7 +1588,8 @@ Object.assign(fi, {
   "txt_cleanup_uri_gone_short": "Ei löydy",
   "txt_cleanup_uri_gone_count": "Ei löydy: {count}",
   "txt_cleanup_uri_server_error_short": "Palvelinvirhe",
-  "txt_cleanup_uri_server_error_count": "Palvelinvirheitä: {count}"
+  "txt_cleanup_uri_server_error_count": "Palvelinvirheitä: {count}",
+  "txt_cleanup_confirm_row_message": "{name} siirretään roskakoriin. Voit palauttaa sen roskakorista myöhemmin."
 });
 
 export default fi;
